@@ -17,3 +17,6 @@ venv.bak/
 notes.txt
 .api-key
 
+*.log
+*.json
+*.png
