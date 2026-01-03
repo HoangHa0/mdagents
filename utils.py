@@ -399,7 +399,7 @@ def process_intermediate_query(question, examplers, moderator, args, fewshot=Non
     print()
     cprint("[INFO] Step 1. Expert Recruitment", 'yellow', attrs=['blink'])
 
-    num_agents = 5 # You can adjust this number as needed
+    num_agents = 3 # You can adjust this number as needed
 
     def _recruit_and_parse_intermediate():
         recruiter = Agent(instruction="You are an experienced medical expert who recruits a group of experts with diverse identity and ask them to discuss and solve the given medical query.", 
@@ -445,41 +445,62 @@ def process_intermediate_query(question, examplers, moderator, args, fewshot=Non
 
     hierarchy_agents = parse_hierarchy(agents_data, agent_emoji)
 
-    # Build hierarchy map: agent_idx -> list of agent_idxs they can directly communicate with
-    # Based on the hierarchy string from agents_data
-    def _build_hierarchy_map(agents_data):
+    # Extract hierarchy map from the already-parsed tree structure
+    # Returns: {agent_idx: {"parent": parent_idx or None, "children": [child_idxs]}}
+    def _extract_hierarchy_from_tree(hierarchy_agents, agents_data):
         """
-        Build a communication hierarchy map from agents_data.
-        Returns: {agent_idx: {"parent": parent_idx or None, "children": [child_idxs]}}
+        Extract parent-child relationships from the tree built by parse_hierarchy().
+        Build a mapping of agent indices to their parent and children in the hierarchy.
         """
         hierarchy_map = {}
-        agent_roles = {}
         
-        # First pass: collect all agent roles
-        for idx, (expert_str, hierarchy_str) in enumerate(agents_data):
-            m = _EXPERT_ROLE_DESC_RE.match(expert_str or '')
-            role = (m.group('role') if m else (expert_str or '')).strip().lower()
-            agent_roles[idx] = role
+        # Initialize all agents
+        for idx in range(len(agents_data)):
             hierarchy_map[idx] = {"parent": None, "children": []}
         
-        # Second pass: parse hierarchy strings and build relationships
-        for idx, (expert_str, hierarchy_str) in enumerate(agents_data):
-            if hierarchy_str and 'independent' not in hierarchy_str.lower():
-                # Extract parent > child relationship
-                parts = [p.strip() for p in re.findall(r'[^>]+', hierarchy_str) if p.strip()]
-                if len(parts) >= 2:
-                    parent_name = parts[0].strip().lower()
-                    # Find parent agent index by matching role
-                    for pidx, prole in agent_roles.items():
-                        if prole == parent_name or parent_name in prole:
-                            if hierarchy_map[idx]["parent"] is None:  # Don't override if already set
-                                hierarchy_map[idx]["parent"] = pidx
-                                hierarchy_map[pidx]["children"].append(idx)
+        # Map agent roles to indices for quick lookup
+        agent_role_to_idx = {}
+        for idx, (expert_str, _) in enumerate(agents_data):
+            m = _EXPERT_ROLE_DESC_RE.match(expert_str or '')
+            role = (m.group('role') if m else (expert_str or '')).strip().lower()
+            agent_role_to_idx[role] = idx
+        
+        # Traverse the tree to extract parent-child relationships
+        # Skip the moderator node (index 0 in hierarchy_agents)
+        for node in hierarchy_agents[1:]:  # Skip moderator
+            # Extract role name from node (format: "role (emoji)")
+            node_name = re.sub(r'\s*\(.*$', '', node.name).strip().lower()
+            
+            # Find corresponding agent index
+            child_idx = None
+            for role, idx in agent_role_to_idx.items():
+                if node_name == role or node_name in role:
+                    child_idx = idx
+                    break
+            
+            if child_idx is not None and node.parent:
+                # Extract parent name from parent node
+                parent_name = re.sub(r'\s*\(.*$', '', node.parent.name).strip().lower()
+                
+                # Find parent agent index (or skip if it's the moderator)
+                if parent_name == 'moderator':
+                    parent_idx = None  # Independent (directly under moderator)
+                else:
+                    parent_idx = None
+                    for role, idx in agent_role_to_idx.items():
+                        if parent_name == role or parent_name in role:
+                            parent_idx = idx
                             break
+                
+                # Set parent relationship
+                if parent_idx is not None:
+                    hierarchy_map[child_idx]["parent"] = parent_idx
+                    if child_idx not in hierarchy_map[parent_idx]["children"]:
+                        hierarchy_map[parent_idx]["children"].append(child_idx)
         
         return hierarchy_map
     
-    hierarchy_map = _build_hierarchy_map(agents_data)
+    hierarchy_map = _extract_hierarchy_from_tree(hierarchy_agents, agents_data)
 
     agent_list = ""
     for i, agent in enumerate(agents_data):
@@ -654,7 +675,9 @@ def process_intermediate_query(question, examplers, moderator, args, fewshot=Non
             - Its parent (if it has one)
             - Its children (if it has any)
             - Its siblings (agents with the same parent)
-            - Independent agents (not in any hierarchy)
+            
+            Special case: Agents with parent=None are direct children of Moderator.
+            They should be able to talk to each other (as siblings under Moderator).
             """
             valid = []
             hm = hierarchy_map.get(agent_idx, {})
@@ -669,16 +692,17 @@ def process_intermediate_query(question, examplers, moderator, args, fewshot=Non
             
             # Can talk to siblings (other children of the same parent)
             if hm.get("parent") is not None:
+                # Normal case: agent has a parent agent
                 parent_idx = hm["parent"]
                 parent_hm = hierarchy_map.get(parent_idx, {})
                 siblings = [s for s in parent_hm.get("children", []) if s != agent_idx]
                 valid.extend(siblings)
-            
-            # If agent has no hierarchy constraints, can talk to all others (independent behavior)
-            if hm.get("parent") is None and not hm.get("children"):
-                # Independent agent - can communicate with anyone
-                valid = list(range(len(hierarchy_map)))
-                valid.remove(agent_idx)  # except itself
+            else:
+                # Special case: agent is directly under Moderator (parent=None)
+                # Find all other agents that are also directly under Moderator (siblings)
+                moderator_level_siblings = [idx for idx in range(len(hierarchy_map)) 
+                                           if idx != agent_idx and hierarchy_map[idx].get("parent") is None]
+                valid.extend(moderator_level_siblings)
             
             return valid
         
