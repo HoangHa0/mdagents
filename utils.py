@@ -399,7 +399,7 @@ def process_intermediate_query(question, examplers, moderator, args, fewshot=Non
     print()
     cprint("[INFO] Step 1. Expert Recruitment", 'yellow', attrs=['blink'])
 
-    num_agents = 3 # You can adjust this number as needed
+    num_agents = 5 # You can adjust this number as needed
 
     def _recruit_and_parse_intermediate():
         recruiter = Agent(instruction="You are an experienced medical expert who recruits a group of experts with diverse identity and ask them to discuss and solve the given medical query.", 
@@ -444,6 +444,42 @@ def process_intermediate_query(question, examplers, moderator, args, fewshot=Non
     random.shuffle(agent_emoji)
 
     hierarchy_agents = parse_hierarchy(agents_data, agent_emoji)
+
+    # Build hierarchy map: agent_idx -> list of agent_idxs they can directly communicate with
+    # Based on the hierarchy string from agents_data
+    def _build_hierarchy_map(agents_data):
+        """
+        Build a communication hierarchy map from agents_data.
+        Returns: {agent_idx: {"parent": parent_idx or None, "children": [child_idxs]}}
+        """
+        hierarchy_map = {}
+        agent_roles = {}
+        
+        # First pass: collect all agent roles
+        for idx, (expert_str, hierarchy_str) in enumerate(agents_data):
+            m = _EXPERT_ROLE_DESC_RE.match(expert_str or '')
+            role = (m.group('role') if m else (expert_str or '')).strip().lower()
+            agent_roles[idx] = role
+            hierarchy_map[idx] = {"parent": None, "children": []}
+        
+        # Second pass: parse hierarchy strings and build relationships
+        for idx, (expert_str, hierarchy_str) in enumerate(agents_data):
+            if hierarchy_str and 'independent' not in hierarchy_str.lower():
+                # Extract parent > child relationship
+                parts = [p.strip() for p in re.findall(r'[^>]+', hierarchy_str) if p.strip()]
+                if len(parts) >= 2:
+                    parent_name = parts[0].strip().lower()
+                    # Find parent agent index by matching role
+                    for pidx, prole in agent_roles.items():
+                        if prole == parent_name or parent_name in prole:
+                            if hierarchy_map[idx]["parent"] is None:  # Don't override if already set
+                                hierarchy_map[idx]["parent"] = pidx
+                                hierarchy_map[pidx]["children"].append(idx)
+                            break
+        
+        return hierarchy_map
+    
+    hierarchy_map = _build_hierarchy_map(agents_data)
 
     agent_list = ""
     for i, agent in enumerate(agents_data):
@@ -610,6 +646,42 @@ def process_intermediate_query(question, examplers, moderator, args, fewshot=Non
         # Participatory debate (T turns)
         cprint("[INFO] Participatory Debate", 'yellow', attrs=['blink'])
         
+        # Build list of valid communication partners based on hierarchy
+        def _get_valid_partners(agent_idx, hierarchy_map):
+            """
+            Get list of agents that this agent can communicate with based on hierarchy.
+            An agent can communicate with:
+            - Its parent (if it has one)
+            - Its children (if it has any)
+            - Its siblings (agents with the same parent)
+            - Independent agents (not in any hierarchy)
+            """
+            valid = []
+            hm = hierarchy_map.get(agent_idx, {})
+            
+            # Can talk to parent
+            if hm.get("parent") is not None:
+                valid.append(hm["parent"])
+            
+            # Can talk to children
+            if hm.get("children"):
+                valid.extend(hm["children"])
+            
+            # Can talk to siblings (other children of the same parent)
+            if hm.get("parent") is not None:
+                parent_idx = hm["parent"]
+                parent_hm = hierarchy_map.get(parent_idx, {})
+                siblings = [s for s in parent_hm.get("children", []) if s != agent_idx]
+                valid.extend(siblings)
+            
+            # If agent has no hierarchy constraints, can talk to all others (independent behavior)
+            if hm.get("parent") is None and not hm.get("children"):
+                # Independent agent - can communicate with anyone
+                valid = list(range(len(hierarchy_map)))
+                valid.remove(agent_idx)  # except itself
+            
+            return valid
+        
         num_yes_total = 0
         for t in range(1, num_turns + 1):
             turn_name = f"Turn {t}"
@@ -626,14 +698,31 @@ def process_intermediate_query(question, examplers, moderator, args, fewshot=Non
                 )
 
                 if re.search(r'(?i)\byes\b', (participate or "").strip()):
+                    # Get valid communication partners based on hierarchy
+                    valid_partners = _get_valid_partners(idx, hierarchy_map)
+                    
+                    if not valid_partners:
+                        # No valid partners in hierarchy, skip communication
+                        print(f" Agent {idx+1} ({agent_emoji[idx]} {agent.role}): No valid partners in hierarchy")
+                        continue
+                    
+                    # Build filtered agent list showing only valid partners
+                    filtered_agent_list = ""
+                    for i, agent_data in enumerate(agents_data):
+                        if i in valid_partners:
+                            m = _EXPERT_ROLE_DESC_RE.match(agent_data[0] or '')
+                            agent_role = (m.group('role') if m else (agent_data[0] or '')).strip().lower()
+                            description = ((m.group('desc') or '') if m else '').strip().lower()
+                            filtered_agent_list += f"Agent {i+1}: {agent_role} - {description}\n"
+                    
                     chosen_expert = agent.chat(
-                        "Next, indicate the agent(s) you want to talk to.\n"
-                        f"{agent_list}\n"
+                        "Next, indicate the agent(s) you want to talk to (only from your team hierarchy).\n"
+                        f"{filtered_agent_list}\n"
                         "Return ONLY the number(s), e.g., 1 or 1,2. Do not include reasons.",
                         img_path=None
                     )
                     chosen_experts = [int(ce) for ce in re.split(r'[^0-9]+', chosen_expert or '') if ce.strip().isdigit()]
-                    chosen_experts = [ce for ce in chosen_experts if 1 <= ce <= len(medical_agents)]
+                    chosen_experts = [ce for ce in chosen_experts if 1 <= ce <= len(medical_agents) and (ce - 1) in valid_partners]
                     chosen_experts = list(dict.fromkeys(chosen_experts))  # unique, preserve order
 
                     for ce in chosen_experts:
