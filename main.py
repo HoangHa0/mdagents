@@ -5,7 +5,7 @@ import random
 import argparse
 import traceback
 from tqdm import tqdm
-from utils_paper import (
+from utils import (
     load_data, create_question, determine_difficulty,
     process_basic_query, process_intermediate_query, process_advanced_query,
 )
