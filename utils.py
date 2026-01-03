@@ -347,6 +347,8 @@ def determine_difficulty(question, difficulty):
         return 'intermediate', moderator
     elif 'advanced' in response.lower() or '3)' in response.lower():
         return 'advanced', None
+    
+    return 'intermediate', None # Default fallback
 
 def process_basic_query(question, examplers, args, fewshot=3):
     cprint("[INFO] Step 1. Single-Agent Few-shot Preparation", 'yellow', attrs=['blink'])    
