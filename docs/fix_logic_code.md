@@ -1,5 +1,7 @@
 # Tài liệu sửa lỗi logic: MDAgents Implementation
 
+**NEW: VIỆC SỬA LỖI CỦA MỖI PHẦN ĐÃ ĐƯỢC GHI LẠI TRONG NOTES CỦA TỪNG PHẦN ĐÓ**
+
 **Tham chiếu:** MDAgents: An Adaptive Collaboration of LLMs for Medical Decision-Making (NeurIPS 2024)
 
 **File phân tích:** `utils_paper.py`
@@ -10,7 +12,7 @@
 
 ---
 
-### 1.3 Hàm `determine_difficulty` có thể trả về `None`
+### 1.3 Hàm `determine_difficulty` có thể trả về `None` (fixed)
 
 **Vị trí:** Lines 344-349
 
@@ -23,8 +25,8 @@ elif 'intermediate' in response.lower() or '2)' in response.lower():
     return 'intermediate', moderator
 elif 'advanced' in response.lower() or '3)' in response.lower():
     return 'advanced', None
-# THIẾU: else clause hoặc default return
 ```
+# THIẾU: else clause hoặc default return
 
 **Xung đột với paper:** Algorithm 1 (Line 1) yêu cầu moderator phải trả về một complexity level. Trả về `None` sẽ gây crash ở `main.py`.
 
@@ -34,7 +36,13 @@ elif 'advanced' in response.lower() or '3)' in response.lower():
 return 'basic', None  # Default to basic if unclear
 ```
 
-## Mức độ 2: Lỗi logic quan trọng (High Priority)
+**NOTES**: Đã sửa bằng cách thêm
+
+```python
+return 'intermediate', moderator # Default fallback
+```
+
+## Mức độ 2: Lỗi logic quan trọng (High Priority) (fixed)
 
 ### 2.2 Intermediate không sử dụng Hierarchy đúng cách
 
@@ -49,9 +57,42 @@ return 'basic', None  # Default to basic if unclear
 
 **Thực tế trong code:** `parse_hierarchy()` chỉ tạo tree structure để hiển thị, không ảnh hưởng đến logic thảo luận.
 
+**NOTES:** 
+Đã sử dụng hierarchy để điều phối communication flow. 
+
+Tuy nhiên có một vấn đề là trong paper không có miêu tả cụ thể communication flow trong hierarchy kiểu gì. Trong figure 11 minh họa cụ thể 1 ví dụ của moderate case, ta thấy dù Agent 2 - Radiologist là cấp dưới của Agent 1 - Pathologist, nhưng Agent 2 không hề bị giới hạn chỉ được communicate với Agent 1 mà vẫn được tự do thảo luận 2 chiều với các Agent khác còn lại. Có thể đấy là một lỗi của tác giả.
+
+Còn trong lần xử lý này của em, em để quy tắc như sau:
+Một node có thể thảo luận với node parent, các node children và các node siblings của nó.
+
+Cụ thể ví dụ:
+
+```
+"(e.g., Pulmonologist == Neonatologist == Medical Geneticist == Pediatrician > Cardiologist), or indicate if they are independent.\n\n"
+"For example, if you want to recruit five experts, you answer can be like:\n"
+"1. Pediatrician - Specializes in the medical care of infants, children, and adolescents. - Hierarchy: Independent\n"
+"2. Cardiologist - Focuses on the diagnosis and treatment of heart and blood vessel-related conditions. - Hierarchy: Pediatrician > Cardiologist\n"
+"3. Pulmonologist - Specializes in the diagnosis and treatment of respiratory system disorders. - Hierarchy: Independent\n"
+"4. Neonatologist - Focuses on the care of newborn infants, especially those who are born prematurely or have medical issues at birth. - Hierarchy: Independent\n"
+"5. Medical Geneticist - Specializes in the study of genes and heredity. - Hierarchy: Independent\n\n"
+
+                            Moderator
+                                |
+    ---------------------------------------------------------------
+    |                   |                   |                     |
+Pediatrician       Pulmonologist       Neonatologist        Medical Geneticist
+    |
+Cardiologist
+
+```
+
+Trong trường hợp này, Cardiologist chỉ có thể giao tiếp với Pediatrician; Pediatrician có thể giao tiếp với Cardiologist và các anh em của nó là Pulmonologist, Neonatologist và Medical Geneticist. Pulmonologist, Neonatologist và Medical Geneticist có thể giao tiếp với nhau và với Pediatrician. Moderator không tham gia thảo luận mà chỉ điều phối với feedback.
+
+(Có gì giúp check lại logic phần này và code chỗ này giúp em ạ)
+
 ---
 
-### 2.3 External communication trong Group chưa implement
+### 2.3 External communication trong Group chưa implement (không phải là vấn đề)
 
 **Vị trí:** Lines 204-207
 
@@ -68,11 +109,13 @@ elif comm_type == 'external':
 
 **Hiện tại:** FRDT nhận reports qua tham số `message`, nhưng external communication pattern chưa được implement đầy đủ.
 
+**NOTES:** Inter-team communication chính là cái sequential, report-driven process đã được implemented ở step 3 ở trong `process_advanced_query` rồi.
+
 ---
 
 ## Mức độ 3: Lỗi trung bình (Medium Priority)
 
-### 3.1 Không lưu Conversation History cho Decision Maker
+### 3.1 Không lưu Conversation History cho Decision Maker (fixed)
 
 **Vị trí:** Lines 767-786 (Intermediate), Lines 946-965 (Advanced)
 
@@ -90,9 +133,15 @@ answers_text = "".join(f"[{role}] {ans}\n" for role, ans in final_answers.items(
 
 **Cách sửa:** Truyền thêm `interaction_log` vào prompt của decision maker.
 
+**NOTES:** 
+
+Đúng là phần intermediate case phải thêm conversation history (Interaction) để hiểu về nuances và disagreements. Đã thêm `interaction_log` vào prompt của decision maker cho moderate case. Tuy nhiên, sẽ phải thay đổi prompt so với final decision prompt gốc trong paper.
+
+Với advanced case trong paper ghi chỉ dựa vào các reports nên không cần sửa code hiện tại.
+
 ---
 
-### 3.2 Thứ tự Few-shot khác với CoT-SC trong paper
+### 3.2 Thứ tự Few-shot khác với CoT-SC trong paper (không phải là vấn đề)
 
 **Vị trí:** Lines 69-72
 
@@ -107,9 +156,11 @@ self.messages.append({"role": "assistant", "content": "Let's think step by step.
 - "Few-shot CoT-SC [82] builds upon Few-shot CoT by **sampling multiple chains** to yield the majority answer"
 - Code hiện tại không implement self-consistency (multiple sampling)
 
+**NOTES:** CoT-SC ở đây là cho baseline, không phải là một phần của thuật toán MDAgents. Trong paper gốc thì MDAgents dùng 3-shot thường cho basic flowcase (moderate và advanced dùng zero-shot), nhưng mà em dùng 3-shot CoT cho basic flowcase, đây là minor change không ảnh hưởng gì nhiều.
+
 ---
 
-### 3.3 Advanced query không có inter-round refinement
+### 3.3 Advanced query không có inter-round refinement (không phải là vấn đề)
 
 **Vị trí:** Lines 897-944
 
@@ -121,9 +172,17 @@ self.messages.append({"role": "assistant", "content": "Let's think step by step.
 
 **Hiện tại:** Không có multiple rounds hoặc feedback loop trong ICT internal discussions.
 
+**NOTES:** Trong framework ICT, vốn không có "refinement round" theo nghĩa iterative discussion như đối với các trường hợp moderate. Thay vào đó, framework này dựa trên một quy trình xây dựng báo cáo theo từng giai đoạn, tuần tự, đóng vai trò là cơ chế đạt được sự đồng thuận.
+
+| Feature | Moderate (MDT) | High (ICT) |
+| :--- | :--- | :--- |
+| Structure | Collaborative Discussion | Sequential Consultations |
+| Medium | Conversation History/Interaction Log | Detailed Reports |
+| Consensus Method | Iterative Multi-party Chat | Phased Synthesis & Narrative |
+
 ---
 
-## Mức độ 4: Cải thiện và tối ưu (Optimization)
+## Mức độ 4: Cải thiện và tối ưu (Optimization) (fixed)
 
 ### 4.1 Không tracking API calls
 
@@ -133,15 +192,17 @@ self.messages.append({"role": "assistant", "content": "Let's think step by step.
 
 ---
 
-### 4.3 Không lưu Interaction Logs ra file
+### 4.3 Không lưu Interaction Logs ra file (không phải là vấn đề)
 
 **Mô tả:** `interaction_log` và `feedback_log` chỉ được print, không được persist để phân tích sau.
 
 **Khuyến nghị:** Lưu logs vào JSON file cùng với results.
 
+**NOTES:** Logic lưu logs đã tồn tại trong `main.py`
+
 ---
 
-### 4.4 Thiếu temperature variation
+### 4.4 Thiếu temperature variation (fixed)
 
 **Vị trí:** Line 105
 
