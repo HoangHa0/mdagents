@@ -52,11 +52,15 @@ def _retry_call(name, fn, max_tries=None, retry_exceptions=(IndexError,), sleep_
     raise last_err
 
 class Agent:
+    # Class-level counter for total API calls across all agents
+    total_api_calls = 0
+    
     def __init__(self, instruction, role, examplers=None, model_info='gpt-4o-mini', img_path=None):
         self.instruction = instruction
         self.role = role
         self.model_info = model_info
         self.img_path = img_path
+        self.api_calls = 0  # Instance-level counter
 
         if self.model_info == 'gemini-pro':
             self.model = genai.GenerativeModel('gemini-pro')
@@ -69,15 +73,20 @@ class Agent:
             if examplers is not None:
                 for exampler in examplers:
                     self.messages.append({"role": "user", "content": exampler['question']})
-                    self.messages.append({"role": "assistant", "content":  "Let's think step by step. " + exampler['reason'] + " " + exampler['answer'] })
+                    self.messages.append({"role": "assistant", "content":  ("Let's think step by step. " + exampler['reason'] + " "  if 'reason' in exampler else '') + exampler['answer']})
 
-        # print(f"[DEBUG] Print out the messages for Agent {self.messages}")
+        print(f"[DEBUG] Print out the messages for Agent {self.messages}")
 
     def chat(self, message, img_path=None, chat_mode=True):
         if self.model_info == 'gemini-pro':
             for _ in range(10):
                 try:
                     response = self._chat.send_message(message, stream=True)
+                    
+                    # Track API call
+                    self.api_calls += 1
+                    Agent.total_api_calls += 1
+                    
                     responses = ""
                     for chunk in response:
                         responses += chunk.text + "\n"
@@ -98,6 +107,10 @@ class Agent:
                 model=model_name,
                 messages=self.messages
             )
+            
+            # Track API call
+            self.api_calls += 1
+            Agent.total_api_calls += 1
 
             self.messages.append({"role": "assistant", "content": response.choices[0].message.content})
             return response.choices[0].message.content
@@ -120,16 +133,43 @@ class Agent:
                     temperature=temperature,
                 )
                 
+                # Track API call
+                self.api_calls += 1
+                Agent.total_api_calls += 1
+                
                 responses[temperature] = response.choices[0].message.content
                 
             return responses
         
         elif self.model_info == 'gemini-pro':
             response = self._chat.send_message(message, stream=True)
+            
+            # Track API call
+            self.api_calls += 1
+            Agent.total_api_calls += 1
+            
             responses = ""
             for chunk in response:
                 responses += chunk.text + "\n"
             return responses
+
+    @classmethod
+    def get_total_api_calls(cls):
+        """Get total API calls across all agents."""
+        return cls.total_api_calls
+    
+    @classmethod
+    def reset_total_api_calls(cls):
+        """Reset total API call counter."""
+        cls.total_api_calls = 0
+    
+    def get_api_calls(self):
+        """Get API calls for this agent instance."""
+        return self.api_calls
+    
+    def reset_api_calls(self):
+        """Reset API call counter for this agent instance."""
+        self.api_calls = 0
 
 class Group:
     def __init__(self, goal, members, question, examplers=None):
@@ -202,8 +242,8 @@ class Group:
             return response
 
         elif comm_type == 'external':
-            # Reserved for future: external communication between groups.
-            # For now, treat it as a no-op and return None.
+            # External communication between different teams in the ICT framework.
+            # This is the sequential, report-driven process that is already implemented in `process_advanced_query`.
             return None
 
 def parse_hierarchy(info, emojis):
@@ -373,7 +413,11 @@ def process_basic_query(question, examplers, args, fewshot=3):
     
     cprint("[INFO] Step 2. Single-Agent Final Decision", 'yellow', attrs=['blink'])
     single_agent = Agent(instruction="You are a helpful assistant that answers multiple choice questions about medical knowledge.", role='medical expert', examplers=fewshot_examplers, model_info=args.model)
-    final_decision = single_agent.temp_responses(f"The following are multiple choice questions (with answers) about medical knowledge. Let's think step by step.\n\nQuestion: {question}\nAnswer: ", img_path=None)
+    final_decision = single_agent.temp_responses(
+        f"The following are multiple choice questions (with answers) about medical knowledge. Let's think step by step.\n\nQuestion: {question}\nAnswer: ",
+        temperatures=[args.temperature] if hasattr(args, 'temperature') else [0.0],
+        img_path=None
+    )
     
     return final_decision
 
@@ -882,18 +926,35 @@ def process_intermediate_query(question, examplers, moderator, args, fewshot=Non
     cprint("\n[INFO] Step 4. Final Decision", 'yellow', attrs=['blink'])
 
     decision_maker = Agent(
-        "You are a final medical decision maker who reviews all opinions from different medical experts and make final decision.",
+        "You are a final medical decision maker who reviews all opinions from different medical experts and their conversation history to make the final decision.",
         role='decision maker',
         model_info=args.model
     )
     
     answers_text = "".join(f"[{role}] {ans}\n" for role, ans in final_answers.items())
     
+    # Build full conversation history for decision maker
+    conversation_history = ""
+    for round_name, round_data in interaction_log.items():
+        conversation_history += f"\n=== {round_name} ===\n"
+        for turn_name, turn_data in round_data.items():
+            conversation_history += f"\n{turn_name}:\n"
+            for src, dsts in turn_data.items():
+                for dst, msg in dsts.items():
+                    conversation_history += f"  {src} → {dst}:\n    {msg}\n"
+    
+    # print("\n[DEBUG] Full Conversation History for Decision Maker:\n", conversation_history)
+    
     _decision = decision_maker.temp_responses(
-        "Given each agent's final answer, please review each agent's opinion and make the final answer to the question by taking majority vote. \n"
-        f"Agent answers:\n{answers_text}\n\n"
-        f"Question: {question}\n\n"
+        "You are reviewing the final decision from a multidisciplinary team discussion. "
+        "Consider the experts' reasoning, the conversation history showing how they interacted and converged (or disagreed), "
+        "and their final answers to make an informed final decision.\n\n"
+        f"Question:\n{question}\n\n"
+        f"Conversation History:\n{conversation_history if conversation_history.strip() else '(No direct interactions occurred)'}\n\n"
+        f"Experts' Final Answers:\n{answers_text}\n"
+        "Based on the conversation history and final answers, please make the final answer to the question by considering consensus and reasoning quality:\n"
         "Answer: ",
+        temperatures=[args.temperature] if hasattr(args, 'temperature') else [0.0],
         img_path=None 
     )
     final_decision = {'majority': _decision,}
@@ -991,9 +1052,9 @@ def process_advanced_query(question, args):
         g = (goal or "").lower()
         return ("frdt" in g) or ("final review" in g) or ("final decision" in g) or ("review" in g and "final" in g) or ("decision" in g and "final" in g)
 
-    iat_teams = [gi for gi in group_instances if _is_iat(gi.goal)]
-    frdt_teams = [gi for gi in group_instances if _is_frdt(gi.goal)]
-    other_teams = [gi for gi in group_instances if (gi not in iat_teams and gi not in frdt_teams)]
+    iat_team = [gi for gi in group_instances if _is_iat(gi.goal)]
+    frdt_team = [gi for gi in group_instances if _is_frdt(gi.goal)]
+    other_teams = [gi for gi in group_instances if (gi not in iat_team and gi not in frdt_team)]
     
     def _generate_report(raw_team_output):
         reporter = Agent(instruction="You are a medical assistant who excels at summarizing and synthesizing based on multiple experts from various domain experts.", role="medical assistant", model_info=args.model)
@@ -1006,15 +1067,19 @@ def process_advanced_query(question, args):
             "MDT raw output:\n"
             f"{raw_team_output}\n"
         )
-        report = reporter.temp_responses(prompt)
-        return report[0.0]
+        report = reporter.temp_responses(
+            prompt,
+            temperatures=[args.temperature] if hasattr(args, 'temperature') else [0.0]
+        )
+        temp_key = args.temperature if hasattr(args, 'temperature') else 0.0
+        return report[temp_key]
 
     # STEP 2. MDT Internal Discussions (reports)
     cprint("[INFO] Step 2. MDT Internal Discussions", 'yellow', attrs=['blink'])
 
     # 2.1 Initial Assessment
     initial_assessments = []
-    for gi in iat_teams:
+    for gi in iat_team:
         response = gi.interact(comm_type='internal')
         initial_assessments.append([gi.goal, response])
 
@@ -1047,7 +1112,7 @@ def process_advanced_query(question, args):
         f"[Initial Assessment]\n{initial_assessment_report}\n"
         f"[Other MDT Reports]\n{assessment_report}\n"
     )
-    for gi in frdt_teams:
+    for gi in frdt_team:
         review = gi.interact(comm_type='internal', message=frdt_context)
         frdt_reviews.append([gi.goal, review])
 
@@ -1075,7 +1140,8 @@ def process_advanced_query(question, args):
     final_decision = decision_maker.temp_responses(
         f"Reports:\n{all_reports}\n"
         f"Question: {question}\n\n"
-        "Answer: "
+        "Answer: ",
+        temperatures=[args.temperature] if hasattr(args, 'temperature') else [0.0]
     )
     print(f"\U0001F468\u200D\u2696\uFE0F  Decision Maker's final decision:", final_decision)
     
