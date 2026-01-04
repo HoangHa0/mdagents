@@ -182,9 +182,9 @@ self.messages.append({"role": "assistant", "content": "Let's think step by step.
 
 ---
 
-## Mức độ 4: Cải thiện và tối ưu (Optimization) (fixed)
+## Mức độ 4: Cải thiện và tối ưu (Optimization) 
 
-### 4.1 Không tracking API calls
+### 4.1 Không tracking API calls (fixed)
 
 **Mô tả:** Paper phân tích efficiency thông qua số API calls (Section 4.4), nhưng code không count/log số calls.
 
