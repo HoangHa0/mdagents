@@ -38,6 +38,7 @@ def main():
     parser.add_argument('--difficulty', type=str, default='adaptive')
     parser.add_argument('--num_samples', type=int, default=None)
     parser.add_argument('--seed', type=int, default=None)
+    parser.add_argument('--temperature', type=float, default=0.0, help='Temperature for LLM sampling (default: 0.0)')
     args = parser.parse_args()
 
     # Redirect stdout to log file
