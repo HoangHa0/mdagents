@@ -11,7 +11,7 @@ current_dir = os.path.dirname(os.path.abspath(__file__))
 project_root = os.path.dirname(os.path.dirname(current_dir))
 sys.path.append(project_root)
 
-from utils_paper import setup_model, load_data, create_question
+from utils import setup_model, load_data, create_question
 from main import Logger, _atomic_json_dump
 
 from baselines.single.zero_few_shot import zero_few_shot_query

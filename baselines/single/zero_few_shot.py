@@ -1,13 +1,13 @@
 import random
 from termcolor import cprint
-from utils_paper import Agent
+from utils import Agent
 
 def zero_few_shot_query(question, examplers, args, fewshot_num=8):
     if args.method == 'zero_shot':
         cprint(f"\n[INFO] Generating Zero-Shot response.", 'cyan')
         single_agent = Agent(
             instruction="You are a helpful assistant that answers multiple choice questions about medical knowledge.", 
-            role='medical expert', 
+            role='medical expert',
             model_info=args.model
         )
         response_dict = single_agent.temp_responses(

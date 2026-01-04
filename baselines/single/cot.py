@@ -1,6 +1,6 @@
 import random
 from termcolor import cprint
-from utils_paper import Agent
+from utils import Agent
 
 def cot_query(question, examplers, args, fewshot_num=8):
     print()
@@ -26,7 +26,7 @@ def cot_query(question, examplers, args, fewshot_num=8):
             print(f"Fewshot exampler #{_ + 1}:\n{tmp_exampler['question']}\n{tmp_exampler['reason']}\n{tmp_exampler['answer']}")
     
     print()
-    single_agent = Agent(instruction="You are a helpful assistant that answers multiple choice questions about medical knowledge.", role='medical expert', examplers=fewshot_examplers, model_info=args.model)
+    single_agent = Agent(instruction="You are a helpful assistant that answers multiple choice questions about medical knowledge.", role='medical expert', fewshot_examplers=fewshot_examplers, model_info=args.model)
     final_decision = single_agent.temp_responses(f"The following are multiple choice questions (with answers) about medical knowledge. Let's think step by step.\n\nQuestion: {question}\nAnswer: ", img_path=None)
     cprint(f"[INFO] CoT response generated.", 'cyan')
     print(final_decision[0.0])

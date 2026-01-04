@@ -1,6 +1,6 @@
 import random
 from termcolor import cprint
-from utils_paper import Agent
+from utils import Agent
 
 def cot_examplers(examplers, args, fewshot_num=8):
     # print()
