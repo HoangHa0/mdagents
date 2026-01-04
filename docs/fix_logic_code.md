@@ -25,8 +25,8 @@ elif 'intermediate' in response.lower() or '2)' in response.lower():
     return 'intermediate', moderator
 elif 'advanced' in response.lower() or '3)' in response.lower():
     return 'advanced', None
-```
 # THIẾU: else clause hoặc default return
+```
 
 **Xung đột với paper:** Algorithm 1 (Line 1) yêu cầu moderator phải trả về một complexity level. Trả về `None` sẽ gây crash ở `main.py`.
 
