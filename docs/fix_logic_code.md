@@ -42,9 +42,9 @@ return 'basic', None  # Default to basic if unclear
 return 'intermediate', moderator # Default fallback
 ```
 
-## Mức độ 2: Lỗi logic quan trọng (High Priority) (fixed)
+## Mức độ 2: Lỗi logic quan trọng (High Priority)
 
-### 2.2 Intermediate không sử dụng Hierarchy đúng cách
+### 2.2 Intermediate không sử dụng Hierarchy đúng cách (fixed)
 
 **Vị trí:** Lines 440-444, Lines 618-666
 
