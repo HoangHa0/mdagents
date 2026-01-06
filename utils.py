@@ -75,7 +75,7 @@ class Agent:
                     self.messages.append({"role": "user", "content": exampler['question']})
                     self.messages.append({"role": "assistant", "content":  ("Let's think step by step. " + exampler['reason'] + " "  if 'reason' in exampler else '') + exampler['answer']})
 
-        print(f"[DEBUG] Print out the messages for Agent {self.messages}")
+        # print(f"[DEBUG] Print out the messages for Agent {self.messages}")
 
     def chat(self, message, img_path=None, chat_mode=True):
         if self.model_info == 'gemini-pro':
