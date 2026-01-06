@@ -8,6 +8,7 @@ from tqdm import tqdm
 from utils import (
     load_data, create_question, determine_difficulty,
     process_basic_query, process_intermediate_query, process_advanced_query,
+    Agent
 )
 
 # Logger class for logging to both console and file
@@ -87,7 +88,7 @@ def main():
     # Main loop (auto-save after each sample)
     for no, sample in enumerate(
         tqdm(test_qa[start_no:], total=len(test_qa), initial=start_no),
-        start=start_no
+        start=start_no 
     ):
         if no == args.num_samples:
             break
@@ -98,6 +99,7 @@ def main():
             print(f"\n\n[INFO] no: {no}")
 
         try:
+            start_api_calls = Agent.get_total_api_calls()
             question, img_path = create_question(sample, args.dataset)
             difficulty, moderator = determine_difficulty(question, args.difficulty)
 
@@ -112,6 +114,9 @@ def main():
             else:
                 raise ValueError(f"Unknown difficulty: {difficulty}")
 
+            end_api_calls = Agent.get_total_api_calls()
+            sample_api_calls = end_api_calls - start_api_calls
+
             if args.dataset == 'medqa':
                 results.append({
                     'question': question,
@@ -119,19 +124,23 @@ def main():
                     'answer': sample['answer'],
                     'options': sample['options'],
                     'response': final_decision,
-                    'difficulty': difficulty
+                    'difficulty': difficulty,
+                    'api_calls': sample_api_calls
                 })
             else:
                 # Will update later for other datasets
                 results.append({
                     'question': question,
                     'response': final_decision,
-                    'difficulty': difficulty
+                    'difficulty': difficulty,
+                    'api_calls': sample_api_calls
                 })
 
             # Save after each successful sample
             _atomic_json_dump(results, output_path)
             _atomic_json_dump({"next_index": len(results)}, progress_path)
+            print(f"[INFO] API calls for this sample: {sample_api_calls}")
+            print(f"[INFO] Total API calls so far: {end_api_calls}")
 
         except KeyboardInterrupt:
             print("\n[WARN] Interrupted by user (KeyboardInterrupt). Saving progress and exiting...")
@@ -151,6 +160,7 @@ def main():
     _atomic_json_dump(results, output_path)
     _atomic_json_dump({"next_index": len(results)}, progress_path)
     print(f"[INFO] Done. Saved {len(results)} samples to: {output_path}")
+    print(f"[INFO] Total API calls: {Agent.get_total_api_calls()}")
 
 if __name__ == "__main__":
     main()

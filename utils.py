@@ -277,34 +277,50 @@ def parse_hierarchy(info, emojis):
         emoji = emojis[count % len(emojis)] if emojis else ''
         emoji_str = f" ({emoji})" if emoji else ""
         
-        if hierarchy is None:
-            hierarchy = 'Independent'
+        parent_node = moderator
 
         if hierarchy and 'independent' not in hierarchy.lower():
-            # Accept chains like: A > B > C (parent=A, child=B) to match original split('>')[1] behavior.
-            parts = [p.strip() for p in re.findall(r'[^>]+', hierarchy) if p.strip()]
-            if len(parts) >= 2:
-                parent, child = parts[0], parts[1]
+            parts = [p.strip() for p in hierarchy.split('>') if p.strip()]
+            
+            target_parent_names = []
+            
+            expert_clean = expert_name.lower()
+            my_index = -1
+            
+            for i, p in enumerate(parts):
+                subparts = [sp.strip().lower() for sp in p.split('==')]
+                if any(sp == expert_clean or sp in expert_clean or expert_clean in sp for sp in subparts):
+                    my_index = i
+                    break
+            
+            if my_index > 0:
+                raw_parent = parts[my_index-1]
+                target_parent_names = [n.strip() for n in raw_parent.split('==')]
+            elif my_index == 0:
+                pass
+            else:
+                if parts:
+                    raw_parent = parts[-1]
+                    if not (len(parts) == 1 and (raw_parent.lower() in expert_clean or expert_clean in raw_parent.lower())):
+                        target_parent_names = [n.strip() for n in raw_parent.split('==')]
 
-                # Attach child under the matched parent if found; otherwise fall back to moderator.
+            if target_parent_names:
                 attached = False
                 for agent in agents:
-                    agent_base = re.sub(r'\s*\(.*$', '', agent.name).strip().lower()
-                    if agent_base == parent.strip().lower():
-                        child_agent = Node(f"{child}{emoji_str}", agent)
-                        agents.append(child_agent)
-                        attached = True
+                    agent_clean = re.sub(r'\s*\(.*$', '', agent.name).strip().lower()
+        
+                    for tp in target_parent_names:
+                        tp_clean = tp.lower()
+                        if tp_clean == agent_clean or tp_clean in agent_clean or agent_clean in tp_clean:
+                            parent_node = agent
+                            attached = True
+                            break
+
+                    if attached:
                         break
 
-                if not attached:
-                    agent = Node(f"{expert_name}{emoji_str}", moderator)
-                    agents.append(agent)
-            else:
-                agent = Node(f"{expert_name}{emoji_str}", moderator)
-                agents.append(agent)
-        else:
-            agent = Node(f"{expert_name}{emoji_str}", moderator)
-            agents.append(agent)
+        new_node = Node(f"{expert_name}{emoji_str}", parent_node)
+        agents.append(new_node)
 
         count += 1
 
