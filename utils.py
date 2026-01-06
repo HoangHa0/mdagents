@@ -907,6 +907,27 @@ def process_intermediate_query(question, examplers, moderator, args, fewshot=Non
             round_feedback = {}
             break
 
+        # Check if agents agree to continue
+        cprint("\n[INFO] Vote to continue discussion", 'yellow', attrs=['blink'])
+        continue_votes = 0
+        for agent in medical_agents:
+            vote = agent.chat(
+                "The moderator has determined that consensus has not been reached yet. "
+                "Do you believe further discussion is necessary to reach a conclusion? "
+                "Return 'YES' to continue or 'NO' to stop.",
+                img_path=None
+            )
+            # Simple check for YES or NO
+            if re.search(r'(?i)\byes\b', vote):
+                continue_votes += 1
+            print(f" Agent {agent.role}: {'YES' if re.search(r'(?i)\byes\b', vote) else 'NO'}")
+
+        # If majority say NO, then we stop regardless of consensus
+        if continue_votes <= len(medical_agents) // 2:
+            cprint("\n[INFO] Agents voted to stop discussion.", 'red', attrs=['blink'])
+            round_feedback = {}
+            break
+
         # Moderator provides feedback for next round if not converged
         cprint("\n[INFO] Disagreement detected", 'yellow', attrs=['blink'])
         
