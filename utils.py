@@ -995,11 +995,6 @@ def process_advanced_query(question, args):
     cprint("[INFO] Step 1. MDTs Recruitment", 'yellow', attrs=['blink'])
     group_instances = []
 
-    recruit_prompt = (
-        "You are an experienced medical expert. Given the complex medical query, you need to organize "
-        "Multidisciplinary Teams (MDTs) and the members in MDT to make accurate and robust answer."
-    )
-
     num_teams = 3  # Number of MDTs
     num_agents = 3
 
