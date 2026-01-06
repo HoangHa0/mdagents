@@ -16,7 +16,4 @@ venv.bak/
 # Others
 notes.txt
 .api-key
-
-*.log
-*.json
-*.png
+debug.py
