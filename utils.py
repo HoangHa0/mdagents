@@ -995,7 +995,7 @@ def process_intermediate_query(question, examplers, moderator, args, fewshot=Non
         img_path=None 
     )
     
-    print(f"\U0001F468\u200D\u2696\uFE0F  Moderator's final decision (by majority vote):", final_decision)
+    print(f"\U0001F468\u200D\u2696\uFE0F  Moderator's final decision:", final_decision)
 
     return final_decision
 
