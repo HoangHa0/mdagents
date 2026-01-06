@@ -1085,7 +1085,7 @@ def process_advanced_query(question, args):
 
     iat_team = [gi for gi in group_instances if _is_iat(gi.goal)]
     frdt_team = [gi for gi in group_instances if _is_frdt(gi.goal)]
-    other_teams = [gi for gi in group_instances if (gi not in iat_team and gi not in frdt_team)]
+    mdt_teams = [gi for gi in group_instances if (gi not in iat_team and gi not in frdt_team)]
     
     def _generate_report(raw_team_output):
         reporter = Agent(instruction="You are a medical assistant who excels at summarizing and synthesizing based on multiple experts from various domain experts.", role="medical assistant", model_info=args.model)
@@ -1108,40 +1108,52 @@ def process_advanced_query(question, args):
     # STEP 2. MDT Internal Discussions (reports)
     cprint("[INFO] Step 2. MDT Internal Discussions", 'yellow', attrs=['blink'])
 
+    # Accumulated reports history to pass to subsequent teams
+    accumulated_reports = ""
+
     # 2.1 Initial Assessment
     initial_assessments = []
     for gi in iat_team:
         response = gi.interact(comm_type='internal')
         initial_assessments.append([gi.goal, response])
 
-    initial_assessment_report = ""
-    for idx, init_assess in enumerate(initial_assessments):
-        initial_assessment_report += f"Group {idx+1} - {init_assess[0]}\n{init_assess[1]}\n\n"
-    initial_assessment_report = _generate_report(initial_assessment_report) 
+    iat_raw_text = ""
+    for idx, (goal, resp) in enumerate(initial_assessments):
+        iat_raw_text += f"{goal}\n{resp}\n\n"
+    
+    initial_assessment_report = _generate_report(iat_raw_text) 
     print()  
     print("Initial Assessment Report:\n", initial_assessment_report)
+
+    accumulated_reports += f"=== [Initial Assessment Team Report] ===\n{initial_assessment_report}\n\n"
     
-    # 2.2 Other MDTs
-    assessments = []
-    for gi in other_teams:
-        response = gi.interact(comm_type='internal')
-        assessments.append([gi.goal, response])
+    # 2.2 Other MDTs investigation
+    mdt_summaries = []
 
-    assessment_report = ""
-    for idx, assess in enumerate(assessments):
-        assessment_report += f"Group {idx+1} - {assess[0]}\n{assess[1]}\n\n"
-    assessment_report = _generate_report(assessment_report)
-    print()
-    print("Other MDTs Report:\n", assessment_report)
+    for i, gi in enumerate(mdt_teams):
+        context_msg = (
+            f"You are a specialized MDT ({gi.goal}). "
+            "Please review the previous findings from other teams below, and then conduct your own investigation.\n\n"
+            f"{accumulated_reports}"
+        )
+        response = gi.interact(comm_type='internal', message=context_msg)
+        
+        team_report = _generate_report(f"{gi.goal}\n{response}")
+        mdt_summaries.append(team_report)
+        
+        print(f"\n[{gi.goal} Report]\n{team_report}\n")
+        
+        accumulated_reports += f"=== [Report from {gi.goal}] ===\n{team_report}\n\n"
 
-    # 2.3 FRDT review (give it all prior reports)
+    assessment_report = "\n\n".join(mdt_summaries)
+
+    # 2.3 FRDT review 
     frdt_reviews = []
     frdt_context = (
         "You are the Final Review and Decision Team (FRDT). "
-        "Below are reports from the Initial Assessment Team and other MDTs. "
+        "Below is the complete chain of reports from the Initial Assessment Team and subsequent MDTs. "
         "Use them to produce a careful final review report.\n\n"
-        f"[Initial Assessment]\n{initial_assessment_report}\n"
-        f"[Other MDT Reports]\n{assessment_report}\n"
+        f"{accumulated_reports}"
     )
     for gi in frdt_team:
         review = gi.interact(comm_type='internal', message=frdt_context)
@@ -1151,6 +1163,14 @@ def process_advanced_query(question, args):
     for idx, decision in enumerate(frdt_reviews):
         frdt_report += f"Group {idx+1} - {decision[0]}\n{decision[1]}\n\n"
     frdt_report = _generate_report(frdt_report)
+    
+    print()
+    print("FRDT Report:\n", frdt_report)
+    
+    for idx, decision in enumerate(frdt_reviews):
+        frdt_report += f"Group {idx+1} - {decision[0]}\n{decision[1]}\n\n"
+    frdt_report = _generate_report(frdt_report)
+    
     print()
     print("FRDT Report:\n", frdt_report)
 
