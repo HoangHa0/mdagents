@@ -152,6 +152,25 @@ class Agent:
             for chunk in response:
                 responses += chunk.text + "\n"
             return responses
+        
+    def agent_talk(self, message, recipient, img_path=None):
+        """
+        Generates a message from this agent (self) and injects it into the recipient's context.
+        """
+        content = self.chat(message, img_path=img_path)
+
+        incoming_msg = f"Message from {self.role}: {content}"
+
+        if recipient.model_info in ['gpt-3.5', 'gpt-4', 'gpt-4o', 'gpt-4o-mini']:
+            recipient.messages.append({"role": "user", "content": incoming_msg})
+        
+        elif recipient.model_info == 'gemini-pro':
+            try:
+                pass
+            except Exception:
+                pass
+
+        return content
 
     @classmethod
     def get_total_api_calls(cls):
@@ -794,10 +813,12 @@ def process_intermediate_query(question, examplers, moderator, args, fewshot=Non
                     chosen_experts = list(dict.fromkeys(chosen_experts))  # unique, preserve order
 
                     for ce in chosen_experts:
-                        msg = agent.chat(
+                        recipient_agent = medical_agents[ce-1]
+                        msg = agent.agent_talk(
                             "Remind your medical expertise and leave your opinion to the expert you chose. "
                             "Deliver your opinion once you are confident and in a way to convince the other expert with a short reason.\n\n"
                             f"Question:\n{question}",
+                            recipient=recipient_agent,
                             img_path=None
                         )
 
@@ -945,7 +966,7 @@ def process_intermediate_query(question, examplers, moderator, args, fewshot=Non
     
     # print("\n[DEBUG] Full Conversation History for Decision Maker:\n", conversation_history)
     
-    _decision = decision_maker.temp_responses(
+    final_decision = decision_maker.temp_responses(
         "You are reviewing the final decision from a multidisciplinary team discussion. "
         "Consider the experts' reasoning, the conversation history showing how they interacted and converged (or disagreed), "
         "and their final answers to make an informed final decision.\n\n"
@@ -957,9 +978,8 @@ def process_intermediate_query(question, examplers, moderator, args, fewshot=Non
         temperatures=[args.temperature] if hasattr(args, 'temperature') else [0.0],
         img_path=None 
     )
-    final_decision = {'majority': _decision,}
     
-    print(f"\U0001F468\u200D\u2696\uFE0F  Moderator's final decision (by majority vote):", _decision)
+    print(f"\U0001F468\u200D\u2696\uFE0F  Moderator's final decision (by majority vote):", final_decision)
 
     return final_decision
 
