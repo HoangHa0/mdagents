@@ -4,7 +4,7 @@ import random
 from prettytable import PrettyTable 
 from termcolor import cprint
 from pptree import Node
-import google.generativeai as genai
+import google.genai as genai
 from openai import OpenAI
 from pptree import *
 import re 

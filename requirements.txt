@@ -6,5 +6,5 @@ prettytable==3.9.0
 termcolor==2.4.0
 pptree==3.1
 climage==0.2.0
-google-generativeai
+google-genai
 
