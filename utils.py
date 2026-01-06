@@ -1166,13 +1166,6 @@ def process_advanced_query(question, args):
     
     print()
     print("FRDT Report:\n", frdt_report)
-    
-    for idx, decision in enumerate(frdt_reviews):
-        frdt_report += f"Group {idx+1} - {decision[0]}\n{decision[1]}\n\n"
-    frdt_report = _generate_report(frdt_report)
-    
-    print()
-    print("FRDT Report:\n", frdt_report)
 
     # STEP 3. Final Decision Maker uses ALL reports
     cprint("\n[INFO] Step 3. Final Decision", 'yellow', attrs=['blink'])
