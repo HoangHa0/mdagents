@@ -4,7 +4,7 @@ import random
 from prettytable import PrettyTable 
 from termcolor import cprint
 from pptree import Node
-import google.genai as genai
+from google import genai
 from openai import OpenAI
 from pptree import *
 import re 
@@ -63,8 +63,8 @@ class Agent:
         self.api_calls = 0  # Instance-level counter
 
         if self.model_info == 'gemini-pro':
-            self.model = genai.GenerativeModel('gemini-pro')
-            self._chat = self.model.start_chat(history=[])
+            self.client = genai.Client(api_key=os.environ['genai_api_key'])
+            self._chat = self.client.chats.create(model='gemini-pro')
         elif self.model_info in ['gpt-3.5', 'gpt-4', 'gpt-4o', 'gpt-4o-mini']:
             self.client = OpenAI(api_key=os.environ['openai_api_key'])
             self.messages = [
@@ -81,16 +81,13 @@ class Agent:
         if self.model_info == 'gemini-pro':
             for _ in range(10):
                 try:
-                    response = self._chat.send_message(message, stream=True)
+                    response = self._chat.send_message(message=message)
                     
                     # Track API call
                     self.api_calls += 1
                     Agent.total_api_calls += 1
                     
-                    responses = ""
-                    for chunk in response:
-                        responses += chunk.text + "\n"
-                    return responses
+                    return response.text
                 except:
                     continue
             return "Error: Failed to get response from Gemini."
@@ -142,16 +139,13 @@ class Agent:
             return responses
         
         elif self.model_info == 'gemini-pro':
-            response = self._chat.send_message(message, stream=True)
+            response = self._chat.send_message(message=message)
             
             # Track API call
             self.api_calls += 1
             Agent.total_api_calls += 1
-            
-            responses = ""
-            for chunk in response:
-                responses += chunk.text + "\n"
-            return responses
+
+            return response.text
         
     def agent_talk(self, message, recipient, img_path=None):
         """
@@ -372,8 +366,8 @@ def parse_group_info(group_info):
 
 def setup_model(model_name):
     if 'gemini' in model_name:
-        genai.configure(api_key=os.environ['genai_api_key'])
-        return genai, None
+        client = genai.Client(api_key=os.environ['genai_api_key'])
+        return client, None
     elif 'gpt' in model_name:
         client = OpenAI(api_key=os.environ['openai_api_key'])
         return None, client
