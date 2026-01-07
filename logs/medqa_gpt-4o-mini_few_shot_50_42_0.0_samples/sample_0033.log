@@ -1,0 +1,22 @@
+[INFO] Processing sample 33
+
+[INFO] Generating Few-Shot response with 3 few-shot examplers.
+
+Fewshot exampler #1:
+Question: A 42-year-old man comes to the emergency department complaining of chest pain. He states that he was at the grocery store when he developed severe, burning chest pain along with palpitations and nausea. He screamed for someone to call an ambulance. He says this has happened before, including at least 4 episodes in the past month that were all in different locations including once at home. He is worried that it could happen at work and affect his employment status. He has no significant past medical history, and reports that he does not like taking medications. He has had trouble in the past with compliance due to side effects. The patient’s temperature is 98.9°F (37.2°C), blood pressure is 133/74 mmHg, pulse is 110/min, and respirations are 20/min with an oxygen saturation of 99% on room air. On physical examination, the patient is tremulous and diaphoretic. He continually asks to be put on oxygen and something for his pain. An electrocardiogram is obtained that shows tachycardia. Initial troponin level is negative. A urine drug screen is negative. Thyroid stimulating hormone and free T4 levels are normal. Which of the following is first line therapy for the patient for long-term management? (B) Buspirone (D) Fluoxetine (C) Cognitive behavioral therapy (A) Alprazolam (E) Imipramine
+Answer: (C) Cognitive behavioral therapy
+
+Fewshot exampler #2:
+Question: A 69-year-old woman is brought to the emergency department because of fatigue and lethargy for 5 days. She has also had weakness and nausea for the last 3 days. She has sarcoidosis, major depressive disorder, and hypertension. She had a stroke 5 years ago. Current medications include aspirin, nifedipine, prednisolone, fluoxetine, and rosuvastatin, but she has not taken any of her medications for 7 days due to international travel. Her temperature is 36.1°C (96.9°F), pulse is 95/min, and blood pressure is 85/65 mm Hg. She is lethargic but oriented. Examination shows no other abnormalities. Her hemoglobin concentration is 13.4 g/dL and leukocyte count is 9,600/mm3. Both serum cortisol and ACTH levels are decreased. This patient is most likely to have which of the following additional laboratory abnormalities? (D) Hypokalemia (B) Hyperkalemia (E) Hyponatremia
+" (C) Hyperglycemia (A) Normal anion gap metabolic acidosis
+Answer: (E) Hyponatremia
+"
+
+Fewshot exampler #3:
+Question: A 27-year-old man presents to the emergency department following a motor vehicle accident. Having been found as a restrained driver, he did not suffer from any chest injuries; nevertheless, his legs were pinned in position by the front of the highly damaged vehicle. After a prolonged extrication, the man sustained multiple fractures on his left femur and tibia. That same night, he underwent surgery to address his left leg fractures. In the next morning, the man suddenly developed severe dyspnea. Upon examination, he is noted to have a diffuse petechial rash. His vital signs are the following: blood pressure is 111/67 mm Hg, pulse rate is 107/min, respiratory rate is 27/min, oxygen saturation level is 82%, and his body temperature is normal. What is the most likely mechanism of his respiratory distress? (D) Spontaneous pneumothorax (C) Bacterial pneumonia (A) Pulmonary edema (E) Fat embolism (B) Cardiac tamponade
+Answer: (E) Fat embolism
+Answer: (C) Erosion of tooth enamel
+
+[INFO] API calls for this sample: 1
+
+[INFO] Sample 33 completed successfully

@@ -1,0 +1,20 @@
+[INFO] Processing sample 43
+
+[INFO] Generating Few-Shot response with 3 few-shot examplers.
+
+Fewshot exampler #1:
+Question: A 35-year-old female presents to her PCP at the request of her husband after 3 weeks of erratic behavior. The patient has been staying up all night online shopping on eBay. Despite a lack of sleep, she is "full of energy" during the day at her teaching job, which she believes is "beneath [her], anyway." She has not sought psychiatric treatment in the past, but reports an episode of self-diagnosed depression 2 years ago. The patient denies thoughts of suicide. Pregnancy test is negative. Which of the following is the best initial treatment? (E) Electroconvulsive therapy (C) Valproate and olanzapine (B) Valproate and venlafaxine (A) Valproate (D) Haloperidol
+Answer: (C) Valproate and olanzapine
+
+Fewshot exampler #2:
+Question: A 77-year-old woman presents to her physician because of fatigue and progressive dyspnea despite receiving optimal treatment for heart failure. Her medical history is positive for heart failure, active tuberculosis, and chronic renal failure, for which she has been in long-term hemodialysis (13 years). The woman currently takes rifampin and isoniazid. Her physical exam shows the presence of hepatomegaly (a jugular venous distention that fails to subside on inspiration) and an impalpable apical impulse. Her pulse is 122/min, respiratory rate 16/min, temperature 36.0°C (97.4°F), and blood pressure 120/60 mm Hg. Her cardiac monitor shows a prominent y descent in her jugular venous pulse. A cardiac ultrasound shows pericardial calcifications and small tubular-shaped ventricles. Which of the following is the most likely cause of this patient’s current condition? (E) Restrictive cardiomyopathy (D) Hypertrophic cardiomyopathy (C) Dilated cardiomyopathy (A) Atrial fibrillation (B) Constrictive pericarditis
+Answer: (B) Constrictive pericarditis
+
+Fewshot exampler #3:
+Question: A 74-year-old Hispanic man comes to the physician because of a three-week history of dizziness upon standing and a brief loss of consciousness one hour ago. The patient suddenly collapsed on his way to the bathroom after waking up in the morning. He did not sustain any injuries from his collapse. He has a history of gastroesophageal reflux disease, benign prostatic hyperplasia, and gout. The patient's mother died of a grand mal seizure at the age of 53 years. He has smoked one pack of cigarettes daily for 55 years. He drinks three beers and two glasses of whiskey daily. Current medications include ranitidine, dutasteride, tamsulosin, and allopurinol. He is 166 cm (5 ft 5 in) tall and weighs 62 kg (137 lb); BMI is 22.5 kg/m2. He appears pale. Temperature is 36.7°C (98.0°F), pulse is 83/min, and blood pressure is 125/80 mm Hg supine and 100/70 mm Hg one minute after standing with no change in pulse rate. Physical examination shows conjunctival pallor. A plopping sound is heard on auscultation, immediately followed by a low-pitched, rumbling mid-diastolic murmur heard best at the apex. The remainder of the examination shows no abnormalities. An ECG shows regular sinus rhythm. Which of the following is the most likely diagnosis? (E) Grand mal seizure (C) Infective endocarditis (A) Cardiac myxoma (B) Aortic valve stenosis (D) Drug-induced hypotension
+Answer: (A) Cardiac myxoma
+Answer: (C) Microcytic red blood cells
+
+[INFO] API calls for this sample: 1
+
+[INFO] Sample 43 completed successfully

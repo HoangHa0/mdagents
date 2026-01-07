@@ -1,0 +1,28 @@
+[INFO] Processing sample 2
+
+[INFO] Generating Few-Shot response with 3 few-shot examplers.
+
+Fewshot exampler #1:
+Question: A 22-year-old man presents to clinic with a chief concern about a painless ulcer on his penis that he noticed 4 weeks ago and resolved one week ago. He denies any pain on urination or changes in urinary patterns. He admits to having multiple sexual partners in the past 3 months and inconsistent use of barrier protection. His vitals are within normal limits and his physical exam is unremarkable. He is given the appropriate antibiotic for this condition and sent home. What molecular structure is mimicked by the antibiotic most likely prescribed in this case? (C) Adenine (D) Folate intermediates (E) Retinoic acid (A) Uracil (B) D-Ala-D-Ala
+Answer: (B) D-Ala-D-Ala
+
+Fewshot exampler #2:
+Question: A 23-year-old primigravid woman comes to the physician at 36 weeks' gestation for her first prenatal visit. She confirmed the pregnancy with a home urine pregnancy kit a few months ago but has not yet followed up with a physician. She takes no medications. Vital signs are within normal limits. Pelvic examination shows a uterus consistent in size with a 36-week gestation. Laboratory studies show:
+Hemoglobin 10.6 g/dL
+Serum
+Glucose 88 mg/dL
+Hepatitis B surface antigen negative
+Hepatitis C antibody negative
+HIV antibody positive
+HIV load 11,000 copies/mL (N < 1000 copies/mL)
+Ultrasonography shows an intrauterine fetus consistent in size with a 36-week gestation. Which of the following is the most appropriate next step in management of this patient?" (A) Intrapartum zidovudine and vaginal delivery when labor occurs (C) Start cART and prepare for vaginal delivery at 38 weeks' gestation (E) Conduct cesarean delivery immediately (B) Start cART and schedule cesarean delivery at 38 weeks' gestation (D) Intrapartum zidovudine and cesarean delivery at 38 weeks' gestation
+Answer: (B) Start cART and schedule cesarean delivery at 38 weeks' gestation
+
+Fewshot exampler #3:
+Question: A 29-year-old woman, gravida 1, para 1, comes to the physician for the evaluation of a painful mass in her left breast for several days. She has no fevers or chills. She has not noticed any changes in the right breast. She has no history of serious illness. Her last menstrual period was 3 weeks ago. She appears anxious. Her temperature is 37°C (98.6°F), pulse is 80/min, respirations are 13/min, and blood pressure is 130/75 mm Hg. Examination shows a palpable, mobile, tender mass in the left upper quadrant of the breast. Ultrasound shows a 1.75-cm, well-circumscribed anechoic mass with posterior acoustic enhancement. The patient says that she is very concerned that she may have breast cancer and wishes further diagnostic testing. Which of the following is the most appropriate next step in the management of this patient? (D) Excisional biopsy (A) Fine needle aspiration (C) MRI scan of the left breast (B) Mammogram (E) Core needle biopsy
+Answer: (A) Fine needle aspiration
+Answer: (A) Clear cell adenocarcinoma
+
+[INFO] API calls for this sample: 1
+
+[INFO] Sample 2 completed successfully

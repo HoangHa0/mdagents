@@ -1,0 +1,21 @@
+[INFO] Processing sample 22
+
+[INFO] Generating Few-Shot response with 3 few-shot examplers.
+
+Fewshot exampler #1:
+Question: A 25-day-old male infant presents to the emergency department because his mother states that he has been acting irritable for the past 2 days and has now developed a fever. On exam, the infant appears uncomfortable and has a temperature of 39.1 C. IV access is immediately obtained and a complete blood count and blood cultures are drawn. Lumbar puncture demonstrates an elevated opening pressure, elevated polymorphonuclear neutrophil, elevated protein, and decreased glucose. Ampicillin and cefotaxime are immediately initiated and CSF culture eventually demonstrates infection with a Gram-negative rod. Which of the following properties of this organism was necessary for the infection of this infant? (C) K capsule (D) IgA protease (E) M protein (B) LPS endotoxin (A) Fimbriae
+Answer: (C) K capsule
+
+Fewshot exampler #2:
+Question: A 30-year-old African American woman comes to the physician because of a 3-month history of increasing shortness of breath, cough, and intermittent fever. She works in a local factory that manufactures components for airplanes. She drinks 2–3 glasses of wine daily and has smoked half a pack of cigarettes daily for the past 5 years. Physical examination shows a purple rash on her cheeks and nose. An x-ray of the chest shows bilateral hilar adenopathy and a calcified nodule in the left lower lobe. A bronchoalveolar lavage shows a CD4:CD8 T-lymphocyte ratio of 10:1 (N=2:1). A biopsy of the nodule shows a noncaseating granuloma. Which of the following is the strongest predisposing factor for the development of this patient's condition? (A) Race (B) Exposure to beryllium (E) Exposure to acid-fast bacilli
+" (D) Smoking (C) Alcohol consumption
+Answer: (A) Race
+
+Fewshot exampler #3:
+Question: A 36-year-old man undergoes ileocecal resection after a gunshot injury. The resected ileocecal segment is sent for histological evaluation. One of the slides derived from the specimen is shown in the image. Which of the following statements regarding the structure marked within the red circle is correct? (C) Infants have the largest amount of these structures within their intestinal wall. (D) This structure only appears in case of bacterial infection. (B) This structure can become a site of entry of certain microorganisms including S. typhi. (E) These structures mostly contain M-cells. (A) This structure can be only found in the colon.
+Answer: (B) This structure can become a site of entry of certain microorganisms including S. typhi.
+(E) Phosphodiesterase inhibitor
+
+[INFO] API calls for this sample: 1
+
+[INFO] Sample 22 completed successfully

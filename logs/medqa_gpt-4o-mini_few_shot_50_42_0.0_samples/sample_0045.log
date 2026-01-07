@@ -1,0 +1,31 @@
+[INFO] Processing sample 45
+
+[INFO] Generating Few-Shot response with 3 few-shot examplers.
+
+Fewshot exampler #1:
+Question: A 13-year-old girl is brought to a medical clinic with a complaint of a left foot deformity since birth. The clinical and radiologic evaluation suggested partial simple syndactyly between the 2nd and 3rd toes of the left foot. A radiograph revealed a bony fusion between the proximal phalanges of the 2nd and 3rd toes. There are no other congenital defects except for the toe findings. A failure in which of the following processes could lead to deformity as shown in the picture? (D) Phagocytosis (C) Opsonization (A) Chemotaxis (E) Apoptosis (B) Necrosis
+Answer: (E) Apoptosis
+
+Fewshot exampler #2:
+Question: A 55-year-old man is brought to the emergency department for the evaluation of severe chest pain for the last hour. The pain travels along the left arm and upper jaw. The patient also reports difficulty breathing and profuse sweating. He has hypertension and type 2 diabetes mellitus. He has smoked one pack of cigarettes daily for the last 35 years. His medications include enalapril and metformin. His temperature is 37°C (98.6°F), pulse is 110/min, respirations are 20/min, and blood pressure is 90/60 mm Hg. An ECG shows ST elevation in the leads II, III, and aVF. Morphine is administered and oxygen supplementation and fluid resuscitation are begun. Shortly after, the patient becomes unstable. Following emergency resuscitation and stabilization, a written advance directive provided by the patient's primary care physician shows a do-not-resuscitate (DNR) order. The patient's wife, who is the power of attorney, disagrees. Which of the following is the most appropriate next step in management of this patient? (D) Contact the patient's oldest child (B) Supportive care only (C) Reperform resuscitation when needed (E) Contact the ethics committee (A) Obtain court order to revoke written advance directive
+Answer: (B) Supportive care only
+
+Fewshot exampler #3:
+Question: A 20-year-old female with type I diabetes mellitus presents to the emergency department with altered mental status. Her friend said that she has been out late either studying for upcoming tests or attending prayer group meetings. As far as the friend can recollect, the patient appeared to be in her usual state of health until only two days ago, when she was prescribed trimethoprim-sulfamethoxazole for a urinary tract infection. The patient complained that the medication was making her feel nauseous and bloated. The patient also relies on glargine and lispro for glycemic control. Her temperature is 100.5°F (38.1°C), blood pressure is 95/55 mmHg, pulse is 130/min, and respirations are 30/min. Her pupils are equal and reactive to light bilaterally. The remainder of the physical exam is unremarkable. Her basic metabolic panel is displayed below:
+
+Serum:
+Na+: 116 mEq/L
+Cl-: 90 mEq/L
+K+: 5.0 mEq/L
+HCO3-: 2 mEq/L
+BUN: 50 mg/dL
+Glucose: 1,200 mg/dL
+Creatinine: 1.5 mg/dL
+
+Which of the following is true regarding this patient's presentation? (D) Azotemia independently contributes to the patient's encephalopathy (A) Hyponatremia is independently associated with a poor prognosis (B) Hyperkalemia is independent of the patient's total body potassium stores (E) Hypochloremia to this magnitude supports a pure anion-gap metabolic acidosis (C) Hyperglycemia to this magnitude supports hyperglycemic hyperosmolar nonketotic syndrome
+Answer: (B) Hyperkalemia is independent of the patient's total body potassium stores
+Answer: (B) Non-Hodgkin lymphoma
+
+[INFO] API calls for this sample: 1
+
+[INFO] Sample 45 completed successfully

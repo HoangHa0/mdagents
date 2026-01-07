@@ -1,0 +1,20 @@
+[INFO] Processing sample 39
+
+[INFO] Generating Few-Shot response with 3 few-shot examplers.
+
+Fewshot exampler #1:
+Question: A 64-year-old homeless man comes to the emergency department with right ear pain and difficulty hearing for 2 weeks. Over the last 5 days, he has also noticed discharge from his right ear. He does not recall the last time he saw a physician. His temperature is 39.0°C (102.2°F), blood pressure is 153/92 mm Hg, pulse is 113/minute, and respirations are 18/minute. He appears dirty and is malodorous. Physical examination shows mild facial asymmetry with the right corner of his mouth lagging behind the left when the patient smiles. He experiences severe ear pain when the right auricle is pulled superiorly. On otoscopic examination, there is granulation tissue at the transition between the cartilaginous and the osseous part of the ear canal. Which of the following is most likely associated with this patient's condition? (B) Condylar degeneration (D) Streptococcus pneumoniae (C) Opacified mastoid air cells (A) Malignant epithelial growth of the external auditory canal (E) Elevated HBA1c
+Answer: (E) Elevated HBA1c
+
+Fewshot exampler #2:
+Question: A 32-year-old woman is admitted to the hospital with headache, photophobia, vomiting without nausea, and fever, which have evolved over the last 12 hours. She was diagnosed with systemic lupus erythematosus at 30 years of age and is on immunosuppressive therapy, which includes oral methylprednisolone. She has received vaccinations—meningococcal and pneumococcal vaccination, as well as BCG. Her vital signs are as follows: blood pressure 125/70 mm Hg, heart rate 82/min, respiratory rate 15/min, and temperature 38.7°C (101.7°F). On examination, her GCS score is 15. Pulmonary, cardiac, and abdominal examinations are within normal limits. A neurologic examination does not reveal focal symptoms. Moderate neck stiffness and a positive Brudzinski’s sign are noted. Which of the following would you expect to note in a CSF sample? (B) Formation of a spiderweb clot in the collected CSF (D) Decrease in CSF protein level (E) Listeria monocytogenes growth in the CSF culture (A) Lymphocytic pleocytosis (C) Haemophilus influenzae growth is the CSF culture
+Answer: (E) Listeria monocytogenes growth in the CSF culture
+
+Fewshot exampler #3:
+Question: A 29-year-old woman comes to the emergency room with a 4-day history of fever and worsening cough. She describes bringing up a purulent, yellow sputum when she coughs. The patient has a history of cystic fibrosis and works as an elementary school teacher. The patient’s temperature is 102.3°F (39.1°C), blood pressure is 113/73 mmHg, pulse is 98/min, respirations are 18/min, and oxygen saturation is 94% on room air. She is sitting up in bed and sweating. Physical exam reveals bilateral crackles and decreased breath sounds with a dullness to percussion in the right lung base. A chest radiograph is obtained and reveals a right lower lobe pneumonia. Which of the following is the most likely agent? (B) Influenza virus (E) Streptococcus pneumoniae (D) Staphylococcus aureus (C) Pseudomonas aeruginosa (A) Haemophilus influenzae
+Answer: (C) Pseudomonas aeruginosa
+(A) The association is not statistically significant, and low education is not a risk factor.
+
+[INFO] API calls for this sample: 1
+
+[INFO] Sample 39 completed successfully

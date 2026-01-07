@@ -1,0 +1,28 @@
+[INFO] Processing sample 35
+
+[INFO] Generating Few-Shot response with 3 few-shot examplers.
+
+Fewshot exampler #1:
+Question: A 61-year-old woman who recently emigrated from India comes to the physician because of a 2-month history of fever, fatigue, night sweats, and a productive cough. She has had a 5-kg (11-lb) weight loss during this period. She has a history of type 2 diabetes mellitus and poorly controlled asthma. She has had multiple asthma exacerbations in the past year that were treated with glucocorticoids. An x-ray of the chest shows a cavitary lesion of the posterior apical segment of the left upper lobe with consolidation of the surrounding parenchyma. The pathogen identified on sputum culture is found to be resistant to multiple drugs, including streptomycin. Which of the following mechanisms is most likely involved in bacterial resistance to this drug? (B) Inhibition of bacterial synthesis of RNA (E) Upregulation of arabinosyl transferase production (A) Alteration in the sequence of gyrA genes (D) Upregulation of mycolic acid synthesis (C) Alteration in 30S ribosomal subunit
+Answer: (C) Alteration in 30S ribosomal subunit
+
+Fewshot exampler #2:
+Question: A 76-year-old woman presents to her primary care physician with an intense, throbbing, right-sided headache. She has a history of migraine headaches and tried her usual medications this afternoon with no alleviation of symptoms. She states that this headache feels different because she also has pain in her jaw that is worse with chewing. The pain came on gradually and is getting worse. In addition, over the past few months, she has had some difficulty getting up out of chairs and raising both her arms over her head to put on her clothes. She has had no recent falls or injuries. On exam, the patient's temperature is 98.3°F (36.8°C), blood pressure is 115/70 mmHg, pulse is 93/min, and respirations are 15/min. The patient has tenderness over her right temple. She has no focal neurological deficits, and no abnormalities on fundoscopic exam. Her physical exam is otherwise within normal limits.
+
+Given the patient's most likely diagnosis, which of the following methods of treatment should be used in order to prevent any further complications? (D) Lumbar puncture (C) High dose steroids (B) Thrombolytics (A) Antibiotics (E) Craniotomy
+Answer: (C) High dose steroids
+
+Fewshot exampler #3:
+Question: A 14-year-old boy is brought to the emergency department from school after falling in gym class. He was unable to stand after the accident and has a painful and swollen knee. On presentation he says that he has never had an incident like this before; however, he does suffer from hard to control nosebleeds and prolonged bleeding after minor cuts. Based on his presentation a panel of bleeding tests is obtained with the following results:
+
+Bleeding time: Prolonged
+Prothrombin time: Normal
+Partial thromboplastin time: Prolonged
+
+Which of the following describes the function of the component that is defective in the most likely cause of this patient's symptoms? (A) Binds to a nucleotide derivative (D) Catalyzes the conversion of factor X (E) It is a cofactor for an epoxide reductase (B) Binds to fibrinogen (C) Binds to subendothelial collagen
+Answer: (C) Binds to subendothelial collagen
+Answer: (C) Polycystic ovarian syndrome
+
+[INFO] API calls for this sample: 1
+
+[INFO] Sample 35 completed successfully

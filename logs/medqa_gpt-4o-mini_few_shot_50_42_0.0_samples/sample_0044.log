@@ -1,0 +1,20 @@
+[INFO] Processing sample 44
+
+[INFO] Generating Few-Shot response with 3 few-shot examplers.
+
+Fewshot exampler #1:
+Question: A 42-year-old man is brought to the emergency department 20 minutes after the sudden onset of severe chest pain, diaphoresis, shortness of breath, and palpitations. His symptoms occurred while he was at a party with friends. He has smoked one pack of cigarettes daily for 24 years. He uses cocaine occasionally. The last use was three hours ago. He appears pale. His pulse is 110/min, blood pressure is 178/106 mm Hg, and respirations are 24/min. His pupils are dilated and react sluggishly to light. The lungs are clear to auscultation. An ECG shows tachycardia and ST segment elevation in leads II, III, and aVF. While recording the ECG, the patient loses consciousness. A photo of the ECG at that point is shown. Which of the following is the most appropriate next step in management? (E) Synchronized cardioversion (B) Unsynchronized cardioversion (C) Coronary angiography (D) Administer epinephrine (A) Administer lidocaine
+Answer: (B) Unsynchronized cardioversion
+
+Fewshot exampler #2:
+Question: A 29-year-old nulligravid woman comes to the physician because of a 10-day history of small quantities of intermittent, blood-tinged discharge from her left nipple. There is no personal or family history of serious illness. She has smoked 1 pack of cigarettes daily for 5 years. Her last menstrual period was 12 days ago. She is sexually active and uses condoms inconsistently. Physical examination shows scant serosanguinous fluid expressible from the left nipple. There is no palpable breast mass or axillary lymphadenopathy. Examination shows no other abnormalities. Which of the following is the most appropriate next step in management? (E) Reassurance (D) Breast MRI (A) Subareolar ultrasound (B) Image-guided core biopsy of the affected duct (C) Nipple discharge cytology
+Answer: (A) Subareolar ultrasound
+
+Fewshot exampler #3:
+Question: A previously healthy 29-year-old Taiwanese woman comes to the emergency department with vaginal bleeding and pelvic pressure for several hours. Over the past 2 weeks, she had intermittent nausea and vomiting. A home urine pregnancy test was positive 10 weeks ago. She has had no prenatal care. Her pulse is 80/min and blood pressure is 150/98 mm Hg. Physical examination shows warm and moist skin. Lungs are clear to auscultation bilaterally. Her abdomen is soft and non-distended. Bimanual examination shows a uterus palpated at the level of the umbilicus. Her serum beta human chorionic gonadotropin concentration is 110,000 mIU/mL. Urine dipstick is positive for protein and ketones. Transvaginal ultrasound shows a central intrauterine mass with hypoechoic spaces; there is no detectable fetal heart rate. An x-ray of the chest shows no abnormalities. Which of the following is the most appropriate next step in management? (D) Suction curettage (E) Methotrexate therapy (A) Bed rest and doxylamine therapy (B) Insulin therapy (C) Serial beta-hCG measurement
+Answer: (D) Suction curettage
+Answer: (A) Inferior vena cava
+
+[INFO] API calls for this sample: 1
+
+[INFO] Sample 44 completed successfully

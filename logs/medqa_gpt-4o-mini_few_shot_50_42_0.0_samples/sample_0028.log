@@ -1,0 +1,29 @@
+[INFO] Processing sample 28
+
+[INFO] Generating Few-Shot response with 3 few-shot examplers.
+
+Fewshot exampler #1:
+Question: A 48-year-old man is brought to the emergency department 20 minutes after being rescued from a house fire. He reports headache, metallic taste, abdominal pain, and nausea. He appears confused and agitated. His pulse is 125/min, respirations are 33/min, and blood pressure is 100/65 mm Hg. Pulse oximetry on room air shows an oxygen saturation of 98%. Physical examination shows a bright red color of the skin. His breath smells of bitter almonds. Hyperbaric oxygen therapy and appropriate pharmacotherapy are initiated. The expected beneficial effect of this drug is most likely due to which of the following mechanisms? (E) Inhibition of cytochrome c oxidase (D) Dissociation of carboxyhemoglobin (A) Reduction of ferric iron (C) Formation of methemoglobin (B) Synthesis of 2,3-bisphosphoglycerate
+Answer: (C) Formation of methemoglobin
+
+Fewshot exampler #2:
+Question: A 41-year-old man presents to urgent care with a 1-week history of severe diarrhea. He says that he has been having watery stools every 2-3 hours. The stools do not contain blood and do not float. On presentation, he is observed to have significant facial flushing, and laboratory tests reveal the following:
+
+Serum:
+Na+: 137 mEq/L
+K+: 2.7 mEq/L
+Cl-: 113 mEq/L
+HCO3-: 14 mEq/L
+
+A computed tomography scan reveals a small intra-abdominal mass. Staining of this mass would most likely reveal production of which of the following? (B) Glucagon (E) Vasoactive intestinal peptide (D) Somatostatin (C) Insulin (A) Gastrin
+Answer: (E) Vasoactive intestinal peptide
+
+Fewshot exampler #3:
+Question: A 36-year-old primigravid woman at 26 weeks' gestation comes to the physician complaining of absent fetal movements for the last 2 days. Pregnancy was confirmed by ultrasonography 14 weeks earlier. She has no vaginal bleeding or discharge. She has a history of type 1 diabetes mellitus controlled with insulin. Vital signs are all within the normal limits. Pelvic examination shows a soft, 2-cm long cervix in the midline with a cervical os measuring 3 cm and a uterus consistent in size with 24 weeks' gestation. Transvaginal ultrasonography shows a fetus with no cardiac activity. Which of the following is the most appropriate next step in management? (E) Perform dilation and curettage
+" (C) Administer magnesium sulfate (A) Perform cesarean delivery (D) Perform weekly pelvic ultrasound (B) Plan for oxytocin administration
+Answer: (B) Plan for oxytocin administration
+Answer: (C) Reintubate
+
+[INFO] API calls for this sample: 1
+
+[INFO] Sample 28 completed successfully

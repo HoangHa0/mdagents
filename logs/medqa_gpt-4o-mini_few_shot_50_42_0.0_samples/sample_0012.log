@@ -1,0 +1,29 @@
+[INFO] Processing sample 12
+
+[INFO] Generating Few-Shot response with 3 few-shot examplers.
+
+Fewshot exampler #1:
+Question: A 47-year-old woman presents to the emergency department with ongoing dyspnea and confusion for 2 hours. She has a history of psychosis and alcohol abuse. She has smoked 1 pack per day for 25 years. She is agitated and confused. Her blood pressure is 165/95 mm Hg; pulse 110/min; respirations 35/min; and temperature, 36.7°C (98.1°F). The pulmonary examination shows tachypnea and mild generalized wheezing. Auscultation of the heart shows no abnormal sounds. The remainder of the physical examination shows no abnormalities. Laboratory studies show:
+Serum
+Na+ 138 mEq/L
+CI- 100 mEq/L
+Arterial blood gas analysis on room air
+pH 7.37
+pCO2 21 mm Hg
+pO2 88 mm Hg
+HCO3- 12 mEq/L
+Which of the following best explains these findings? (A) Alcoholic ketoacidosis (C) Salicylate intoxication (D) Severe chronic obstructive pulmonary disease (E) Vomiting (B) Hyperventilation syndrome
+Answer: (C) Salicylate intoxication
+
+Fewshot exampler #2:
+Question: A 15-year-old girl presents with four days of malaise, painful joints, nodular swelling over her elbows, low-grade fever, and a rash on her chest and left shoulder. Two weeks ago, she complained of a sore throat that gradually improved but was not worked up. She was seen for a follow-up approximately one week later. At this visit her cardiac exam was notable for a late diastolic murmur heard best at the apex in the left lateral decubitus position with no radiation. Which of the following is the best step in the management of this patient? (D) Mitral valve repair (A) Penicillin therapy (E) Reassurance that this is a benign murmur and send home (B) NSAIDS for symptomatic relief (C) Aortic valve replacement
+Answer: (A) Penicillin therapy
+
+Fewshot exampler #3:
+Question: A 36-year-old woman with no significant medical history presents with a four-week history of epigastric pain. The pain tends to occur two hours after meals. She has lost 4 pounds over the last four weeks. She is allergic to azithromycin and clarithromycin. A urea breath test detects radiolabeled carbon dioxide in exhaled breath. Two days after starting definitive treatment, she returns to the hospital with flushing, headaches, nausea and vomiting after having a few beers that night. What is the mechanism of the drug involved in the adverse reaction? (E) Coating of the gastric lining (C) Binding to the 50S subunit of the ribosome (A) Formation of free radicals (B) Inhibition of H+/K+ ATPase in parietal cells (D) Binding to the 30S subunit of the ribosome
+Answer: (A) Formation of free radicals
+(A) Acetaldehyde
+
+[INFO] API calls for this sample: 1
+
+[INFO] Sample 12 completed successfully

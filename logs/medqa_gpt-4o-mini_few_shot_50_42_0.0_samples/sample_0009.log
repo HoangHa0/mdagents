@@ -1,0 +1,20 @@
+[INFO] Processing sample 9
+
+[INFO] Generating Few-Shot response with 3 few-shot examplers.
+
+Fewshot exampler #1:
+Question: A 5-day-old male is brought to your office by his mother. The infant is experiencing bilious vomiting, abdominal distension, and overall failure to thrive. A contrast enema shows a transition point at the transverse colon between dilated ascending colon and non-distended distal portion of the colon. Which of the following is the most likely etiology of this patient's disease? (A) Muscle hypertrophy (C) CFTR gene mutation (D) Meiotic nondisjunction (B) Mechanical bowel obstruction (E) Failure of neural crest cell migration
+Answer: (E) Failure of neural crest cell migration
+
+Fewshot exampler #2:
+Question: A 64-year-old woman otherwise healthy presents with acute onset severe rectal bleeding. The patient says that 2 hours ago bleeding began suddenly after a difficult bowel movement. She says the blood is bright red, and, initially, bleeding was brisk but now has stopped. The patient denies having any similar symptoms in the past. She has noticed that she bled more easily while having her regular manicure/pedicure for the past 3 months but thought it was nothing serious. No significant past medical history and the patient does not take any current medications. Family history is unremarkable. Review of systems is positive for mild dyspnea on exertion the past 2-3 months. Her vital signs include: temperature 37.0°C (98.6°F), blood pressure 100/65 mm Hg, pulse 95/min, respiratory rate 15/min, and oxygen saturation 97% on room air. A cardiac examination is significant for a 2/6 systolic murmur loudest at the right upper sternal border. Rectal exam shows no evidence of external hemorrhoids, fissures, or lesions. No active bleeding is noted. The stool is guaiac positive. Deficiency of which of the following is most likely the cause of this patient’s condition? (A) Vitamin K (C) von Willebrand factor (B) Antithrombin III (E) ADAMST13 gene mutation (D) Factor VIII
+Answer: (C) von Willebrand factor
+
+Fewshot exampler #3:
+Question: While walking through a park with his wife, a 51-year-old man with type 2 diabetes mellitus develops nausea, sweating, pallor, and palpitations. For the past 3 weeks, he has been trying to lose weight and has adjusted his diet and activity level. He eats a low-carb diet and swims 3 times a week. The man returned home from a training session 2 hours ago. Current medications include basal insulin and metformin. Shortly before his wife returns from their car with his emergency medication kit, he becomes unconscious. Administration of which of the following is the most appropriate next step in management? (B) Oral glucose (A) Sublingual nitroglycerine (C) Intramuscular glucagon (E) Intra-arterial dextrose (D) Rectal lorazepam
+Answer: (C) Intramuscular glucagon
+Answer: (A) Affective symptoms
+
+[INFO] API calls for this sample: 1
+
+[INFO] Sample 9 completed successfully

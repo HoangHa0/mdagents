@@ -1,0 +1,31 @@
+[INFO] Processing sample 3
+
+[INFO] Generating Few-Shot response with 3 few-shot examplers.
+
+Fewshot exampler #1:
+Question: A 33-year-old man presents to his primary care physician with shoulder pain. He states that he can't remember a specific instance when the injury occurred. He is a weight lifter and competes in martial arts. The patient has no past medical history and is currently taking a multivitamin. Physical exam demonstrates pain with abduction of the patient's right shoulder and with external rotation of the right arm. There is subacromial tenderness with palpation. His left arm demonstrates 10/10 strength with abduction as compared to 4/10 strength with abduction of the right arm. Which of the following best confirms the underlying diagnosis? (E) Ultrasound (C) Physical exam and history (D) Radiography (B) MRI (A) CT
+Answer: (B) MRI
+
+Fewshot exampler #2:
+Question: Two days after undergoing an emergency laparotomy following a motor vehicle collision, a 37-year-old man has increased thirst. Examination shows dry mucous membranes and decreased skin turgor. A review of his chart shows his urine output to be in excess of his fluid intake. Laboratory studies show a serum sodium concentration of 151 mEq/L and urine osmolality of 110 mOsmol/kg H2O. One hour after the administration of desmopressin, the serum sodium concentration is 146 mEq/L and urine osmolality is 400 mOsmol/kg H2O. One week later, his laboratory values are within normal limits. This patient's condition was most likely caused by damage to which of the following structures? (A) Posterior pituitary (D) Collecting duct (B) Adrenal cortex (C) Proximal renal tubule (E) Supraoptic nucleus
+Answer: (A) Posterior pituitary
+
+Fewshot exampler #3:
+Question: A 58-year-old female comes to the physician because of generalized fatigue and malaise for 3 months. Four months ago, she was treated for a urinary tract infection with trimethoprim-sulfamethoxazole. She has hypertension, asthma, chronic lower back pain, and chronic headaches. Current medications include hydrochlorothiazide, an albuterol inhaler, naproxen, and an aspirin-caffeine combination. Examination shows conjunctival pallor. Laboratory studies show:
+Hemoglobin 8.9 g/dL
+Serum
+Urea nitrogen 46 mg/dL
+Creatinine 2.4 mg/dL
+Calcium 9.8 mg/dL
+Urine
+Protein 1+
+Blood 1+
+RBCs none
+WBCs 9-10/hpf
+Urine cultures are negative. Ultrasound shows shrunken kidneys with irregular contours and papillary calcifications. Which of the following is the most likely underlying mechanism of this patient's renal failure?" (D) Infection with an acid-fast bacillus (B) Hypersensitivity reaction (A) Overproduction of light chains (C) Inhibition of prostaglandin I2 production (E) Precipitation of drugs within the renal tubules
+Answer: (C) Inhibition of prostaglandin I2 production
+Answer: (C) Ability to cleave β-lactam rings
+
+[INFO] API calls for this sample: 1
+
+[INFO] Sample 3 completed successfully

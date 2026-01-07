@@ -1,0 +1,22 @@
+[INFO] Processing sample 46
+
+[INFO] Generating Few-Shot response with 3 few-shot examplers.
+
+Fewshot exampler #1:
+Question: A 78-year-old female presents to her primary care provider complaining of shaking of her hands. She reports that her hands shake when she is pouring her coffee in the morning and when she is buttoning her shirt. She has noticed that her tremor improves with the several beers she has every night with dinner. She has a past medical history of hypertension, atrial fibrillation, moderate persistent asthma, acute intermittent porphyria, and urinary retention. Her home medications include hydrochlorothiazide, warfarin, bethanechol, low-dose inhaled fluticasone, and an albuterol inhaler as needed. On physical exam, she has an irregularly irregular heart rhythm without S3/S4. She has mild wheezing on pulmonary exam. She has no tremor when her hands are in her lap. A low-amplitude tremor is present during finger-to-nose testing. Her neurological exam is otherwise unremarkable.
+
+Which of the following is a contraindication to the first-line treatment of this condition? (C) Heavy alcohol use (B) Asthma (D) Urinary retention (E) Warfarin use (A) Acute intermittent porphyria
+Answer: (B) Asthma
+
+Fewshot exampler #2:
+Question: A 1-day-old infant born at full term by uncomplicated spontaneous vaginal delivery is noted to have cyanosis of the oral mucosa. The baby otherwise appears comfortable. On examination, his respiratory rate is 40/min and pulse oximetry is 80%. His left thumb is displaced and hypoplastic. A right ventricular lift is palpated, S1 is normal, S2 is single, and a harsh 3/6 systolic ejection murmur is heard at the left upper sternal border. Chest X-ray is shown. Which of the following is the most likely diagnosis? (C) Ventricular septal defect (E) Pneumothorax (B) Tetralogy of Fallot (D) Transient tachypnoea of the newborn (A) Transposition of great vessels
+Answer: (B) Tetralogy of Fallot
+
+Fewshot exampler #3:
+Question: A 55-year-old man comes to the physician because of a 3-week history of intermittent burning epigastric pain. His pain improves with antacid use and eating but returns approximately 2 hours following meals. He has a history of chronic osteoarthritis and takes ibuprofen daily. Upper endoscopy shows a deep ulcer located on the posterior wall of the duodenal bulb. This ulcer is most likely to erode into which of the following structures? (D) Gastroduodenal artery (B) Pancreatic duct (A) Splenic vein (E) Transverse colon (C) Descending aorta
+Answer: (D) Gastroduodenal artery
+Answer: (A) Propranolol
+
+[INFO] API calls for this sample: 1
+
+[INFO] Sample 46 completed successfully

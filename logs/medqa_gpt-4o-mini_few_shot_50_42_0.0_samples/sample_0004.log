@@ -1,0 +1,20 @@
+[INFO] Processing sample 4
+
+[INFO] Generating Few-Shot response with 3 few-shot examplers.
+
+Fewshot exampler #1:
+Question: A 63-year-old woman is brought to the emergency department because of severe abdominal pain and vomiting for 3 hours. She had previous episodes of abdominal pain that lasted for 10–15 minutes and resolved with antacids. She lives with her daughter and grandchildren. She divorced her husband last year. She is alert and oriented. Her temperature is 37.3°C (99.1°F), pulse is 134/min, and blood pressure is 90/70 mm Hg. The abdomen is rigid and diffusely tender. Guarding and rebound tenderness are present. Rectal examination shows a collapsed rectum. Infusion of 0.9% saline is begun and a CT of the abdomen shows intestinal perforation. The surgeon discusses the need for emergent exploratory laparotomy with the patient and she agrees to it. Written informed consent is obtained. While in the holding area awaiting emergent transport to the operating room, she calls for the surgeon and informs him that she no longer wants the surgery. He explains the risks of not performing the surgery to her and she indicates she understands but is adamant about not proceeding with surgery. Which of the following is the most appropriate next step in management? (C) Continue with emergency life-saving surgery (E) Obtain consent from the patient's ex-husband (B) Cancel the surgery (D) Obtain consent from the patient's daughter (A) Consult hospital ethics committee
+Answer: (B) Cancel the surgery
+
+Fewshot exampler #2:
+Question: A 40-year-old man with a history of type I diabetes presents to the emergency room in respiratory distress. His respirations are labored and deep, and his breath odor is notably fruity. Which of the following laboratory results would you most expect to find in this patient? (E) Increased urine H2PO4- (A) Increased serum HCO3- (D) Increased urine HCO3- (B) Decreased serum H+ (C) Decreased urine H+
+Answer: (E) Increased urine H2PO4-
+
+Fewshot exampler #3:
+Question: A 55-year-old black male otherwise healthy presents for a yearly physical. No significant past medical history. Current medications are a multivitamin and rosuvastatin 20 mg orally daily. Vitals are temperature 37°C (98.6°F), blood pressure 155/75 mm Hg, pulse 95/min, respirations 16/min, and oxygen saturation 99% on room air. On physical examination, the patient is alert and cooperative. The cardiac exam is significant for a high-pitched diastolic murmur loudest at the left sternal border. Peripheral pulses are bounding and prominent followed by a quick collapse on palpation. Lungs are clear to auscultation. The abdomen is soft and nontender. Chest X-ray is normal. ECG is significant for left axis deviation and broad bifid P-waves in lead II. Transthoracic echocardiography shows a bicuspid aortic valve, severe aortic regurgitation, left atrial enlargement and left ventricular dilatation and hypertrophy. Left ventricular ejection fraction is 45%. Which of the following is the best course of treatment for this patient? (D) Administer dobutamine and nitroprusside (C) Outpatient management on enalapril 10 mg orally twice daily (A) Reassurance and recommend long-term follow-up with outpatient cardiology for clinical surveillance with regular echocardiography (E) Admit to hospital for aortic valve replacement (B) Outpatient management on nifedipine 45 mg orally daily
+Answer: (E) Admit to hospital for aortic valve replacement
+Answer: (D) It only occurs in patients with cirrhosis
+
+[INFO] API calls for this sample: 1
+
+[INFO] Sample 4 completed successfully

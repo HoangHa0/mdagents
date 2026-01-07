@@ -1,0 +1,20 @@
+[INFO] Processing sample 20
+
+[INFO] Generating Few-Shot response with 3 few-shot examplers.
+
+Fewshot exampler #1:
+Question: A 25-year-old man comes to the physician because of a 2-week history of numbness in his left lower extremity. One month ago, he sustained a fracture of the neck of the left fibula during soccer practice that was treated with immobilization in a plaster cast. Physical examination of the left lower extremity is most likely to show which of the following findings? (B) Loss of sensation over the medial calf (E) Loss of sensation on the sole of the foot (A) Impaired dorsiflexion of the foot (C) Inability to stand on tiptoes (D) Decreased ankle reflex
+Answer: (A) Impaired dorsiflexion of the foot
+
+Fewshot exampler #2:
+Question: A 3-week old boy is brought to the physician for the evaluation of lethargy, recurrent vomiting, and poor weight gain since birth. Physical examination shows decreased skin turgor and a bulging frontal fontanelle. Serum studies show an ammonia concentration of 170 μmol/L (N < 30) and low serum citrulline levels. The oral intake of which of the following nutrients should be restricted in this patient? (D) Gluten (E) Lactose (A) Fructose (B) Protein (C) Vitamin A
+Answer: (B) Protein
+
+Fewshot exampler #3:
+Question: A 66-year-old man is admitted to the medical floor after being diagnosed with community-acquired pneumonia. He has been in good health except for the use of steroids for the past 6 months for ulcerative colitis. The patient is started on the empiric therapy with ceftriaxone for the management of pneumonia. After 10 days of treatment in the hospital, he becomes tachypneic with a decreased level of consciousness. He develops generalized pustular eruptions all over his trunk. The temperature is 40.8°C (105.4°F), and the white blood cell count is 19,000/mm3. The gram stain of an aspirate shows many budding yeasts and neutrophils. A culture of the skin specimen is positive for Candida albicans. The nitroblue tetrazolium test is normal. What is the most likely condition related to his signs and symptoms? (C) Chronic granulomatous disease (D) Myeloperoxidase deficiency (E) X-linked agammaglobulinemia (B) Chediak-Hegashi syndrome (A) Leukocyte adhesion deficiency-1
+Answer: (D) Myeloperoxidase deficiency
+Answer: (C) Release of prostaglandins
+
+[INFO] API calls for this sample: 1
+
+[INFO] Sample 20 completed successfully

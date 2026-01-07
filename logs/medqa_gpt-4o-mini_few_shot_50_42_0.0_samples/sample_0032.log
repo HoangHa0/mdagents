@@ -1,0 +1,20 @@
+[INFO] Processing sample 32
+
+[INFO] Generating Few-Shot response with 3 few-shot examplers.
+
+Fewshot exampler #1:
+Question: One week after an aortic valve replacement surgery, a 55-year-old man is brought to the emergency room 30 minutes after the onset of severe, sharp chest pain. He appears pale and dyspneic but is alert, oriented, and speaks in full sentences. His temperature is 38°C (100.4°F), pulse is 192/min and thready, respirations are 22/min, and blood pressure is 80/50 mm Hg. Faint rales can be heard in the lower lung fields on both sides on auscultation. There is a midline thoracotomy scar with mild reddening but without warmth or discharge. A portion of an ECG is shown. The pattern remains unchanged after 1 minute. Which of the following is the most appropriate intervention? (E) Administer amiodarone (C) Vagal maneuvers (A) Epinephrine (D) Administer magnesium sulfate (B) Synchronized cardioversion
+Answer: (B) Synchronized cardioversion
+
+Fewshot exampler #2:
+Question: A 29-year-old mother brings in her 2-week-old baby boy to a pediatrician because he has been having difficulty feeding. The mother reveals that she had no prenatal care during her pregnancy and gave birth at home without complications. She says that her son seems to be having difficulty sucking, and she occasionally sees breast milk coming out of the infant’s nose. Physical exam reveals that this patient has a gap between his oral and nasal cavities behind the incisive foramen. He is therefore prescribed specialized bottles and his mom is taught positional techniques to ensure better feeding. Failure to fuse which of the following structures is most likely responsible for this patient's disorder?  (B) Maxillary and medial nasal prominences (C) Nasal septum with primary plates (A) Maxillary and lateral nasal prominences (E) Palatine shelves with primary plates (D) Palatine shelves with nasal septum
+Answer: (D) Palatine shelves with nasal septum
+
+Fewshot exampler #3:
+Question: A scientist is designing experiments to better appreciate how the lung expands. He acquires two sets of cat lungs and fills one set with saline. He plots changes in the lungs' volume with respect to pressure as shown in Image A. The pressure-volume loop of the liquid-ventilated lung is different from the gas-ventilated lung because of what property? (E) Increased inspiratory pressure (D) Increased compliance (A) Reduced airway resistance (B) Increased residual volume (C) More pronounced hysteresis
+Answer: (D) Increased compliance
+Answer: (A) Perform lumbar puncture, treat based on presence or absence of CNS disease
+
+[INFO] API calls for this sample: 1
+
+[INFO] Sample 32 completed successfully

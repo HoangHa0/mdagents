@@ -1,0 +1,38 @@
+[INFO] Processing sample 38
+
+[INFO] Generating Few-Shot response with 3 few-shot examplers.
+
+Fewshot exampler #1:
+Question: A 35-year-old nulligravid woman and her 33-year-old husband come to the physician for genetic counseling prior to conception. The husband has had severe psoriasis since adolescence that is now well-controlled under combination treatment with UV light therapy and etanercept. His father and two brothers also have this condition, and the couple wants to know how likely it is that their child will have psoriasis. The inheritance pattern of this patient's illness is most similar to which of the following conditions? (C) Alport syndrome (E) Familial hypercholesterolemia (A) Schizophrenia (B) Alpha thalassemia minor (D) Oculocutaneous albinism
+Answer: (A) Schizophrenia
+
+Fewshot exampler #2:
+Question: A 74-year-old man presents to the emergency department by paramedics for slurred speech and weakness in the left arm and leg for 1 hour. The patient was playing with his grandson when the symptoms started and his wife immediately called an ambulance. There is no history of head trauma or recent surgery. The patient takes captopril for hypertension. The vital signs include: pulse 110/min, respiratory rate 22/min, and blood pressure 200/105 mm Hg. The physical examination shows that the patient is alert and conscious, but speech is impaired. Muscle strength is 0/5 in the left arm and leg and 5/5 in the right arm and leg. A non-contrast CT of the head shows no evidence of intracranial bleeding. The lab results are as follows:
+Serum glucose 90 mg/dL
+Sodium 140 mEq/L
+Potassium 4.1 mEq/L
+Chloride 100 mEq/L
+Serum creatinine 1.3 mg/dL
+Blood urea nitrogen 20 mg/dL
+Cholesterol, total 240 mg/dL
+HDL-cholesterol 38 mg/dL
+LDL-cholesterol 100 mg/dL
+Triglycerides 190 mg/dL
+Hemoglobin (Hb%) 15.3 g/dL
+Mean corpuscular volume (MCV) 83 fL
+Reticulocyte count 0.8%
+Erythrocyte count 5.3 million/mm3
+Platelet count 130,000/mm3
+Partial thromboplastin time (aPTT)  30 sec
+Prothrombin time (PT) 12 sec
+Although he is within the time frame for the standard therapy of the most likely condition, the treatment cannot be started because of which of the following contraindications? (E) Age of 74 years (C) Cholesterol level of 240 mg/dL (D) Systolic blood pressure of 200 mm Hg (A) Creatinine level of 1.3 mg/dL (B) A platelet count of 130,000/mm3
+Answer: (D) Systolic blood pressure of 200 mm Hg
+
+Fewshot exampler #3:
+Question: A 28-year-old G1P0 woman comes to the emergency department complaining that her water just broke. She reports irregular prenatal care due to her erratic schedule. She is also unsure of her gestational age but claims that her belly began to show shortly after she received her thyroidectomy for her Graves disease about 9 months ago. She denies any known fevers, chills, abnormal vaginal discharge/bleeding, or sexually transmitted infections. She develops frequent and regular contractions and subsequently goes into active labor. A fetus was later vaginally delivered with a fetal heart rate of 180 bpm. A neonatal physical examination demonstrates a lack of a sagittal cranial suture and an APGAR score of 8 and 8, at 1 and 5 minutes respectively. What findings would you expect in the baby? (D) Low hemoglobin (B) High levels of free T4 and total T3 (A) Group B streptococcus in blood (C) High thyroid-stimulating hormone (E) Pericardial effusion
+Answer: (B) High levels of free T4 and total T3
+Answer: (D) Multiple endocrine neoplasia (MEN) 2B
+
+[INFO] API calls for this sample: 1
+
+[INFO] Sample 38 completed successfully

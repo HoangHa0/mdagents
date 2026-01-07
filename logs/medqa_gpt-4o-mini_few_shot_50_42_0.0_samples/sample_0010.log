@@ -1,0 +1,20 @@
+[INFO] Processing sample 10
+
+[INFO] Generating Few-Shot response with 3 few-shot examplers.
+
+Fewshot exampler #1:
+Question: A 23-year-old primigravida pregnant patient is in her 3rd trimester with twins. She complains of itching and skin lesions. The examination shows vesicular skin lesions on the abdomen but not on the face, palms, or soles. A picture of her abdomen is shown in the image. Her past medical history is insignificant. Her vital signs are all within normal limits. What is the next best step in management? (B) Begin weekly antepartum testing to ensure fetal well-being (E) Start treatment with an antihistamine (D) Reassure her and provide symptomatic relief with topical steroids (C) Biopsy the lesions to ensure proper diagnosis (A) Begin treatment with systemic oral corticosteroids
+Answer: (D) Reassure her and provide symptomatic relief with topical steroids
+
+Fewshot exampler #2:
+Question: A 35-year-old woman is admitted to the medical unit for worsening renal failure. Prior to admission, she was seen by her rheumatologist for a follow-up visit and was found to have significant proteinuria and hematuria on urinalysis and an elevated serum creatinine. She reports feeling ill and has noticed blood in her urine. She was diagnosed with systemic lupus erythematosus at the age of 22, and she is currently being treated with ibuprofen for joint pain and prednisone for acute flare-ups. Her blood pressure is 165/105 mmHg. Laboratory testing is remarkable for hypocomplementemia and an elevated anti-DNA antibody. A renal biopsy is performed, which demonstrates 65% glomerular involvement along with the affected glomeruli demonstrating endocapillary and extracapillary glomerulonephritis. In addition to glucocorticoid therapy, the medical team will add mycophenolate mofetil to her treatment regimen. Which of the following is the mechanism of action of mycophenolate mofetil? (B) Calcineurin inhibitor via FKBP binding (A) Calcineurin inhibitor via cyclophilin binding (D) Interleukin-2 receptor complex inhibitor (E) mTOR inhibitor via FKBP binding (C) Inosine monophosphate dehydrogenase inhibitor
+Answer: (C) Inosine monophosphate dehydrogenase inhibitor
+
+Fewshot exampler #3:
+Question: A 55-year-old man presents to the emergency department with nausea and vomiting. The patient states that he has felt nauseous for the past week and began vomiting last night. He thought his symptoms would resolve but decided to come in when his symptoms worsened. He feels that his symptoms are exacerbated with large fatty meals and when he drinks alcohol. His wife recently returned from a cruise with symptoms of vomiting and diarrhea. The patient has a past medical history of poorly managed diabetes, constipation, anxiety, dyslipidemia, and hypertension. His temperature is 99.5°F (37.5°C), blood pressure is 197/128 mmHg, pulse is 100/min, respirations are 17/min, and oxygen saturation is 95% on room air. Physical exam reveals a systolic murmur heard loudest along the left upper sternal border. Abdominal exam reveals an obese, tympanitic and distended abdomen with a 3 cm scar in the right lower quadrant. Vascular exam reveals weak pulses in the lower extremities. Which of the following is the most likely diagnosis? (B) Enteric nervous system damage (A) Adhesions (E) Twisting of the bowel (D) Norovirus (C) Impacted stool
+Answer: (A) Adhesions
+Answer: (E) Exploratory laparotomy
+
+[INFO] API calls for this sample: 1
+
+[INFO] Sample 10 completed successfully

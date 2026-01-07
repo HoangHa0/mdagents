@@ -1,0 +1,20 @@
+[INFO] Processing sample 23
+
+[INFO] Generating Few-Shot response with 3 few-shot examplers.
+
+Fewshot exampler #1:
+Question: An 8-year-old boy presents with a limp favoring his right leg. The patient’s mother noticed he had been limping without complaint for the past 6 months. Past medical history is significant for the flu last year. No current medications. All immunizations are up to date. The vital signs include: temperature 37.0°C (98.6°F), blood pressure 100/60 mm Hg, pulse 74/min, respiratory rate 19/min, and oxygen saturation 99% on room air. The body mass index (BMI) is 17.2 kg/m2. On physical examination, the patient is alert and cooperative. A limp favoring the right leg is noted when the patient is walking. There is mild tenderness on deep palpation of the left lumbar region but no erythema, edema, or warmth. There is a decreased range of motion of the left hip. Which of the following is the most likely diagnosis in this patient? (A) Slipped capital femoral epiphysis (D) Legg-Calve-Perthes disease (E) Pelvic fracture (B) Developmental dysplasia of the hip (C) Viral-induced synovitis
+Answer: (D) Legg-Calve-Perthes disease
+
+Fewshot exampler #2:
+Question: A 17-year-old female is brought to the emergency room by her parents shortly after a suicide attempt by aspirin overdose. Which of the following acid/base changes will occur FIRST in this patient? (B) Anion gap metabolic acidosis (C) Respiratory acidosis (D) Metabolic alkalosis (E) Respiratory alkalosis (A) Non-anion gap metabolic acidosis
+Answer: (E) Respiratory alkalosis
+
+Fewshot exampler #3:
+Question: A 16-year-old girl is brought to the physician by her mother because she has not had her menstrual period yet. At birth, she was found to have partial labial fusion and clitoromegaly. The mother reports that during the pregnancy she had noticed abnormal hair growth on her chin. The girl has severe acne. Three years ago, she broke her wrist after a minor trauma. Last year, she sustained a spinal compression fracture after lifting a box during a move. She currently takes oral isotretinoin and an oral contraceptive. The patient is at the 97th percentile for height and 50th percentile for weight. Physical examination shows numerous inflamed pustules on her face and upper back. Breast development is at Tanner stage I. The patient refuses to have a pelvic examination. A pelvic ultrasound shows ovaries with multiple cysts and a normal uterus. Which of the following is the most likely diagnosis? (B) Congenital adrenal hyperplasia (D) Turner syndrome (C) Hyperprolactinemia (A) Polycystic ovary syndrome (E) Aromatase deficiency
+Answer: (E) Aromatase deficiency
+Answer: (C) Straight leg raise
+
+[INFO] API calls for this sample: 1
+
+[INFO] Sample 23 completed successfully

@@ -1,0 +1,31 @@
+[INFO] Processing sample 6
+
+[INFO] Generating Few-Shot response with 3 few-shot examplers.
+
+Fewshot exampler #1:
+Question: A 45-year-old man comes to the clinic complaining of yellow skin and eyes, loss of appetite, and severe nausea over the last month or so. He drinks 2–3 beers everyday and about 5–6 on the weekend. He does not take any over-the-counter medications. He has smoked one pack of cigarettes every day for the last 20 years but does not use illicit drugs. Additionally, he reports no history of vomiting, abdominal pain, altered bowel habits, or unintentional weight loss. His temperature is 37°C (98.6°F), blood pressure is 135/85 mm Hg, pulse is 78/ min, respiratory rate is 14/ min, and BMI is 19 kg/m2. On physical examination his skin and sclera are icteric, and his abdomen is tender with a mildly enlarged liver. On laboratory investigations:
+Complete blood count
+Hemoglobin 11 g/dL
+MCV 105 µm3
+White blood cell 14,000/mm3
+Platelets 110,000/mm3
+Which of the following liver function analyses is expected in this patient? (A) Alanine aminotransferase (ALT): 38/ Aspartate aminotransferase (AST): 30 / AST/ALT: 0.79 (E) Alanine aminotransferase (ALT): 2,521 / Aspartate aminotransferase (AST): 2,222 / AST/ALT: 0.88 (D) Alanine aminotransferase (ALT): 83 / Aspartate aminotransferase (AST): 72 / AST/ALT: 0.87 (B) Alanine aminotransferase (ALT): 1,500 / Aspartate aminotransferase (AST): 1,089 / AST/ALT: 0.73 (C) Alanine aminotransferase (ALT): 120 / Aspartate aminotransferase (AST): 256 / AST/ALT: 2.1
+Answer: (C) Alanine aminotransferase (ALT): 120 / Aspartate aminotransferase (AST): 256 / AST/ALT: 2.1
+
+Fewshot exampler #2:
+Question: A 57-year-old man comes to the physician two weeks after a blood pressure of 160/92 mm Hg was measured at a routine health maintenance examination. Subsequent home blood pressure measurements since the last visit have been: 159/98 mm Hg, 161/102 mm Hg, and 152/95 mm Hg. Over the past 3 years, the patient has had a 10-kg (22-lb) weight gain. He has type 2 diabetes mellitus. He does not follow any specific diet; he usually eats sandwiches at work and fried chicken or burger for dinner. He says that he has been struggling with a stressful project at work recently. His mother was diagnosed with hypertension at the age of 45. The patient's only medication is metformin. His pulse is 82/min, and blood pressure now is 158/98 mm Hg. The patient is 178 cm (5 ft 10 in) tall and weighs 133 kg (293 lb); BMI is 42 kg/m2. Physical examination shows no other abnormalities except for significant central obesity. Fasting serum studies show:
+Total cholesterol 220 mg/dL
+HDL-cholesterol 25 mg/dL
+Triglycerides 198 mg/dL
+Glucose 120 mg/dL
+Which of the following is the most important factor in the development of this patient's condition?" (B) Accumulation of fat in visceral tissue (A) Release of proinflammatory cytokines (D) Increased dietary salt intake (C) Resistance to insulin (E) Elevation of blood lipids
+Answer: (C) Resistance to insulin
+
+Fewshot exampler #3:
+Question: A 24-year-old man presents to his primary care physician for a persistent and low grade headache as well as trouble focusing. The patient was seen in the emergency department 3 days ago after hitting his head on a branch while biking under the influence of alcohol. His head CT at the time was normal, and the patient was sent home with follow up instructions. Since the event, he has experienced trouble focusing on his school work and feels confused at times while listening to lectures. He states that he can’t remember the lectures and also says he has experienced a sensation of vertigo at times. On review of systems, he states that he has felt depressed lately and has had trouble sleeping, though he denies any suicidal or homicidal ideation. His temperature is 98.2°F (36.8°C), blood pressure is 122/65 mmHg, pulse is 70/min, respirations are 12/min, and oxygen saturation is 98% on room air. The patient’s neurological and cardiopulmonary exam are within normal limits. Which of the following is the best next step in management? (D) Rest and primary care follow up (E) Thiamine (B) CT scan of the head without contrast (A) Cognitive behavioral therapy (C) Fluoxetine
+Answer: (D) Rest and primary care follow up
+Answer: (A) Squamous cell carcinoma
+
+[INFO] API calls for this sample: 1
+
+[INFO] Sample 6 completed successfully

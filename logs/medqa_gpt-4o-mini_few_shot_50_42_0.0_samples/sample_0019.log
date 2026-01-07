@@ -1,0 +1,22 @@
+[INFO] Processing sample 19
+
+[INFO] Generating Few-Shot response with 3 few-shot examplers.
+
+Fewshot exampler #1:
+Question: A 21-year-old woman presents to the emergency department with complaints of intermittent bouts of lower abdominal and pelvic pain over the last week. The pain is primarily localized to the right side and is non-radiating. The patient is not sexually active at this time and is not currently under any medication. At the hospital, her vitals are normal. A pelvic examination reveals a tender palpable mass on the right adnexal structure. A pelvic CT scan reveals a 7-cm solid adnexal mass that was surgically removed with the ovary. Histological evaluation indicates sheets of uniform cells resembling a 'fried egg', consistent with dysgerminoma. Which of the following tumor markers is most likely elevated with this type of tumor? (E) Cancer antigen 125 (CA-125) (D) Inhibin A (B) Beta-human chorionic gonadotropin (beta-hCG) (A) Lactate dehydrogenase (LDH) (C) Alpha-fetoprotein (AFP)
+Answer: (A) Lactate dehydrogenase (LDH)
+
+Fewshot exampler #2:
+Question: A 16-year-old Caucasian boy presents to your family practice office complaining of itchiness. He denies other symptoms. He also denies tobacco, alcohol, or other illicit drug use and is not sexually active. He has no other significant past medical or surgical history aside from a meniscal repair from a wrestling injury sustained two years ago from which he has recovered fully. Vitals are T 98.3, HR 67, BP 110/70. On exam you note several pruritic, erythematous, slightly raised annular patches with central clearing on his back.
+
+Which of the following additional tests or features are sufficient to make the diagnosis of this boy's skin lesion? (B) History of recent herald patch and lesions along skin cleavage lines (C) Presence of hyphae when KOH added to skin scrapings (A) Acid-fast bacilli on smear from skin scrapings (D) Symmetrical distribution on bilaterial extremities progressing proximally (E) History of time spent in a Lyme-endemic region
+Answer: (C) Presence of hyphae when KOH added to skin scrapings
+
+Fewshot exampler #3:
+Question: A 40-year-old man is brought to the emergency department 20 minutes after his wife found him unconscious on the bathroom floor. On arrival, he is conscious and alert. He remembers having palpitations and feeling lightheaded and short of breath before losing consciousness. He takes captopril for hypertension and glyburide for type 2 diabetes mellitus. His vitals are within normal limits. Physical examination shows no abnormalities. Random serum glucose concentration is 85 mg/dL. An ECG shows a short PR interval and a wide QRS complex with initial slurring. Transthoracic echocardiography reveals normal echocardiographic findings with normal left ventricular systolic function. Which of the following is the most likely underlying cause of this patient's findings? (C) Low serum glucose levels (D) Accessory atrioventricular pathway (B) Ectopic foci within the ventricles (A) A dysfunctional AV node (E) Ischemic myocardial necrosis
+Answer: (D) Accessory atrioventricular pathway
+Answer: (B) Reassurance and follow-up
+
+[INFO] API calls for this sample: 1
+
+[INFO] Sample 19 completed successfully

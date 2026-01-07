@@ -1,0 +1,20 @@
+[INFO] Processing sample 34
+
+[INFO] Generating Few-Shot response with 3 few-shot examplers.
+
+Fewshot exampler #1:
+Question: A 23-year-old man presents to the office complaining of weight loss and fatigue for the past 2 months. He states that he has been experiencing foul-smelling, light-colored stools but thinks it is because he hasn’t been eating well, recently. He has a past medical history significant for cystic fibrosis, which is well-controlled medically. He denies any shortness of breath, chest or abdominal pain, nausea, vomiting, or melena. On physical examination, his skin is pale and dry. Which of the following would be the most likely etiology of a malabsorption syndrome giving rise to this patient’s current condition? (D) Decreased recycling of bile acids (E) Pancreatic insufficiency (B) Damage to intestinal brush border (A) Autoimmune damage to parietal cells (C) Chronic damage to intestinal mucosa
+Answer: (E) Pancreatic insufficiency
+
+Fewshot exampler #2:
+Question: During the exam of a 2-day-old female neonate you determine that she appears lethargic, cyanotic, and has a coarse tremor of her right arm. The patient's mother explains that she observed what she believed to be seizure-like activity just before you arrived in the room. The mother has a history of type two diabetes mellitus and during childbirth there was a delay in cord clamping. You decide to get electrolytes and a complete blood count to work up this patient. The labs are significant for mild hypoglycemia and a hematocrit of 72%. What is the most effective treatment for this patient's condition? (A) Phlebotomy (C) Fluid resuscitation (D) Hydroxyurea (E) Interferon alpha (B) Partial exchange transfusion with hydration
+Answer: (B) Partial exchange transfusion with hydration
+
+Fewshot exampler #3:
+Question: A 46-year-old man presents to the clinic complaining of fatigue and difficulty breathing for the past month. He reports that it is particularly worse when he exercises as he becomes out of breath at 1 mile when he used to routinely run 3 miles. He is frustrated as he was recently diagnosed with diabetes despite a good diet and regular exercise. He denies any weight changes, chest pain, or gastrointestinal symptoms. When asked about other concerns, his wife complains that he is getting darker despite regular sunscreen application. A physical examination demonstrates a tanned man with an extra heart sound just before S1, mild bilateral pitting edema, and mild bibasilar rales bilaterally. An echocardiogram is ordered and shows a left ventricular ejection fraction (LVEF) of 65% with reduced filling. What is the most likely explanation for this patient’s condition? (C) Infection with coxsackie B virus (E) Systemic inflammatory state caused by type 2 diabetes (D) Persistently elevated blood pressure (B) Increased intestinal absorption of iron (A) Decreased copper excretion into bile
+Answer: (B) Increased intestinal absorption of iron
+Answer: (A) He is already overcommitting and must reduce the number of hours
+
+[INFO] API calls for this sample: 1
+
+[INFO] Sample 34 completed successfully

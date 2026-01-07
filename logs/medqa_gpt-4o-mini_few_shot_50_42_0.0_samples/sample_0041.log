@@ -1,0 +1,20 @@
+[INFO] Processing sample 41
+
+[INFO] Generating Few-Shot response with 3 few-shot examplers.
+
+Fewshot exampler #1:
+Question: A 15-year-old adolescent boy presents to his pediatrician for his scheduled follow-up after he was prescribed low-dose methylphenidate for treatment of attention-deficit/hyperactivity disorder 4 weeks ago. On follow-up, his mother reports mild improvement in his symptoms, but she also notes that his appetite has decreased significantly after starting the medication. This has led to a 1.6 kg (3.5 lb) weight loss over the last 4 weeks. His mother also reports that she no longer wants to continue the drug. Which of the following is the next drug of choice for pharmacological management of the condition? (A) Atomoxetine (C) Dexmethylphenidate (E) Imipramine (B) Clonidine (D) Dextroamphetamine
+Answer: (A) Atomoxetine
+
+Fewshot exampler #2:
+Question: A 27-year-old man interested in pre-exposure therapy for HIV (PrEP) is being evaluated to qualify for a PrEP study. In order to qualify, patients must be HIV- and hepatitis B- and C-negative. Any other sexually transmitted infections require treatment prior to initiation of PrEP. The medical history is positive for a prior syphilis infection and bipolar affective disorder, for which he takes lithium. On his next visit, the liver and renal enzymes are within normal ranges. HIV and hepatitis B and C tests are negative. Which of the following about the HIV test is true? (A) It is a quantitative test used for screening purposes. (C) An unknown antigen binds to the known serum. (D) A known antigen binds to the patient’s serum. (B) It is a qualitative test used for screening purposes. (E) A secondary reagent is needed to interpret the results.
+Answer: (B) It is a qualitative test used for screening purposes.
+
+Fewshot exampler #3:
+Question: A 41-year-old woman comes to the physician because of a 3-month history of anxiety, difficulty falling asleep, heat intolerance, and a 6-kg (13.2-lb) weight loss. The patient's nephew, who is studying medicine, mentioned that her symptoms might be caused by a condition that is due to somatic activating mutations of the genes for the TSH receptor. Examination shows warm, moist skin and a 2-cm, nontender, subcutaneous mass on the anterior neck. Which of the following additional findings should most raise concern for a different underlying etiology of her symptoms? (C) Hyperreflexia (D) Lid lag (E) Fine tremor (B) Atrial fibrillation (A) Nonpitting edema
+Answer: (A) Nonpitting edema
+Answer: (A) Increase in capillary pressure
+
+[INFO] API calls for this sample: 1
+
+[INFO] Sample 41 completed successfully

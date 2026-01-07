@@ -1,0 +1,72 @@
+[INFO] Processing sample 46
+
+[INFO] Step 1. Expert Recruitment
+[DEBUG] Recruited Experts and Hierarchy:
+1. Cardiologist - Focuses on the diagnosis and treatment of heart conditions, particularly arrhythmias and palpitations. - Hierarchy: Independent  
+2. Endocrinologist - Specializes in hormonal disorders, relevant for the assessment of hyperthyroidism and its cardiovascular effects. - Hierarchy: Independent  
+3. Pharmacologist - Expert in the effects and mechanisms of various medications, crucial for evaluating the appropriate pharmacotherapy options. - Hierarchy: Independent  
+Agent 1 (👨🏽‍⚕️ Cardiologist): Focuses on the diagnosis and treatment of heart conditions, particularly arrhythmias and palpitations.
+Agent 2 (👨🏽‍⚕️ Endocrinologist): Specializes in hormonal disorders, relevant for the assessment of hyperthyroidism and its cardiovascular effects.
+Agent 3 (👩🏻‍⚕️ Pharmacologist): Expert in the effects and mechanisms of various medications, crucial for evaluating the appropriate pharmacotherapy options.
+
+[INFO] Hierarchy Selection
+                   moderator (👨‍⚖️)                                               
+           ┌───────────────┴─────────────┬───────────────────────────┐            
+  Cardiologist (👨🏽‍⚕️)         Pharmacologist (👩🏻‍⚕️)     Endocrinologist (👨🏽‍⚕️) 
+
+
+[INFO] Step 2. Initial Opinions
+ Agent 1 (👨🏽‍⚕️ cardiologist) : Based on the symptoms and clinical findings described, the patient presents with signs suggestive of hyperthyroidism, including palpitations, tremor, localized chest pain, and the retraction of the left upper eyelid. The irregularly irregular pulse is characteristic of atrial fibrillation, which can be associated with hyperthyroid states.
+
+In this situation, it is important to control the patient's heart rate and manage the underlying hyperthyroidism. Propranolol is a non-selective beta-blocker that is often used in hyperthyroid patients, not only to control symptoms like palpitations and tremor but also to provide rate control in atrial fibrillation.
+
+Considering this information, the most appropriate pharmacotherapy from the options provided is:
+
+(A) Propranolol
+ Agent 2 (👨🏽‍⚕️ endocrinologist) : Based on the clinical presentation of this 35-year-old woman, she exhibits symptoms that are highly suggestive of hyperthyroidism, including palpitations, tremors, weight changes, and localized edema ("digital swelling"). The retraction of the left upper eyelid (indicating possible Graves' disease) and the irregularly irregular heartbeat (suggestive of atrial fibrillation) further support this diagnosis.
+
+In hyperthyroid patients, particularly those with atrial fibrillation, it is common to use a beta-blocker to help control both the heart rate and symptoms such as tremors and anxiety. Propranolol is an effective option in this scenario, as it will help address the tachycardia and improve the patient's palpitations by slowing the heart rate. It can also alleviate some of the symptoms associated with increased adrenergic tone, such as tremors.
+
+The other options:
+- Digoxin is typically used for rate control in atrial fibrillation, especially in patients with heart failure, but is not the first-line treatment for hyperthyroidism-related symptoms.
+- Amiodarone is an antiarrhythmic agent that is not first-line therapy in this acute presentation and also has its own thyroid-related side effects.
+- Diltiazem can be used for heart rate control, but again, beta-blockers like propranolol are preferred in hyperthyroid patients.
+- Warfarin would be indicated if there was a high risk of thromboembolism due to atrial fibrillation, but it does not address the patient's acute symptoms.
+
+Given the above considerations, the most appropriate pharmacotherapy for this patient is:
+
+(A) Propranolol
+ Agent 3 (👩🏻‍⚕️ pharmacologist) : The patient's presentation is suggestive of hyperthyroidism, possibly Graves' disease, given the symptoms of palpitations, tremor, retraction of the left upper eyelid (which could indicate Graves' ophthalmopathy), and the irregularly irregular pulse (suggesting atrial fibrillation). In cases of hyperthyroidism with atrial fibrillation, the primary goals of treatment include controlling the heart rate and addressing the underlying hyperthyroid condition.
+
+Among the options provided:
+
+(A) Propranolol - a beta-blocker that can effectively control heart rate and alleviate symptoms related to hyperthyroidism, such as palpitations and tremors.
+
+(B) Digoxin - typically used for rate control in atrial fibrillation, but less effective in thyrotoxic patients due to increased heart rate response.
+
+(C) Amiodarone - an antiarrhythmic that can be used in atrial fibrillation but is not first-line for rate control in hyperthyroid patients.
+
+(D) Warfarin - an anticoagulant that is important for preventing thromboembolic events in patients with atrial fibrillation, but it does not address the immediate symptoms.
+
+(E) Diltiazem - a calcium channel blocker that can also help control heart rate in atrial fibrillation but is less effective than beta-blockers in hyperthyroid patients.
+
+Given the urgency of controlling her heart rate and alleviating symptoms due to hyperthyroidism, the most appropriate pharmacotherapy option for this patient is:
+
+**(A) Propranolol**.
+
+[INFO] Step 3. Collaborative Decision Making
+== Round 1 ==
+[INFO] Participatory Debate
+|_Turn 1
+ Agent 1 (👨🏽‍⚕️ cardiologist): 🤐
+ Agent 2 (👨🏽‍⚕️ endocrinologist): 🤐
+ Agent 3 (👩🏻‍⚕️ pharmacologist): 🤐
+ No agents chose to participate in this turn. End this turn.
+ No agents chose to participate in this round. End this round.
+
+[INFO] Step 4. Final Decision
+👨‍⚖️  Moderator's final decision: {0.3: "The consensus among the experts is clear, with all three specialists (the cardiologist, endocrinologist, and pharmacologist) agreeing on the diagnosis of hyperthyroidism, likely due to Graves' disease, and the associated symptoms of palpitations, tremors, and atrial fibrillation. They all emphasize the importance of controlling the heart rate and addressing the symptoms of hyperthyroidism.\n\nPropranolol is unanimously recommended as the most appropriate pharmacotherapy because it effectively manages both the heart rate and the adrenergic symptoms associated with hyperthyroidism. The other options, such as digoxin, amiodarone, diltiazem, and warfarin, do not provide the same level of symptom control or are not first-line treatments in this context.\n\nGiven the strong agreement and reasoning provided by the experts, the final decision is:\n\n**(A) Propranolol**."}
+
+[INFO] API calls for this sample: 10
+
+[INFO] Sample 46 completed successfully

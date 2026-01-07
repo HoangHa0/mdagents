@@ -1,0 +1,26 @@
+[INFO] Processing sample 14
+
+[INFO] Generating Few-Shot response with 3 few-shot examplers.
+
+Fewshot exampler #1:
+Question: A 53-year-old man is admitted to the intensive care unit from the emergency department with severe pancreatitis. Overnight, he starts to develop severe hypoxemia, and he is evaluated by a rapid response team. On exam the patient is breathing very quickly and has rales and decreased breath sounds bilaterally. He is placed on 50% FiO2, and an arterial blood gas is collected with the following results:
+
+pH: 7.43
+pCO2: 32 mmHg
+pO2: 78 mmHg
+
+The oxygen status of the patient continues to deteriorate, and he is placed on ventilator support. Which of the following would most likely be seen in this patient? (D) Intra-alveolar hyaline membrane formation (A) Decreased lecithin to sphingomyelin ratio (B) Diffuse lipid droplets and globules (C) Hemosiderin-laden alveolar macrophages (E) Large clot in pulmonary artery
+Answer: (D) Intra-alveolar hyaline membrane formation
+
+Fewshot exampler #2:
+Question: A 27-year-old woman seeks evaluation by her general physician with complaints of an odorous yellow vaginal discharge and vaginal irritation for the past 3 days. She also complains of itching and soreness. The medical history is unremarkable. She is not diabetic. She has been sexually active with a single partner for the last 3 years. A vaginal swab is sent to the lab for microscopic evaluation, the results of which are shown in the exhibit, and the culture yields heavy growth of protozoa. A pregnancy test was negative. What is the most appropriate treatment for this patient? (E) Acyclovir (A) Metronidazole (C) Ampicillin (B) Nystatin (D) Fluconazole
+Answer: (A) Metronidazole
+
+Fewshot exampler #3:
+Question: A 19-year-old male from rural West Virginia presents to his family medicine doctor to discuss why he is having trouble getting his wife pregnant. On exam, he is 6 feet 2 inches with a frail frame and broad hips for a male his size. He is noted to have mild gynecomastia, no facial hair, and small, underdeveloped testes. He claims that although he has a lower libido than most of his friends, he does have unprotected sex with his wife. His past medical history is notable for developmental delay and difficulties in school. What is the most likely chromosomal abnormality in this patient? (D) 47: XXY (B) Trisomy 21 (A) Trisomy 13 (E) 45: XO (C) 47: XYY
+Answer: (D) 47: XXY
+Answer: (C) Carotid baroreceptor firing activity
+
+[INFO] API calls for this sample: 1
+
+[INFO] Sample 14 completed successfully

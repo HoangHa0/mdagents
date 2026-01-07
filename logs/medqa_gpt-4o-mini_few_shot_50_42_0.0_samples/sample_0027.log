@@ -1,0 +1,20 @@
+[INFO] Processing sample 27
+
+[INFO] Generating Few-Shot response with 3 few-shot examplers.
+
+Fewshot exampler #1:
+Question: A 67-year-old man with a past medical history of sleep apnea presents to the emergency room in severe respiratory distress. On exam, his blood pressure is 135/75 mmHg, heart rate is 110/min, respiratory rate is 34/min, and SpO2 is 73% on room air. He is intubated, admitted to the intensive care unit, and eventually requires a tracheostomy tube. After surgery, he continues to have episodes of apnea while sleeping. What is the most likely underlying cause of his apnea? (A) Incorrect ventilator settings (E) Heart failure (C) Obstructive sleep apnea (B) Central sleep apnea (D) Angioedema
+Answer: (B) Central sleep apnea
+
+Fewshot exampler #2:
+Question: A 52-year-old man is seen by his endocrinologist for routine followup of his type 2 diabetes. Although he has previously been on a number of medication regimens, his A1C has remained significantly elevated. In order to try to better control his glucose level, the endocrinologist prescribes a new medication. He explains that this new medication works by blocking the ability of his kidneys to reabsorb glucose and therefore causes glucose wasting in the urine. Which of the following medications has this mechanism of action? (E) Metformin (A) Acarbose (C) Exenatide (B) Canagliflozin (D) Glyburide
+Answer: (B) Canagliflozin
+
+Fewshot exampler #3:
+Question: A 52-year-old man presents with a 5-week history of multiple cutaneous ulcers on his left forearm and neck, which he first noticed after returning from a 2-month stay in rural Peru. He does not recall any trauma or arthropod bites. The lesions began as non-pruritic erythematous papules that became enlarged, ulcerated, and crusted. There is no history of fever or abdominal pain. He has been sexually active with a single partner since their marriage at 24 years of age. The physical examination reveals erythematous, crusted plaques with central ulceration and a raised border. There is no fluctuance, drainage, or sporotrichoid spread. A punch biopsy was performed, which revealed an ulcerated lesion with a mixed inflammatory infiltrate. Amastigotes within dermal macrophages are seen on Giemsa staining. What is the most likely diagnosis? (B) Cutaneous leishmaniasis (A) Histoplasmosis (E) Cutaneous tuberculosis (D) Syphilis (C) Ecthyma
+Answer: (B) Cutaneous leishmaniasis
+Answer: (B) MRI of the hip
+
+[INFO] API calls for this sample: 1
+
+[INFO] Sample 27 completed successfully

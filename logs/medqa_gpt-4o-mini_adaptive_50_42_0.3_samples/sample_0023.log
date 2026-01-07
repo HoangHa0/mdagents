@@ -1,0 +1,52 @@
+[INFO] Processing sample 23
+
+[INFO] Step 1. Expert Recruitment
+[DEBUG] Recruited Experts and Hierarchy:
+1. Orthopedic Surgeon - Specializes in the diagnosis and treatment of musculoskeletal system disorders. - Hierarchy: Independent  
+2. Physical Therapist - Focuses on rehabilitation and physiotherapy interventions for musculoskeletal injuries and conditions. - Hierarchy: Independent  
+3. Neurologist - Specializes in the diagnosis and treatment of nervous system disorders, including issues related to nerve pain and radiculopathy. - Hierarchy: Independent
+Agent 1 (👨‍⚕️ Orthopedic Surgeon): Specializes in the diagnosis and treatment of musculoskeletal system disorders.
+Agent 2 (🧑‍⚕️ Physical Therapist): Focuses on rehabilitation and physiotherapy interventions for musculoskeletal injuries and conditions.
+Agent 3 (🧑🏽‍⚕️ Neurologist): Specializes in the diagnosis and treatment of nervous system disorders, including issues related to nerve pain and radiculopathy.
+
+[INFO] Hierarchy Selection
+                       moderator (👨‍⚖️)                                             
+             ┌─────────────────┴───────────┬──────────────────────────┐             
+ Orthopedic Surgeon (👨‍⚕️)        Neurologist (🧑🏽‍⚕️)     Physical Therapist (🧑‍⚕️) 
+
+
+[INFO] Step 2. Initial Opinions
+ Agent 1 (👨‍⚕️ orthopedic surgeon) : In this scenario, the patient is presenting with lower back pain that is radiating to the buttocks and potentially down the leg, which raises suspicion for lumbar radiculopathy or possible sciatic nerve involvement due to a herniated disc or other spinal condition. The description of the pain as "electrical" further supports a neuropathic component.
+
+To help confirm the diagnosis, the "Straight leg raise" (C) test would be the most appropriate choice. This test is used to evaluate nerve root irritation, particularly of the lumbar spine and is commonly used to assess for lumbar disc herniation leading to radicular symptoms such as pain traveling down the leg. A positive straight leg raise test, where pain is reproduced in the leg when the straightened leg is raised to a certain angle, would indicate potential issues with the lumbar spine.
+
+So, the answer is (C) Straight leg raise.
+ Agent 2 (🧑‍⚕️ physical therapist) : Given the patient's presentation of sudden lower back pain that radiates into the buttocks and down the leg, along with the electrical sensation, this could be indicative of a lumbar radiculopathy or a herniated disc, especially given the recent history of lifting a heavy object.
+
+To confirm the diagnosis of conditions like lumbar radiculopathy, the straight leg raise (C) test is a commonly used neurological test to assess for nerve root involvement, particularly around the L5 and S1 levels. A positive straight leg raise test may indicate irritation of the sciatic nerve and further support a diagnosis of lumbar radiculopathy.
+
+Therefore, the most likely option to help confirm the diagnosis in this case is:
+
+**(C) Straight leg raise.**
+ Agent 3 (🧑🏽‍⚕️ neurologist) : Based on the patient's symptoms—especially the description of "electrical" pain radiating from the buttocks down the leg—it is suggestive of radiculopathy, likely due to nerve root compression. The most common cause could be a lumbar disc herniation leading to sciatica.
+
+Among the options given, the straight leg raise (C) test is a classic examination maneuver used to assess for lumbar radiculopathy. It is performed by having the patient lie supine and lifting the leg while keeping the knee straight. If this maneuver reproduces the patient's pain down the leg, it would help confirm the diagnosis of nerve root involvement.
+
+Therefore, the most likely option to help confirm the diagnosis is (C) Straight leg raise.
+
+[INFO] Step 3. Collaborative Decision Making
+== Round 1 ==
+[INFO] Participatory Debate
+|_Turn 1
+ Agent 1 (👨‍⚕️ orthopedic surgeon): 🤐
+ Agent 2 (🧑‍⚕️ physical therapist): 🤐
+ Agent 3 (🧑🏽‍⚕️ neurologist): 🤐
+ No agents chose to participate in this turn. End this turn.
+ No agents chose to participate in this round. End this round.
+
+[INFO] Step 4. Final Decision
+👨‍⚖️  Moderator's final decision: {0.3: 'Based on the multidisciplinary team discussion, there is a clear consensus among the experts regarding the patient\'s symptoms and the most appropriate diagnostic test. All three specialists—orthopedic surgeon, physical therapist, and neurologist—agree that the patient\'s presentation of lower back pain radiating to the buttocks and down the leg, along with the description of "electrical" pain, is indicative of lumbar radiculopathy or possible nerve root involvement.\n\nThe "Straight leg raise" (C) test is specifically designed to assess for nerve root irritation, particularly in cases of lumbar disc herniation, which aligns with the patient\'s symptoms. Each expert provided a rationale supporting the use of this test to confirm the diagnosis, emphasizing its relevance in evaluating nerve root involvement.\n\nGiven the strong agreement and reasoning quality among the experts, the final answer to the question is:\n\n**(C) Straight leg raise.**'}
+
+[INFO] API calls for this sample: 10
+
+[INFO] Sample 23 completed successfully

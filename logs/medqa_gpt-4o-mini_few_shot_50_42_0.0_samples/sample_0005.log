@@ -1,0 +1,37 @@
+[INFO] Processing sample 5
+
+[INFO] Generating Few-Shot response with 3 few-shot examplers.
+
+Fewshot exampler #1:
+Question: A 25-year-old female with a history of childhood asthma presents to clinic complaining of a three month history of frequent, loose stools. She currently has three to four bowel movements per day, and she believes that these episodes have been getting worse and are associated with mild abdominal pain. She also endorses seeing red blood on the toilet tissue. On further questioning, she also endorses occasional palpitations over the past few months. She denies fevers, chills, headache, blurry vision, cough, shortness of breath, wheezing, nausea, or vomiting. She describes her mood as slightly irritable and she has been sleeping poorly. A review of her medical chart reveals a six pound weight loss since her visit six months ago, but she says her appetite has been normal. The patient denies any recent illness or travel. She is a non-smoker. Her only current medication is an oral contraceptive pill.
+
+Her temperature is 37°C (98.6°F), pulse is 104/min, blood pressure is 95/65 mmHg, respirations are 16/min, and oxygen saturation is 99% on room air. On physical exam, the physician notes that her thyroid gland appears symmetrically enlarged but is non-tender to palpation. Upon auscultation there is an audible thyroid bruit. Her cranial nerve is normal and ocular exam reveals exophthalmos. Her abdomen is soft and non-tender to palpation. Deep tendon reflexes are 3+ throughout. Lab results are as follows:
+
+Serum:
+Na+: 140 mEq/L
+K+: 4.1 mEq/L
+Cl-: 104 mEq/L
+HCO3-: 26 mEql/L
+BUN: 18 mg/dL
+Creatinine 0.9 mg/dL
+
+Hemoglobin: 14.0 g/dL
+Leukocyte count: 7,400/mm^3
+Platelet count 450,000/mm^3
+TSH & Free T4: pending
+
+A pregnancy test is negative. The patient is started on propranolol for symptomatic relief. What is the most likely best next step in management for this patient? (E) Surgical thyroidectomy (B) Propylthiouracil (D) Thyroid scintigraphy with I-123 (A) IV hydrocortisone (C) Adalimumab
+Answer: (B) Propylthiouracil
+
+Fewshot exampler #2:
+Question: A 4-year-old boy is brought to the physician by his parents because of concerns about his behavior during the past year. His parents report that he often fails to answer when they call him and has regular unprovoked episodes of crying and screaming. At kindergarten, he can follow and participate in group activities, but does not follow his teacher's instructions when these are given to him directly. He is otherwise cheerful and maintains eye contact when spoken to but does not respond when engaged in play. He gets along well with friends and family. He started walking at the age of 11 months and can speak in two-to-three-word phrases. He often mispronounces words. Which of the following is the most likely diagnosis? (E) Conduct disorder (A) Selective mutism (D) Specific-learning disorder (C) Autistic spectrum disorder (B) Hearing impairment
+Answer: (B) Hearing impairment
+
+Fewshot exampler #3:
+Question: A 24-year-old man presents with a painless genital ulcer for the past 2 weeks. He reports that he recently has been having unprotected sex with multiple partners. Past medical history is unremarkable. On physical examination, a single ulcer is present on the dorsal shaft of the penis which is circumscribed, indurated, and partially healed. There is moderate inguinal lymphadenopathy but no buboes. Which of the following tests would confirm the most likely diagnosis in this patient? (E) Perform a darkfield microscopic examination of a swab from the chancre (D) Frei test (C) Fluorescent treponemal antibody absorption (FTA-ABS) test (B) Swab the chancre and perform a saline wet mount (A) Viral and rickettsial disease research laboratory (VDRL) test
+Answer: (C) Fluorescent treponemal antibody absorption (FTA-ABS) test
+Answer: (E) Order an ACTH stimulation test
+
+[INFO] API calls for this sample: 1
+
+[INFO] Sample 5 completed successfully

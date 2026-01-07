@@ -1,0 +1,21 @@
+[INFO] Processing sample 29
+
+[INFO] Generating Few-Shot response with 3 few-shot examplers.
+
+Fewshot exampler #1:
+Question: A 30-month-old toddler presents with his mother to the pediatrician for a scheduled follow-up. She is concerned that his appetite has been poor since the death of his father, approximately one year ago. She denies any history of vomiting, refusal of food, diarrhea, constipation, recurrent cough and colds, recurrent wheezing, fast breathing, recurrent fever, or recurrent infections. The boy was born at full term by vaginal delivery with an uneventful neonatal period and infancy. His vaccines are up to date. On physical examination, his vital signs are stable. His complete physical examination does not suggest a specific medical disorder or congenital abnormality. His detailed diagnostic evaluation, including complete blood counts, serum protein, liver function tests, and urinalysis are normal. The pediatrician reviews the patient’s growth chart.
+At the age of 18 months he was at the 90th percentile for weight and 75th for height. After plotting his current growth parameters on the growth charts, the pediatrician suspects failure to thrive with psychosocial etiology. Based on which of the following findings on the growth charts did the pediatrician suspect the condition? (C) Present gender-specific height for age between 90 and 75 percentile markers (B) Present gender-specific weight for age between 75 and 50 percentile markers (E) Present gender-specific weight for height between 90 and 95 percentile markers (D) Present gender-specific height for age between 75 and 50 percentile markers (A) Present gender-specific weight for age between 90 and 75 percentile markers
+Answer: (B) Present gender-specific weight for age between 75 and 50 percentile markers
+
+Fewshot exampler #2:
+Question: A 60-year-old man comes to the physician because of a 6-month history of progressively worsening urinary frequency. He feels the urge to urinate every hour or two, which restricts his daily activities and interferes with his sleep. He has no fever, hematuria, or burning pain on micturition. He has hypertension and type 2 diabetes mellitus. Current medications include metformin and amlodipine. He does not smoke and drinks 1 to 2 beers daily. His vital signs are within normal limits. Abdominal examination shows no abnormalities. Digital rectal examination shows a nontender, firm, symmetrically enlarged prostate with no nodules. Which of the following is the most appropriate next step in management? (B) Prostate ultrasonography (C) Urine cytology (D) Serum prostate-specific antigen level (E) Uroflowmetry (A) Urinalysis
+Answer: (A) Urinalysis
+
+Fewshot exampler #3:
+Question: A 15-year-old girl presents with menorrhagia for the last 4 months. The patient’s mother says that she just started getting her period 4 months ago, which have been heavy and prolonged. The patient does recall getting a tooth extracted 3 years ago that was complicated by persistent bleeding afterward. She has no other significant past medical history and takes no current medications. Her vital signs include: blood pressure 118/76 mm Hg, respirations 17/min, pulse 64/min, temperature 36.7°C (98.0°F). Physical examination is unremarkable. Which of the following laboratory tests is most likely to be of the greatest diagnostic value in the workup of this patient? (C) Anti-cardiolipin antibodies (B) Partial thromboplastin time (PTT) (D) Ro/La autoantibodies (A) Factor IX assay (E) Prothrombin time (PT)
+Answer: (B) Partial thromboplastin time (PTT)
+Answer: (D) Peroxisome proliferator-activated receptor gamma
+
+[INFO] API calls for this sample: 1
+
+[INFO] Sample 29 completed successfully

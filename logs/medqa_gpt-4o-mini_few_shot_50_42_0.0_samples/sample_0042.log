@@ -1,0 +1,28 @@
+[INFO] Processing sample 42
+
+[INFO] Generating Few-Shot response with 3 few-shot examplers.
+
+Fewshot exampler #1:
+Question: A 68-year-old right hand-dominant man presents to the emergency room complaining of severe right arm pain after falling down a flight of stairs. He landed on his shoulder and developed immediate severe upper arm pain. Physical examination reveals a 2-cm laceration in the patient’s anterior right upper arm. Bone is visible through the laceration. An arm radiograph demonstrates a displaced comminuted fracture of the surgical neck of the humerus. Irrigation and debridement is performed immediately and the patient is scheduled to undergo definitive operative management of his fracture. In the operating room on the following day, the operation is more complicated than expected and the surgeon accidentally nicks a neurovascular structure piercing the coracobrachialis muscle. This patient would most likely develop a defect in which of the following? (E) Wrist extension (B) Forearm pronation (A) Elbow extension (C) Lateral forearm skin sensation (D) Medial arm skin sensation
+Answer: (C) Lateral forearm skin sensation
+
+Fewshot exampler #2:
+Question: A 51-year-old homeless man presents to the emergency department with severe abdominal pain and cramping for the past 3 hours. He endorses radiation to his back. He adds that he vomited multiple times. He admits having been hospitalized repeatedly for alcohol intoxication and abdominal pain. His temperature is 103.8° F (39.8° C), respiratory rate is 15/min, pulse is 107/min, and blood pressure is 100/80 mm Hg. He refuses a physical examination due to severe pain. Blood work reveals the following:
+Serum:    
+  Albumin: 3.2 gm/dL
+  Alkaline phosphatase: 150 U/L
+  Alanine aminotransferase: 76 U/L
+  Aspartate aminotransferase: 155 U/L
+  Gamma-glutamyl transpeptidase: 202 U/L
+  Lipase: 800 U/L
+What is the most likely diagnosis of this patient? (B) Pancreatitis (D) Duodenal peptic ulcer (C) Choledocholithiasis (E) Gallbladder cancer (A) Cholecystitis
+Answer: (B) Pancreatitis
+
+Fewshot exampler #3:
+Question: A 59-year-old man presents with the persistent right-sided facial droop and slurred speech for the past 2 hours. He says he had similar symptoms 6 months ago which resolved within 1 hour. His past medical history is significant for long-standing hypertension, managed with hydrochlorothiazide. He reports a 10-pack-year smoking history but denies any alcohol or recreational drug use. The vital signs include: blood pressure 145/95 mm Hg, pulse 95/min, and respiratory rate 18/min. On physical examination, the patient has an asymmetric smile and right-sided weakness of his lower facial muscles. There is a deviation of his tongue towards the right. Dysarthria is noted. His muscle strength in the upper extremities is 4/5 on the right and 5/5 on the left. The remainder of the physical exam is unremarkable. Which of the following is the next most appropriate step in the management of this patient? (A) CT of the head without contrast (E) IV tPA (D) CT angiography of the brain (C) T1/T2 MRI of the head (B) CT of the head with contrast
+Answer: (A) CT of the head without contrast
+Answer: (A) 69XXY
+
+[INFO] API calls for this sample: 1
+
+[INFO] Sample 42 completed successfully

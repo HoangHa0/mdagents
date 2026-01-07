@@ -1,0 +1,14 @@
+[INFO] Processing sample 36
+
+[INFO] Generating Zero-Shot response.
+The patient's symptoms and laboratory values suggest hypercalcemia, indicated by the elevated calcium level (Ca2+ of 12.2 mg/dL) and low parathyroid hormone (PTH) level (8 pg/mL). The confusion, somnolence, and increased urination can be attributed to the effects of hypercalcemia.
+
+For long-term management of hypercalcemia, especially if it is due to conditions such as primary hyperparathyroidism or malignancy, bisphosphonates like alendronate are often used as they help to decrease bone resorption and lower serum calcium levels over time.
+
+Therefore, the best long-term prophylaxis for this patient's condition is:
+
+Answer: (A) Alendronate
+
+[INFO] API calls for this sample: 1
+
+[INFO] Sample 36 completed successfully

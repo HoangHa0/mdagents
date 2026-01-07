@@ -1,0 +1,21 @@
+[INFO] Processing sample 15
+
+[INFO] Generating Few-Shot response with 3 few-shot examplers.
+
+Fewshot exampler #1:
+Question: A 24-year-old woman with no past medical history is post operative day 2 from a cesarean section that resulted in the birth of her first child. She begins to cry when she's told that today's lunch will be gluten-free. Although the patient feels "exhausted" and has had trouble sleeping, she deeply desires to return home and take care of her newborn. The patient denies any changes in concentration or suicidal thoughts now or during the pregnancy. What is the diagnosis and likely outcome? (A) Postpartum "blues"; her symptoms are likely self-limited (E) Postpartum bipolar disorder; this patient will likely have future bipolar episodes (C) Major depressive episode; this patient is at high risk of recurrence (D) Postpartum psychosis; symptoms will resolve in time, but she needs treatment with antipsychotics, lithium, and/or antidepressants (B) Postpartum depression; the patient will likely remain depressed for at least six more months
+Answer: (A) Postpartum "blues"; her symptoms are likely self-limited
+
+Fewshot exampler #2:
+Question: A 16-year-old girl is brought to the physician by her mother because she has not attained menarche. She has no history of serious illness. She is at 50th percentile for height and weight. Examination shows no breast glandular tissue and no pubic hair development. The remainder of the examination shows no abnormalities. A urine pregnancy test is negative. An ultrasound of the pelvis shows no abnormalities. Which of the following is the most appropriate next step in management? (D) Serum FSH level (C) Progesterone challenge test (A) GnRH stimulation test (E) Serum testosterone level (B) Reassurance
+Answer: (D) Serum FSH level
+
+Fewshot exampler #3:
+Question: A 23-year-old nulligravida presents for evaluation 5 weeks after her last menstrual period. Her previous menstruation cycle was regular, and her medical history is benign. She is sexually active with one partner and does not use contraception. A urine dipstick pregnancy test is negative. The vital signs are as follows: blood pressure 120/80 mm Hg, heart rate 71/min, respiratory rate 13/min, and temperature 36.8°C (98.2°F). The physical examination is notable for breast engorgement, increased pigmentation of the nipples, and linea alba. The gynecologic examination demonstrates cervical and vaginal cyanosis.
+Measurement of which of the following substances is most appropriate in this case? (D) Urinary estrogen metabolites (E) Blood human chorionic gonadotropin (C) Blood progesterone (A) Blood estriol (B) Urinary human chorionic gonadotropin
+Answer: (E) Blood human chorionic gonadotropin
+Answer: (D) Spherocytes
+
+[INFO] API calls for this sample: 1
+
+[INFO] Sample 15 completed successfully

@@ -1,0 +1,20 @@
+[INFO] Processing sample 1
+
+[INFO] Generating Few-Shot response with 3 few-shot examplers.
+
+Fewshot exampler #1:
+Question: A 43-year-old Hispanic woman was admitted to the emergency room with intermittent sharp and dull pain in the right lower quadrant for the past 2 days. The patient denies nausea, vomiting, diarrhea, or fever. She states that she was ‘completely normal’ prior to this sudden episode of pain. The patient states that she is sure she is not currently pregnant and notes that she has no children. Physical exam revealed guarding on palpation of the lower quadrants. An abdominal ultrasound revealed free abdominal fluid, as well as fluid in the gallbladder fossa. After further evaluation, the patient is considered a candidate for laparoscopic cholecystectomy. The procedure and the risks of surgery are explained to her and she provides informed consent to undergo the cholecystectomy. During the procedure, the surgeon discovers a gastric mass suspicious for carcinoma. The surgeon considers taking a biopsy of the mass to determine whether or not she should resect the mass if it proves to be malignant. Which of the following is the most appropriate course of action to take with regards to taking a biopsy of the gastric mass? (C) The surgeon should obtain consent to biopsy the mass from the patient when she wakes up from cholecystectomy (B) The surgeon should resect the gastric mass (E) The surgeon should contact an attorney to obtain consent to biopsy the mass (A) The surgeon should biopsy the gastric mass (D) The surgeon should contact an ethics committee to obtain consent to biopsy the mass
+Answer: (C) The surgeon should obtain consent to biopsy the mass from the patient when she wakes up from cholecystectomy
+
+Fewshot exampler #2:
+Question: A 72-year-old man has been recently diagnosed with stage 3 squamous cell carcinoma of the oral cavity. After the necessary laboratory workup, concurrent chemoradiation therapy has been planned. Radiation therapy is planned to take place over 7 weeks and he will receive radiation doses daily, Monday–Friday, in 2.0 Gy fractions. For concurrent chemotherapy, he will receive intravenous cisplatin at a dosage of 50 mg/m2 weekly for 7 weeks. Which of the following best explains the mechanism of action of the antineoplastic drug that the patient will receive? (B) Inhibition of topoisomerase 2 (D) Inhibition of topoisomerase 1 (E) Free radical-mediated lipid peroxidation (A) Inhibition of polymerization of tubulin (C) Formation of interstrand DNA cross-links
+Answer: (C) Formation of interstrand DNA cross-links
+
+Fewshot exampler #3:
+Question: A 63-year-old man comes to the physician because of a 3-week history of fatigue and shortness of breath. Physical examination shows diminished breath sounds at the right lung base. An x-ray of the chest shows blunting of the right costophrenic angle. Thoracentesis shows clear, yellow-colored fluid with a protein concentration of 1.9 g/dL. Which of the following is the most likely underlying cause of this patient's pleural effusion? (B) Pulmonary sarcoidosis (A) Pulmonary tuberculosis (E) Bacterial pneumonia (C) Congestive heart failure (D) Thoracic duct injury
+Answer: (C) Congestive heart failure
+Answer: (A) Aldosterone excess
+
+[INFO] API calls for this sample: 1
+
+[INFO] Sample 1 completed successfully

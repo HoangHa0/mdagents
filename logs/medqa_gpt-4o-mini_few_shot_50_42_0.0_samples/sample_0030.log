@@ -1,0 +1,34 @@
+[INFO] Processing sample 30
+
+[INFO] Generating Few-Shot response with 3 few-shot examplers.
+
+Fewshot exampler #1:
+Question: An 81-year-old man is brought in by his neighbor with altered mental status. The patient’s neighbor is unsure exactly how long he was alone, but estimates that it was at least 3 days. The neighbor says that the patient usually has his daughter at home to look after him but she had to go into the hospital recently. The patient is unable to provide any useful history. Past medical history is significant for long-standing hypercholesterolemia and hypertension, managed medically with rosuvastatin and hydrochlorothiazide, respectively. His vital signs include: blood pressure, 140/95 mm Hg; pulse, 106/min; temperature, 37.2°C (98.9°F); and respiratory rate, 19/min. On physical examination, the patient is confused and unable to respond to commands. His mucus membranes are dry and he has tenting of the skin. The remainder of the exam is unremarkable. Laboratory findings are significant for the following:
+Sodium 141 mEq/L
+Potassium 4.1 mEq/L
+Chloride 111 mEq/L
+Bicarbonate 21 mEq/L
+BUN 40 mg/dL
+Creatinine 1.4 mg/dL
+Glucose (fasting) 80 mg/dL
+  Magnesium 1.9 mg/dL
+Calcium 9.3 mg/dL
+Phosphorous 3.6 mg/dL
+24-hour urine collection
+Urine Sodium 169 mEq/24 hr (ref: 100–260 mEq/24 hr)
+Urine Creatinine 79.5 g/24 hr (ref: 1.0–1.6 g/24 hr)
+Which of the following is the most likely cause of this patient’s acute renal failure? (C) Sepsis (A) Acute tubular necrosis (E) UTI due to obstructive nephrolithiasis (B) Dehydration (D) NSAID use
+Answer: (B) Dehydration
+
+Fewshot exampler #2:
+Question: A 6-year-old girl presents to the clinic for a general checkup before her last scheduled DTaP vaccination. Her mother is concerned about mild swelling and redness at the site of injection after her daughter’s previous DTaP administration. The patient has mild spastic cerebral palsy. She was diagnosed with epilepsy at the age of 5, and it is well-controlled with levetiracetam. She is allergic to penicillin. Currently, she complains of malaise and mild breathlessness. The mother noted that her daughter has been sluggish for the last 3 days. Her vital signs are as follows: the blood pressure is 100/60 mm Hg, the heart rate is 90/min, the respiratory rate is 22/min, and the temperature is 38.8°C (101.8°F). On physical examination, the patient has slightly enlarged submandibular lymph nodes bilaterally and oropharyngeal erythema. On auscultation, there are diminished vesicular breath sounds with a few respiratory crackles over the lower lobe of the left lung. Which of the following factors requires delaying the patient’s vaccination? (E) Penicillin allergy (A) Cerebral palsy (C) Mild swelling and redness at the site of injection after the previous vaccine administration (B) Epilepsy (D) Signs of pneumonia
+Answer: (D) Signs of pneumonia
+
+Fewshot exampler #3:
+Question: A 14-year-old boy is brought to the office by his mother with the complaint of increasing bilateral nasal obstruction for the past 5 months. He also complains of continuous bilateral nasal discharge. He adds that he no longer has any sense of smell of foods. Past medical history is significant for growth retardation and chronic bronchitis at the age of 6 years. Anterior rhinoscopy reveals multiple semi-transparent, soft and mobile masses in the middle meatus. Which of the following is the most likely etiology of this patient’s condition? (D) Nonallergic rhinopathy (E) Juvenile nasopharyngeal angiofibroma (A) Septal deviation (B) Nasal polyposis (C) Foreign body
+Answer: (B) Nasal polyposis
+Answer: (E) Conversion disorder
+
+[INFO] API calls for this sample: 1
+
+[INFO] Sample 30 completed successfully

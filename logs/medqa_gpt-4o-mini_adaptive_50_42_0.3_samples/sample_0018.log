@@ -1,0 +1,48 @@
+[INFO] Processing sample 18
+
+[INFO] Step 1. Expert Recruitment
+[DEBUG] Recruited Experts and Hierarchy:
+1. Psychiatrist - Specializes in the diagnosis and treatment of mental health disorders, including schizophrenia and the effects of antipsychotic medications. - Hierarchy: Independent  
+2. Neurologist - Focuses on disorders of the nervous system, including movement disorders associated with medications such as tardive dyskinesia. - Hierarchy: Independent  
+3. Pharmacologist - Specializes in the study of drugs and their effects on the body, particularly concerning antipsychotic medications and their side effects. - Hierarchy: Independent  
+Agent 1 (🧑🏽‍⚕️ Psychiatrist): Specializes in the diagnosis and treatment of mental health disorders, including schizophrenia and the effects of antipsychotic medications.
+Agent 2 (🧑‍⚕️ Neurologist): Focuses on disorders of the nervous system, including movement disorders associated with medications such as tardive dyskinesia.
+Agent 3 (🧑🏿‍⚕️ Pharmacologist): Specializes in the study of drugs and their effects on the body, particularly concerning antipsychotic medications and their side effects.
+
+[INFO] Hierarchy Selection
+                   moderator (👨‍⚖️)                                           
+           ┌───────────────┴─────────────┬─────────────────────────┐          
+  Psychiatrist (🧑🏽‍⚕️)         Pharmacologist (🧑🏿‍⚕️)      Neurologist (🧑‍⚕️) 
+
+
+[INFO] Step 2. Initial Opinions
+ Agent 1 (🧑🏽‍⚕️ psychiatrist) : The symptoms described in the vignette — unusual smacking motions with the lips, pursing of the mouth, and excessive blinking — are characteristic of **tardive dyskinesia (TD)**. 
+
+Tardive dyskinesia is a movement disorder that can occur after long-term treatment with antipsychotic medications, particularly typical ones like haloperidol, and it commonly presents with involuntary, repetitive movements. The symptoms can develop slowly, as indicated in this case, and the fact that they do not seem to bother the patient is also consistent with TD.
+
+So, the correct answer is: **(B) Tardive dyskinesia.**
+ Agent 2 (🧑‍⚕️ neurologist) : The symptoms described in the scenario of the 61-year-old man, specifically the unusual smacking motion with his lips, pursing of the mouth, and excessive blinking, are consistent with tardive dyskinesia (TD). Tardive dyskinesia is a disorder characterized by involuntary, repetitive movements that can often manifest in the face and mouth, as well as other parts of the body. The fact that the symptoms developed slowly over two weeks and are not bothersome to the patient further supports the diagnosis of tardive dyskinesia, especially given his history of treatment with haloperidol, which is associated with this condition. 
+
+Thus, the correct answer is (B) Tardive dyskinesia.
+ Agent 3 (🧑🏿‍⚕️ pharmacologist) : The symptoms described in the scenario—unusual lip-smacking, mouth-pursing, and excessive blinking—are indicative of tardive dyskinesia. This condition is characterized by involuntary, repetitive movements and can occur in individuals who have been treated with antipsychotic medications, particularly typical antipsychotics like haloperidol. 
+
+Tardive dyskinesia often develops slowly over time (as noted with the 2-week progression in this case) and may not be distressing to the patient. The fact that the symptoms began after prolonged treatment with haloperidol strongly suggests this diagnosis.
+
+Therefore, the correct answer is: (B) Tardive dyskinesia.
+
+[INFO] Step 3. Collaborative Decision Making
+== Round 1 ==
+[INFO] Participatory Debate
+|_Turn 1
+ Agent 1 (🧑🏽‍⚕️ psychiatrist): 🤐
+ Agent 2 (🧑‍⚕️ neurologist): 🤐
+ Agent 3 (🧑🏿‍⚕️ pharmacologist): 🤐
+ No agents chose to participate in this turn. End this turn.
+ No agents chose to participate in this round. End this round.
+
+[INFO] Step 4. Final Decision
+👨‍⚖️  Moderator's final decision: {0.3: "Based on the conversation history and the consensus among the experts, the final decision is:\n\n**(B) Tardive dyskinesia.**\n\nAll experts — the psychiatrist, neurologist, and pharmacologist — agree that the symptoms described are characteristic of tardive dyskinesia, particularly given the patient's history of treatment with haloperidol. They have provided clear reasoning that aligns with the clinical presentation, including the slow onset of symptoms and their non-distressing nature to the patient. Therefore, the diagnosis of tardive dyskinesia is supported by the collective expertise and reasoning presented in the discussion."}
+
+[INFO] API calls for this sample: 10
+
+[INFO] Sample 18 completed successfully

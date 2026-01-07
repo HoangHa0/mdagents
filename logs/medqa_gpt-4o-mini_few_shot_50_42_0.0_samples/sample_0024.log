@@ -1,0 +1,21 @@
+[INFO] Processing sample 24
+
+[INFO] Generating Few-Shot response with 3 few-shot examplers.
+
+Fewshot exampler #1:
+Question: A 16-year-old girl presents to her physician with itching, soreness, and irritation in the vulvar region. She reports that these episodes have occurred 6–7 times a year since the age of 5. She used to treat these symptoms with topical ketoconazole cream, but this time it failed to help. She also has had several episodes of oral candidiasis in the past. She is not sexually active and does not take any medication. Her vital signs are as follows: the blood pressure is 115/80 mm Hg, the heart rate is 78/min, the respiratory rate is 15/min, and the temperature is 35.5°C (97.7°F). Examination shows vulvovaginal erythema with cottage cheese-like plaques and an intact hymen. Wet mount microscopy is positive for yeast. Along with a swab culture, the physician orders a dihydrorhodamine test and myelin peroxidase staining for a suspected primary immunodeficiency. The dihydrorhodamine test is positive, and the myeloperoxidase staining reveals diminished staining. Which of the following best describes this patient’s condition? (B) The patient is likely to have another immune impairment besides the one for which she was tested. (A) The patient’s phagocytes are unable to generate an oxidative burst to kill intracellular bacteria. (C) The patient should receive prophylactic courses of wide spectrum antibiotics to prevent infections. (E) The patient is susceptible to all mycotic infections. (D) The patient’s phagocytes can only perform extracellular killing.
+Answer: (B) The patient is likely to have another immune impairment besides the one for which she was tested.
+
+Fewshot exampler #2:
+Question: A 65-year-old man comes to the physician because of a 1-month history of progressive back pain. He has also had a 5-kg (11-lb) weight loss over the past 3 months. His only medications are a daily multivitamin and ibuprofen, which he takes daily for the back pain. Physical examination shows tenderness to palpation over the lower spine and the left iliac crest. His hemoglobin concentration is 9.3 g/dL, his serum calcium concentration is 12 mg/dL, and his serum creatinine concentration is 2.1 mg/dL. A bone marrow biopsy shows 21% plasma cells. A diagnosis of multiple myeloma is established. In preparation for an autologous hematopoietic stem cell transplantation, the patient receives a myeloablative treatment regimen that includes busulfan. Which of the following drugs acts via a similar mechanism of action to busulfan? (A) Vemurafenib (D) Vincristine (E) Cytarabine (C) Lomustine (B) Etoposide
+Answer: (C) Lomustine
+
+Fewshot exampler #3:
+Question: A 70 year-old man comes to the physician for difficulty swallowing for 6 months. During this time, he has occasionally coughed up undigested food. He did not have weight loss or fever. Four weeks ago, he had an episode of sore throat, that resolved spontaneously. He has smoked one pack of cigarettes daily for 5 years. He has gastroesophageal reflux disease and osteoporosis. Current medications include alendronate and omeprazole. His temperature is 37.0°C (98.6°F), pulse is 84/min, and blood pressure is 130/90 mmHg. On examination, he has foul-smelling breath and a fluctuant mass on the right neck. Which of the following is most likely involved in the pathogenesis of this patient's symptoms? (E) Adverse effect of medication
+" (D) Abnormal esophageal motor function (B) Degeneration of neurons in the esophageal wall (A) Deep neck space infection (C) Cellular dysplasia
+Answer: (D) Abnormal esophageal motor function
+Answer: (B) 33%
+
+[INFO] API calls for this sample: 1
+
+[INFO] Sample 24 completed successfully

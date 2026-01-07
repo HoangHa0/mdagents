@@ -1,0 +1,20 @@
+[INFO] Processing sample 25
+
+[INFO] Generating Few-Shot response with 3 few-shot examplers.
+
+Fewshot exampler #1:
+Question: A 33-year-old woman presents to the clinic complaining of a 9-month history of weight loss, fatigue, and a general sense of malaise. She additionally complains of an unusual sensation in her chest upon rapidly rising from a supine to a standing position. Current vitals include a temperature of 36.8°C (98.2°F), pulse of 72/min, blood pressure of 118/63 mm Hg, and a respiratory rate of 15/min. Her BMI is 21 kg/m2. Auscultation demonstrates an early-mid diastole low-pitched sound at the apex of the heart. A chest X-ray reveals a poorly demarcated abnormality in the heart and requires CT imaging for further analysis. What would most likely be seen on CT imaging? (D) Tumor within the left atria (E) Connection between the pulmonary artery and aorta (B) Fistula between the right and left atria (C) Normal cardiac imaging (A) Tumor within the right atria
+Answer: (D) Tumor within the left atria
+
+Fewshot exampler #2:
+Question: A 57-year-old woman is brought to the emergency department because of crampy abdominal pain and foul-smelling, watery diarrhea. One week ago, she underwent treatment of cellulitis with clindamycin. She has developed shortness of breath and urticaria after treatment with vancomycin in the past. Her temperature is 38.4°C (101.1°F). Abdominal examination shows mild tenderness in the left lower quadrant. Her leukocyte count is 12,800/mm3. An enzyme immunoassay is positive for glutamate dehydrogenase antigen and toxins A and B. Which of the following is the mechanism of action of the most appropriate pharmacotherapy for this patient's condition? (C) Inhibition of bacterial topoisomerases II and IV (E) Inhibition of RNA polymerase sigma subunit (B) Blocking of protein synthesis at 50S ribosomal subunit (A) Inhibition of cell wall peptidoglycan formation (D) Generation of toxic free radical metabolites
+Answer: (E) Inhibition of RNA polymerase sigma subunit
+
+Fewshot exampler #3:
+Question: A 45-year-old woman gravida 1, para 1, comes to the physician because of a 2-month history of a right breast lump and a 4.5-kg (10-lb) weight loss. She has not had any breast pain or nipple discharge. She had right breast mastitis 10 years ago while breastfeeding but has no other history of serious illness. Palpation of the right breast shows a 3-cm firm mass with well-defined margins lateral to the right nipple . There is dimpling of the overlying skin but no rash. The left breast is normal. A mammogram shows a density with calcifications in a star-shaped formation in the same location of the mass. Histological examination of a biopsy specimen from the breast mass is most likely to show which of the following? (A) Dilated ducts lined with neoplastic cells and necrotic centers (E) Infiltration of ductal cells blocking the dermal lymphatics (D) Orderly rows of monomorphic cells that do not stain with E-cadherin (C) Large, pink-staining cells in the epidermis (B) Disorganized nests of glandular cells with surrounding fibrosis
+Answer: (B) Disorganized nests of glandular cells with surrounding fibrosis
+Answer: (B) Dantrolene
+
+[INFO] API calls for this sample: 1
+
+[INFO] Sample 25 completed successfully

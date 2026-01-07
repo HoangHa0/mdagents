@@ -1,0 +1,20 @@
+[INFO] Processing sample 18
+
+[INFO] Generating Few-Shot response with 3 few-shot examplers.
+
+Fewshot exampler #1:
+Question: A 45-year-old male presents to the hospital complaining of frequent headaches and a decreased libido. During the physical exam, the patient also states that he has recently been experiencing vision problems. The patient is suffering from what type of adenoma? (C) Corticotroph (A) Somatotroph (D) Thyrotroph (E) Gonadotroph (B) Lactotroph
+Answer: (B) Lactotroph
+
+Fewshot exampler #2:
+Question: A 35-year-old African American man presents with fever, abdominal pain, and severe weakness since yesterday. On physical examination, the patient is jaundiced and shows a generalized pallor. Past medical history is significant for recently receiving anti-malaria prophylaxis before visiting Nigeria. Laboratory tests show normal glucose-6-phosphate dehydrogenase (G6PD) levels. Peripheral smear shows the presence of bite cells and Heinz bodies. Which of the following is the most likely diagnosis in this patient? (B) Sickle cell disease (E) Glucose-6-phosphate-dehydrogenase (G6PD) deficiency (A) Autoimmune hemolytic anemia (C) Microangiopathic hemolytic anemia (D) Paroxysmal nocturnal hemoglobinuria (PNH)
+Answer: (E) Glucose-6-phosphate-dehydrogenase (G6PD) deficiency
+
+Fewshot exampler #3:
+Question: A 59-year-old man comes to the emergency department because of progressive abdominal swelling and shortness of breath for 1 week. He drinks 12 to 13 alcoholic beverages daily. He appears emaciated. Examination shows pallor, jaundice, hepatomegaly, gynecomastia, and a protuberant abdomen with a fluid wave and shifting dullness. Periodic monitoring of which of the following markers is most appropriate for this patient? (B) Alpha-fetoprotein (D) Cancer antigen 19-9 (C) Carcinoembryonic antigen (E) Beta-human chorionic gonadotropin (A) S-100 protein
+Answer: (B) Alpha-fetoprotein
+Answer: (B) Tardive dyskinesia
+
+[INFO] API calls for this sample: 1
+
+[INFO] Sample 18 completed successfully

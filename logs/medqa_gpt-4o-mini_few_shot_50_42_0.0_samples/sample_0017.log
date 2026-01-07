@@ -1,0 +1,33 @@
+[INFO] Processing sample 17
+
+[INFO] Generating Few-Shot response with 3 few-shot examplers.
+
+Fewshot exampler #1:
+Question: A 43-year-old Caucasian male spent the past month on a business trip in the Caribbean. Two weeks following his return, he began experiencing diarrhea, pain in his abdomen, and a headache. He presents to the hospital and is noted to be febrile with prominent rose-colored spots on his chest and abdomen. Following recovery, the patient may become a carrier of the bacteria with the bacteria heavily localized to the: (A) Gallbladder (D) Lungs (C) CD4 T-helper cells (E) Sensory ganglia (B) Spleen
+Answer: (A) Gallbladder
+
+Fewshot exampler #2:
+Question: A 51-year-old man with alcohol use disorder comes to the physician because of a fever and productive cough. An x-ray of the chest shows a right lower lobe consolidation and a diagnosis of aspiration pneumonia is made. The physician prescribes a drug that blocks peptide transfer by binding to the 50S ribosomal subunit. Which of the following drugs was most likely prescribed? (A) Doxycycline (C) Clindamycin (B) Metronidazole (E) Ceftriaxone (D) Azithromycin
+Answer: (C) Clindamycin
+
+Fewshot exampler #3:
+Question: A 38-year-old man comes to the physician because of fever, malaise, productive cough, and left-sided chest pain for 2 weeks. During this time, he has woken up to a wet pillow in the morning on multiple occasions and has not been as hungry as usual. He was diagnosed with HIV infection 1 year ago. He currently stays at a homeless shelter. He has smoked one pack of cigarettes daily for 22 years. He has a history of intravenous illicit drug use. He drinks 5–6 beers daily. He is receiving combined antiretroviral therapy but sometimes misses doses. His temperature is 38.6°C (101.5°F), pulse is 106/min, and blood pressure is 125/85 mm Hg. Pulse oximetry on room air shows an oxygen saturation of 94%. Auscultation shows decreased breath sounds over the left base of the lung. There is dullness to percussion on the left lower part of the chest. Laboratory studies show:
+Hemoglobin 14 g/dL
+Leukocyte count 5,000/mm3
+CD4+ T lymphocytes 240/mm3 (N > 500)
+Serum
+Creatinine 0.9 mg/dL
+γ-Glutamyltransferase (GGT) 65 U/L (N = 5–50)
+Aspartate aminotransferase (AST) 15 U/L
+Alanine aminotransferase (ALT) 19 U/L
+Alkaline phosphatase 40 U/L
+Lactate dehydrogenase (LDH) 50 U/L
+An x-ray of the chest shows a left-sided pleural effusion and hilar lymphadenopathy. Analysis of the pleural fluid shows an effusion with lymphocyte-predominant leukocytosis, high protein, an LDH of 500 U/L, and high adenosine deaminase. Which of the following is the most likely cause of this patient's condition?" (B) Rheumatoid arthritis (E) Pulmonary tuberculosis
+" (A) Cirrhosis (C) Pneumocystis jirovecii pneumonia (D) Lung cancer
+Answer: (E) Pulmonary tuberculosis
+"
+Answer: (B) A type 1 error occurs when the null hypothesis is true but is rejected in error.
+
+[INFO] API calls for this sample: 1
+
+[INFO] Sample 17 completed successfully

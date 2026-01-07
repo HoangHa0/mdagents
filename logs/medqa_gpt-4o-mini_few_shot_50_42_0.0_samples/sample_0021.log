@@ -1,0 +1,20 @@
+[INFO] Processing sample 21
+
+[INFO] Generating Few-Shot response with 3 few-shot examplers.
+
+Fewshot exampler #1:
+Question: A 16-year-old girl presents with a sore throat. The patient says symptoms onset acutely 3 days ago and have progressively worsened. She denies any history of cough, nasal congestion or rhinorrhea. No significant past medical history or current medications. The vital signs include: temperature 37.7°C (99.9°F), blood pressure 110/70 mm Hg, pulse 74/min, respiratory rate 20/min, and oxygen saturation 99% on room air. Physical examination is significant for anterior cervical lymphadenopathy. There is edema of the oropharynx and tonsillar swelling but no tonsillar exudate. Which of the following is the next best step in management? (E) Empiric treatment with antivirals (D) Empiric treatment with antibiotics (A) Reassurance (B) Rapid strep test (C) Ultrasound of the anterior cervical lymph nodes
+Answer: (B) Rapid strep test
+
+Fewshot exampler #2:
+Question: A 16-year-old girl with celiac disease is brought to the physician because of a 1-week history of generalized weakness and tingling around her mouth and in her fingertips. She also complains of abdominal cramps and nausea. In addition to following a gluten-free diet, she has been following a vegan diet for the past 2 years. Physical examination shows involuntary contractions of the muscle at the corner of her mouth and nose that are elicited by tapping on her right cheek. Her parathyroid hormone concentration is 834 pg/mL. Which of the following is the most likely underlying cause for this patient's current condition? (C) Decreased dietary intake of ergocalciferol (E) Autoimmune-mediated destruction of parathyroid tissue (B) Decreased levels of renal 1α-hydroxylase (A) Decreased conversion of 7-dehydrocholesterol to cholecalciferol (D) Decreased intestinal absorption of ergocalciferol
+Answer: (D) Decreased intestinal absorption of ergocalciferol
+
+Fewshot exampler #3:
+Question: A 59-year-old healthy woman presents to her primary care physician’s office six weeks after undergoing an elective breast augmentation procedure in the Dominican Republic. She was told by her surgeon to establish post-operative care once back in the United States. Today she is bothered by nausea and early satiety. Her past medical history is significant only for GERD for which she takes ranitidine. Since the surgery, she has also taken an unknown opioid pain medication that was given to her by the surgeon. She reports that she has been taking approximately ten pills a day. On examination she is afebrile with normal vital signs and her surgical incisions are healing well. Her abdomen is distended and tympanitic. The patient refuses to stop her pain medicine and laxatives are not effective; what medication could be prescribed to ameliorate her gastrointestinal symptoms? (B) Pantoprazole (A) Metoclopramide (E) Naproxen (C) Senna (D) Naloxegol
+Answer: (D) Naloxegol
+Answer: (D) Decreased pulmonary capillary wedge pressure
+
+[INFO] API calls for this sample: 1
+
+[INFO] Sample 21 completed successfully

@@ -17,4 +17,3 @@ venv.bak/
 notes.txt
 .api-key
 debug.py
-logs/

@@ -1,0 +1,28 @@
+[INFO] Processing sample 49
+
+[INFO] Generating Few-Shot response with 3 few-shot examplers.
+
+Fewshot exampler #1:
+Question: A 16-year-old boy is brought to the physician for a follow-up appointment. He has a seizure disorder treated with valproic acid. He has always had difficulties with his schoolwork. He was able to walk independently at the age of 2 years and was able to use a fork and spoon at the age of 3 years. Ophthalmic examination shows hyperpigmented iris nodules bilaterally. A photograph of his skin examination findings is shown. This patient is at increased risk for which of the following conditions? (C) Pheochromocytoma (A) Vestibular schwannoma (D) Leptomeningeal angioma (B) Hemangioblastoma (E) Cardiac rhabdomyoma
+Answer: (C) Pheochromocytoma
+
+Fewshot exampler #2:
+Question: A 47-year-old woman is brought to the emergency department by her husband with the complaints of severe abdominal pain and discomfort. The pain began 2 days earlier, she describes it as radiating to her back and is associated with nausea. Her past medical history is significant for similar episodes of pain after fatty meals that resolved on its own. She drinks socially and has a 15 pack-year smoking history. Her pulse is 121/min, blood pressure is 121/71 mm Hg, and her temperature is 103.1°F (39.5°C). She has tenderness in the right upper quadrant and epigastrium with guarding and rebound tenderness. Bowel sounds are hypoactive. Part of a CBC is given below. What is the next best step in the management of this patient?
+Hb%: 11 gm/dL
+Total count (WBC): 13,400/mm3
+Differential count:
+Neutrophils: 80%
+Lymphocytes: 15%
+Monocytes: 5%
+ESR: 45 mm/hr
+C-reactive protein: 9.9 mg/dL (Normal < 3.0 mg/dL) (A) Ultrasound of the appendix (B) Erect abdominal X-ray (D) Upper GI endoscopy (E) Serum lipase levels (C) Ultrasound of the gallbladder
+Answer: (C) Ultrasound of the gallbladder
+
+Fewshot exampler #3:
+Question: A 70-year-old man presents to the clinic with right-sided chest pain and difficulty breathing for the past 10 days. When it began, the pain was mild, but as time went on, it increased to a level at which the man found it difficult to breathe. Two years ago, he was diagnosed with clear cell carcinoma of the kidney. Vital signs include: pulse rate is 72/min, blood pressure is 122/80 mm Hg, respiratory rate is 16/min, and temperature is 37.0°C (98.6°F). On physical examination, the trachea appears to have deviated to the left, respiratory movements are diminished, there is decreased resonance on percussion, and there is an absence of breath sounds over the right hemithorax. Which of the following is the most likely clinical diagnosis in this patient? (C) Pneumothorax (D) Pulmonary embolism (E) Pleural effusion (B) Atelectasis (A) Pneumonia
+Answer: (E) Pleural effusion
+Answer: (E) Reducing daily insulin dose
+
+[INFO] API calls for this sample: 1
+
+[INFO] Sample 49 completed successfully

@@ -1,0 +1,20 @@
+[INFO] Processing sample 0
+
+[INFO] Generating Few-Shot response with 3 few-shot examplers.
+
+Fewshot exampler #1:
+Question: Two days after being admitted for pneumonia, a 70-year-old man has repeated episodes of palpitations and nausea. He does not feel lightheaded and does not have chest pain. The patient appears mildly distressed. His pulse is 59/min and blood pressure is 110/60 mm Hg. Examination shows no abnormalities. Sputum cultures taken at the time of admission were positive for Mycoplasma pneumoniae. His magnesium is 2.0 mEq/L and his potassium is 3.7 mEq/L. An ECG taken during an episode of palpitations is shown. Which of the following is the most appropriate next step in management? (A) Administration of metoprolol (D) Intermittent transvenous overdrive pacing (B) Administration of magnesium sulfate (C) Administration of amiodarone (E) Adminstration of potassium chloride
+Answer: (B) Administration of magnesium sulfate
+
+Fewshot exampler #2:
+Question: A 39-year-old male is rushed to the emergency department after he developed a sudden-onset severe headache with ensuing nausea, vomiting, vision changes, and loss of consciousness. Past medical history is unattainable. He reports that the headache is worse than any he has experienced before. Noncontrast CT of the head is significant for an intracranial hemorrhage. Follow-up cerebral angiography is performed and shows a ruptured anterior communicating artery aneurysm. Which of the following has the strongest association with this patient's current presentation? (A) History of multiple hemangioblastomas of the retina and spine as well as pheochromocytoma (E) History of renal transplantation at 8 years of age (D) Kidney ultrasound showing numerous bilateral renal cysts (C) Abdominal CT suggestive of renal cell carcinoma (B) Brain MRI showing a butterfly glioma with a central necrotic core
+Answer: (D) Kidney ultrasound showing numerous bilateral renal cysts
+
+Fewshot exampler #3:
+Question: A 32-year-old G1P0 woman at 27 weeks estimated gestational age presents for her first prenatal care appointment. She recently immigrated to the United States and didn’t receive any prenatal care in her country. Her blood pressure is 130/70 mm Hg, pulse is 85/min, and respirations are 16/min. Her BMI is 38.3 kg/m2. Physical examination is unremarkable except for normal pregnancy changes. Fetal ultrasound is performed and reveals fetal macrosomia. Which one of the following diagnostic tests is most likely to reveal the cause of this fetal abnormality? (A) Serum insulin (B) C-peptide (C) Oral glucose tolerance test (D) Glycated hemoglobin (E) Leptin
+Answer: (C) Oral glucose tolerance test
+Answer: (B) Dengue fever
+
+[INFO] API calls for this sample: 1
+
+[INFO] Sample 0 completed successfully

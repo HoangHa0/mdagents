@@ -1,0 +1,20 @@
+[INFO] Processing sample 16
+
+[INFO] Generating Few-Shot response with 3 few-shot examplers.
+
+Fewshot exampler #1:
+Question: A 31-year-old woman is brought to the emergency department for a severe throbbing headache, nausea, and photophobia for 3 hours. She has severe occipital pain and chest tightness. Prior to onset of symptoms, she had attended a networking event where she had red wine and, shortly after, a snack consisting of salami and some dried fruits. The patient has recurrent migraine headaches and depression, for which she takes medication daily. She is mildly distressed, diaphoretic, and her face is flushed. Her temperature is 37.0°C (98.6 F), pulse is 90/min, respirations are 20/min, and blood pressure is 195/130 mmHg. She is alert and oriented. Deep-tendon reflexes are 2+ bilaterally. This patient's symptoms are most likely caused by a side effect of which of the following medications? (C) Phenelzine (E) Valproic acid (A) Ibuprofen (B) Verapamil (D) Topiramate
+Answer: (C) Phenelzine
+
+Fewshot exampler #2:
+Question: A 38-year-old man presents with a 1-year history of resting tremor and clumsiness in his right hand. He says his symptoms are progressively worsening and are starting to interfere with his work. He has no significant past medical history and is not currently taking any medications. The patient denies any smoking history, alcohol, or recreational drug use. Family history is significant for his grandfather, who had a tremor, and his father, who passed away at a young age. Neither his brother nor his sister have tremors. Vital signs include: pulse 70/min, respiratory rate 15/min, blood pressure 124/70 mm Hg, and temperature 36.7°C (98.1°F). Physical examination reveals decreased facial expression, hypophonia, resting tremor in the right hand, rigidity in the upper limbs, and normal deep tendon reflexes. No abnormalities of posture are seen and gait is normal except for decreased arm swing on the right. The remainder of the exam is unremarkable. Which of the following medications would be most effective in treating this patient’s movement problems and his depression? (C) Entacapone (E) Levodopa/carbidopa (A) Benztropine (D) Bromocriptine (B) Selegiline
+Answer: (B) Selegiline
+
+Fewshot exampler #3:
+Question: A 65-year-old woman arrives for her annual physical. She has no specific complaints. She has seasonal allergies and takes loratadine. She had a cholecystectomy 15 years ago. Her last menstrual period was 9 years ago. Both her mother and her maternal aunt had breast cancer. A physical examination is unremarkable. The patient is given the pneumococcal conjugate vaccine and the shingles vaccine. A dual-energy x-ray absorptiometry (DEXA) scan is obtained. Her T-score is -2.6. She is prescribed a new medication. The next month the patient returns to her primary care physician complaining of hot flashes. Which of the following is the most likely medication the patient was prescribed? (D) Teriparatide (B) Denosumab (A) Alendronate (C) Raloxifene (E) Zoledronic acid
+Answer: (C) Raloxifene
+Answer: (B) A septal hematoma causing a perforation
+
+[INFO] API calls for this sample: 1
+
+[INFO] Sample 16 completed successfully
