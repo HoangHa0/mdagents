@@ -1,15 +1,16 @@
 import random
-from termcolor import cprint
-from utils import Agent
+from utils import Agent, _noop_log, SampleAPICallTracker
 
-def cot_query(question, examplers, args, fewshot_num=8):
-    print()
-    cprint(f"[INFO] Generating CoT response with {fewshot_num} few-shot examplers.", 'cyan')
-    medical_agent = Agent(instruction='You are a helpful medical agent.', role='medical expert', model_info=args.model)
+def cot_query(question, examplers, args, fewshot_num=3, log=None, tracker=None):
+    if log is None:
+        log = _noop_log
+    
+    log(f"\n[INFO] Generating CoT response with {fewshot_num} few-shot examplers.")
+    medical_agent = Agent(instruction='You are a helpful medical agent.', role='medical expert', model_info=args.model, tracker=tracker)
     fewshot_examplers = []
     if args.dataset == 'medqa':
         random.shuffle(examplers)
-        for _, exampler in enumerate(examplers[:fewshot_num]):
+        for i, exampler in enumerate(examplers[:fewshot_num]):
             tmp_exampler = {}
             exampler_question = f"Question: {exampler['question']}"
             options = [f"({k}) {v}" for k, v in exampler['options'].items()]
@@ -22,17 +23,12 @@ def cot_query(question, examplers, args, fewshot_num=8):
             tmp_exampler['reason'] = exampler_reason
             tmp_exampler['answer'] = exampler_answer
             fewshot_examplers.append(tmp_exampler)
-            print()
-            print(f"Fewshot exampler #{_ + 1}:\n{tmp_exampler['question']}\n{tmp_exampler['reason']}\n{tmp_exampler['answer']}")
+            log(f"Fewshot exampler #{i + 1}:\n{tmp_exampler['question']}\n{tmp_exampler['reason']}\n{tmp_exampler['answer']}")
     
-    print()
-    single_agent = Agent(instruction="You are a helpful assistant that answers multiple choice questions about medical knowledge.", role='medical expert', fewshot_examplers=fewshot_examplers, model_info=args.model)
+    single_agent = Agent(instruction="You are a helpful assistant that answers multiple choice questions about medical knowledge.", role='medical expert', examplers=fewshot_examplers, model_info=args.model, tracker=tracker)
     final_decision = single_agent.temp_responses(f"The following are multiple choice questions (with answers) about medical knowledge. Let's think step by step.\n\nQuestion: {question}\nAnswer: ", img_path=None)
-    cprint(f"[INFO] CoT response generated.", 'cyan')
-    print(final_decision[0.0])
+    
+    log(f"[INFO] CoT response generated.")
+    log(final_decision[0.0])
 
     return final_decision
-
-
-
-    

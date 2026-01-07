@@ -1,15 +1,16 @@
 import random
-from termcolor import cprint
-from utils import Agent
+from utils import Agent, _noop_log, SampleAPICallTracker
 
-def cot_examplers(examplers, args, fewshot_num=8):
-    # print()
-    # cprint(f"[INFO] Generating CoT response with {fewshot_num} few-shot examplers.", 'cyan')
-    medical_agent = Agent(instruction='You are a helpful medical agent.', role='medical expert', model_info=args.model)
+def cot_examplers(examplers, args, fewshot_num=3, log=None, tracker=None):
+    if log is None:
+        log = _noop_log
+    
+    log(f"\n[INFO] Generating CoT examplers with {fewshot_num} few-shot examplers.")
+    medical_agent = Agent(instruction='You are a helpful medical agent.', role='medical expert', model_info=args.model, tracker=tracker)
     fewshot_examplers = []
     if args.dataset == 'medqa':
         random.shuffle(examplers)
-        for _, exampler in enumerate(examplers[:fewshot_num]):
+        for i, exampler in enumerate(examplers[:fewshot_num]):
             tmp_exampler = {}
             exampler_question = f"Question: {exampler['question']}"
             options = [f"({k}) {v}" for k, v in exampler['options'].items()]
@@ -22,22 +23,25 @@ def cot_examplers(examplers, args, fewshot_num=8):
             tmp_exampler['reason'] = exampler_reason
             tmp_exampler['answer'] = exampler_answer
             fewshot_examplers.append(tmp_exampler)
-            # print()
-            # print(f"Fewshot exampler #{_ + 1}:\n{tmp_exampler['question']}\n{tmp_exampler['reason']}\n{tmp_exampler['answer']}\n")
+            log(f"\nFewshot exampler #{i + 1}:\n{tmp_exampler['question']}\n{tmp_exampler['reason']}\n{tmp_exampler['answer']}")
 
     return fewshot_examplers
 
 
-def cot_sc_query(question, examplers, args, fewshot_num=8, sampling_num=10):
+def cot_sc_query(question, examplers, args, fewshot_num=8, sampling_num=10, log=None, tracker=None):
+    if log is None:
+        log = _noop_log
+    
     sampling_responses = []
 
-    cprint(f"\n[INFO] Generating CoT-SC responses with {fewshot_num} few-shot examplers and {sampling_num} sampling paths.", 'cyan')
-    for _ in range(sampling_num):
+    log(f"\n[INFO] Generating CoT-SC responses with {fewshot_num} few-shot examplers and {sampling_num} sampling paths.")
+    for i in range(sampling_num):
         single_agent = Agent(
             instruction="You are a helpful assistant that answers multiple choice questions about medical knowledge.", 
             role='medical expert', 
-            examplers=cot_examplers(examplers, args, fewshot_num), 
-            model_info=args.model
+            examplers=cot_examplers(examplers, args, fewshot_num, log=log, tracker=tracker), 
+            model_info=args.model,
+            tracker=tracker
         )
 
         response_dict = single_agent.temp_responses(
@@ -46,12 +50,14 @@ def cot_sc_query(question, examplers, args, fewshot_num=8, sampling_num=10):
             img_path=None
         )
         sampling_responses.append(list(response_dict.values())[0])
+        log(f"[INFO] Sampling path {i+1} completed.")
 
     # Majority voting
     decision_agent = Agent(
         instruction="You are a final medical decision maker who reviews all opinions and makes the final decision.",
         role="decision maker",
-        model_info=args.model
+        model_info=args.model,
+        tracker=tracker
     )
     
     formatted_opinions = "\n".join([f"Path {i+1}: {ans}" for i, ans in enumerate(sampling_responses)])
@@ -61,11 +67,11 @@ def cot_sc_query(question, examplers, args, fewshot_num=8, sampling_num=10):
         f"Perform majority voting to select the most consistent answer."
     )
 
-    cprint(f"\n[INFO] Opinion paths", 'cyan')
-    print(formatted_opinions)
+    log(f"[INFO] Opinion paths:\n{formatted_opinions}")
     
-    cprint(f"\n[INFO] Final decision by majority voting", 'cyan')
+    log(f"[INFO] Final decision by majority voting")
+    
     final_decision = decision_agent.temp_responses(final_prompt)
-    print(final_decision[0.0])
+    log(final_decision[0.0])
 
     return final_decision

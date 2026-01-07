@@ -1,14 +1,17 @@
 import random
-from termcolor import cprint
-from utils import Agent
+from utils import Agent, _noop_log, SampleAPICallTracker
 
-def zero_few_shot_query(question, examplers, args, fewshot_num=8):
+def zero_few_shot_query(question, examplers, args, fewshot_num=3, log=None, tracker=None):
+    if log is None:
+        log = _noop_log
+    
     if args.method == 'zero_shot':
-        cprint(f"\n[INFO] Generating Zero-Shot response.", 'cyan')
+        log(f"\n[INFO] Generating Zero-Shot response.")
         single_agent = Agent(
             instruction="You are a helpful assistant that answers multiple choice questions about medical knowledge.", 
             role='medical expert',
-            model_info=args.model
+            model_info=args.model,
+            tracker=tracker
         )
         response_dict = single_agent.temp_responses(
             f"The following is a multiple choice question (with answer choices) about medical knowledge. Please provide the final answer directly.\n\nQuestion: {question}\nAnswer: ", 
@@ -16,16 +19,16 @@ def zero_few_shot_query(question, examplers, args, fewshot_num=8):
             img_path=None
         )
         final_decision = list(response_dict.values())[0]
-        cprint(final_decision)
+        log(final_decision)
 
         return final_decision
     
     elif args.method == 'few_shot':
-        cprint(f"\n[INFO] Generating Few-Shot response with {fewshot_num} few-shot examplers.", 'cyan')
+        log(f"\n[INFO] Generating Few-Shot response with {fewshot_num} few-shot examplers.")
         if args.dataset == 'medqa':
             random.shuffle(examplers)
             fewshot_examplers = []
-            for _, exampler in enumerate(examplers[:fewshot_num]):
+            for i, exampler in enumerate(examplers[:fewshot_num]):
                 tmp_exampler = {}
                 exampler_question = f"Question: {exampler['question']}"
                 options = [f"({k}) {v}" for k, v in exampler['options'].items()]
@@ -36,14 +39,14 @@ def zero_few_shot_query(question, examplers, args, fewshot_num=8):
                 tmp_exampler['question'] = exampler_question
                 tmp_exampler['answer'] = exampler_answer
                 fewshot_examplers.append(tmp_exampler)
-                print()
-                print(f"Fewshot exampler #{_ + 1}:\n{tmp_exampler['question']}\n{tmp_exampler['answer']}")
+                log(f"\nFewshot exampler #{i + 1}:\n{tmp_exampler['question']}\n{tmp_exampler['answer']}")
 
         single_agent = Agent(
             instruction="You are a helpful assistant that answers multiple choice questions about medical knowledge.", 
             role='medical expert', 
-            fewshot_examplers=fewshot_examplers,
-            model_info=args.model
+            examplers=fewshot_examplers,
+            model_info=args.model,
+            tracker=tracker
         )
 
         response_dict = single_agent.temp_responses(
@@ -52,6 +55,6 @@ def zero_few_shot_query(question, examplers, args, fewshot_num=8):
             img_path=None
         )
         final_decision = list(response_dict.values())[0]
-        cprint(final_decision)
+        log(final_decision)
         
         return final_decision

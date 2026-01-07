@@ -1,13 +1,18 @@
 import os
 import json
 import random
+import threading
 from prettytable import PrettyTable 
-from termcolor import cprint
 from pptree import Node
 from google import genai
 from openai import OpenAI
 from pptree import *
-import re 
+import re
+import io
+
+# Default no-op logger
+def _noop_log(msg):
+    pass 
 
 # --- Robust regex helpers (avoid brittle split/indexing on LLM outputs) ---
 _EXPERT_HIER_LINE_RE = re.compile(r'^\s*(?P<expert>.+?)(?:\s*-\s*Hierarchy:\s*(?P<hierarchy>.+))?\s*$', re.IGNORECASE)
@@ -18,7 +23,9 @@ _EXPERT_ROLE_DESC_RE = re.compile(r'^\s*(?:\d+\.\s*)?(?P<role>.+?)(?:\s*-\s*(?P<
 # -----------------------
 DEFAULT_LLM_RETRIES = int(os.environ.get("MDAGENTS_LLM_RETRIES", "5"))
 
-def _retry_call(name, fn, max_tries=None, retry_exceptions=(IndexError,), sleep_s=None):
+def _retry_call(name, fn, max_tries=None, retry_exceptions=(IndexError,), sleep_s=None, log=None):
+    if log is None:
+        log = _noop_log
     """
     Retry a callable as the last resort when the LLM output (or downstream parsing) is brittle.
     This is intentionally lightweight so we don't change any parsing logic; we just re-ask.
@@ -31,7 +38,7 @@ def _retry_call(name, fn, max_tries=None, retry_exceptions=(IndexError,), sleep_
             return fn()
         except retry_exceptions as e:
             last_err = e
-            print(f"[WARN] {name} failed (attempt {attempt}/{max_tries}): {type(e).__name__}: {e}. Retrying...")
+            log(f"[WARN] {name} failed (attempt {attempt}/{max_tries}): {type(e).__name__}: {e}. Retrying...")
             if sleep_s:
                 try:
                     import time
@@ -41,9 +48,9 @@ def _retry_call(name, fn, max_tries=None, retry_exceptions=(IndexError,), sleep_
         except Exception as e:
             # Also retry on generic transient failures (API hiccups, etc.)
             last_err = e
-            print(f"[WARN] {name} failed (attempt {attempt}/{max_tries}): {type(e).__name__}: {e}. Retrying...")
+            log(f"[WARN] {name} failed (attempt {attempt}/{max_tries}): {type(e).__name__}: {e}. Retrying...")
             if sleep_s:
-                try:
+                try: 
                     import time
                     time.sleep(sleep_s)
                 except Exception:
@@ -51,16 +58,50 @@ def _retry_call(name, fn, max_tries=None, retry_exceptions=(IndexError,), sleep_
     # If still failing, raise the last error so caller can persist progress.
     raise last_err
 
+class SampleAPICallTracker:
+    """
+    Track API calls per sample by registering Agent instances created for
+    that sample and summing their per-instance counters. This avoids
+    cross-thread contamination from a global total.
+    """
+    def __init__(self):
+        self._agents = []
+        self._lock = threading.Lock()
+
+    def register_agent(self, agent):
+        if agent is None:
+            return
+        with self._lock:
+            self._agents.append(agent)
+
+    # Back-compat alias
+    register = register_agent
+
+    def total_calls(self):
+        with self._lock:
+            return sum(getattr(a, 'api_calls', 0) for a in self._agents)
+
+    def breakdown(self):
+        with self._lock:
+            return [(getattr(a, 'role', 'unknown'), getattr(a, 'api_calls', 0)) for a in self._agents]
+
 class Agent:
     # Class-level counter for total API calls across all agents
     total_api_calls = 0
+    _api_calls_lock = threading.Lock()  # Thread-safe lock for API call counting
     
-    def __init__(self, instruction, role, examplers=None, model_info='gpt-4o-mini', img_path=None):
+    def __init__(self, instruction, role, examplers=None, model_info='gpt-4o-mini', img_path=None, tracker=None):
         self.instruction = instruction
         self.role = role
         self.model_info = model_info
         self.img_path = img_path
         self.api_calls = 0  # Instance-level counter
+        self._tracker = tracker
+        if self._tracker is not None:
+            try:
+                self._tracker.register_agent(self)
+            except Exception:
+                pass
 
         if self.model_info == 'gemini-pro':
             self.client = genai.Client(api_key=os.environ['genai_api_key'])
@@ -75,7 +116,7 @@ class Agent:
                     self.messages.append({"role": "user", "content": exampler['question']})
                     self.messages.append({"role": "assistant", "content":  ("Let's think step by step. " + exampler['reason'] + " "  if 'reason' in exampler else '') + exampler['answer']})
 
-        # print(f"[DEBUG] Print out the messages for Agent {self.messages}")
+        # log(f"[DEBUG] Print out the messages for Agent {self.messages}")
 
     def chat(self, message, img_path=None, chat_mode=True):
         if self.model_info == 'gemini-pro':
@@ -83,9 +124,10 @@ class Agent:
                 try:
                     response = self._chat.send_message(message=message)
                     
-                    # Track API call
-                    self.api_calls += 1
-                    Agent.total_api_calls += 1
+                    # Track API call (thread-safe)
+                    with Agent._api_calls_lock:
+                        self.api_calls += 1
+                        Agent.total_api_calls += 1
                     
                     return response.text
                 except:
@@ -105,9 +147,10 @@ class Agent:
                 messages=self.messages
             )
             
-            # Track API call
-            self.api_calls += 1
-            Agent.total_api_calls += 1
+            # Track API call (thread-safe)
+            with Agent._api_calls_lock:
+                self.api_calls += 1
+                Agent.total_api_calls += 1
 
             self.messages.append({"role": "assistant", "content": response.choices[0].message.content})
             return response.choices[0].message.content
@@ -130,9 +173,10 @@ class Agent:
                     temperature=temperature,
                 )
                 
-                # Track API call
-                self.api_calls += 1
-                Agent.total_api_calls += 1
+                # Track API call (thread-safe)
+                with Agent._api_calls_lock:
+                    self.api_calls += 1
+                    Agent.total_api_calls += 1
                 
                 responses[temperature] = response.choices[0].message.content
                 
@@ -141,9 +185,10 @@ class Agent:
         elif self.model_info == 'gemini-pro':
             response = self._chat.send_message(message=message)
             
-            # Track API call
-            self.api_calls += 1
-            Agent.total_api_calls += 1
+            # Track API call (thread-safe)
+            with Agent._api_calls_lock:
+                self.api_calls += 1
+                Agent.total_api_calls += 1
 
             return response.text
         
@@ -168,13 +213,15 @@ class Agent:
 
     @classmethod
     def get_total_api_calls(cls):
-        """Get total API calls across all agents."""
-        return cls.total_api_calls
+        """Get total API calls across all agents (thread-safe)."""
+        with cls._api_calls_lock:
+            return cls.total_api_calls
     
     @classmethod
     def reset_total_api_calls(cls):
-        """Reset total API call counter."""
-        cls.total_api_calls = 0
+        """Reset total API call counter (thread-safe)."""
+        with cls._api_calls_lock:
+            cls.total_api_calls = 0
     
     def get_api_calls(self):
         """Get API calls for this agent instance."""
@@ -185,11 +232,11 @@ class Agent:
         self.api_calls = 0
 
 class Group:
-    def __init__(self, goal, members, question, examplers=None):
+    def __init__(self, goal, members, question, examplers=None, tracker=None):
         self.goal = goal
         self.members = []
         for member_info in members:
-            _agent = Agent('You are a {} who {}.'.format(member_info['role'], member_info['expertise_description'].lower()), role=member_info['role'], model_info='gpt-4o-mini')
+            _agent = Agent('You are a {} who {}.'.format(member_info['role'], member_info['expertise_description'].lower()), role=member_info['role'], model_info='gpt-4o-mini', tracker=tracker)
             self.members.append(_agent)
         self.question = question
         self.examplers = examplers
@@ -401,13 +448,21 @@ def create_question(sample, dataset):
         return question, None
     return sample['question'], None
 
-def determine_difficulty(question, difficulty):
+def determine_difficulty(question, difficulty, log=None, tracker=None):
+    if log is None:
+        log = _noop_log
+    
     if difficulty != 'adaptive':
         return difficulty, None
     
     difficulty_prompt = f"""Now, given the medical query as below, you need to decide the difficulty/complexity of it:\n{question}.\n\nPlease indicate the difficulty/complexity of the medical query among below options:\n1) basic: a single medical agent can output an answer.\n2) intermediate: number of medical experts with different expertise should dicuss and make final decision.\n3) advanced: multiple teams of clinicians from different departments need to collaborate with each other to make final decision."""
     
-    moderator = Agent(instruction='You are a medical expert who conducts initial assessment and your job is to decide the difficulty/complexity of the medical query.', role='medical expert', model_info='gpt-4o-mini')
+    moderator = Agent(
+        instruction='You are a medical expert who conducts initial assessment and your job is to decide the difficulty/complexity of the medical query.',
+        role='medical expert',
+        model_info='gpt-4o-mini',
+        tracker=tracker
+    )
     response = moderator.chat(difficulty_prompt)
 
     if 'basic' in response.lower() or '1)' in response.lower():
@@ -419,9 +474,17 @@ def determine_difficulty(question, difficulty):
     
     return 'intermediate', None # Default fallback
 
-def process_basic_query(question, examplers, args, fewshot=3):
-    cprint("[INFO] Step 1. Single-Agent Few-shot Preparation", 'yellow', attrs=['blink'])    
-    medical_agent = Agent(instruction='You are a helpful medical agent.', role='medical expert', model_info=args.model)
+def process_basic_query(question, examplers, args, fewshot=3, log=None, tracker=None):
+    if log is None:
+        log = _noop_log
+    
+    created_tracker = False
+    if tracker is None:
+        tracker = SampleAPICallTracker()
+        created_tracker = True
+    
+    log("[INFO] Step 1. Single-Agent Few-shot Preparation")
+    medical_agent = Agent(instruction='You are a helpful medical agent.', role='medical expert', model_info=args.model, tracker=tracker)
     fewshot_examplers = []
     if args.dataset == 'medqa':
         random.shuffle(examplers)
@@ -440,17 +503,23 @@ def process_basic_query(question, examplers, args, fewshot=3):
             tmp_exampler['answer'] = exampler_answer
             fewshot_examplers.append(tmp_exampler)
     
-    cprint("[INFO] Step 2. Single-Agent Final Decision", 'yellow', attrs=['blink'])
-    single_agent = Agent(instruction="You are a helpful assistant that answers multiple choice questions about medical knowledge.", role='medical expert', examplers=fewshot_examplers, model_info=args.model)
+    log("[INFO] Step 2. Single-Agent Final Decision")
+    single_agent = Agent(instruction="You are a helpful assistant that answers multiple choice questions about medical knowledge.", role='medical expert', examplers=fewshot_examplers, model_info=args.model, tracker=tracker)
     final_decision = single_agent.temp_responses(
         f"The following are multiple choice questions (with answers) about medical knowledge. Let's think step by step.\n\nQuestion: {question}\nAnswer: ",
         temperatures=[args.temperature] if hasattr(args, 'temperature') else [0.0],
         img_path=None
     )
     
+    log(f"[INFO] Final decision: {final_decision}")
+    if created_tracker:
+        try:
+            log(f"[INFO] API calls (this sample): {tracker.total_calls()}")
+        except Exception:
+            pass
     return final_decision
 
-def process_intermediate_query(question, examplers, moderator, args, fewshot=None):
+def process_intermediate_query(question, examplers, moderator, args, fewshot=None, log=None, tracker=None):
     """
     Intermediate (MDT) setting with a moderator feedback loop:
       - Recruit N experts + hierarchy
@@ -461,23 +530,32 @@ def process_intermediate_query(question, examplers, moderator, args, fewshot=Non
           * consensus check; if not reached, moderator reviews and provides per-agent feedback
       - Final decision maker reviews all agent answers and produces the final answer
     """
+    if log is None:
+        log = _noop_log
+    
+    created_tracker = False
+    if tracker is None:
+        tracker = SampleAPICallTracker()
+        created_tracker = True
+    
     # Create moderator if not provided (when difficulty is not 'adaptive')
     if moderator is None:
         moderator = Agent(
             instruction='You are a medical expert who conducts initial assessment and moderates the discussion.',
             role='moderator',
-            model_info='gpt-4o-mini'
+            model_info='gpt-4o-mini',
+            tracker=tracker
         )
     
-    print()
-    cprint("[INFO] Step 1. Expert Recruitment", 'yellow', attrs=['blink'])
+    log("\n[INFO] Step 1. Expert Recruitment")
 
     num_agents = 3 # You can adjust this number as needed
 
     def _recruit_and_parse_intermediate():
         recruiter = Agent(instruction="You are an experienced medical expert who recruits a group of experts with diverse identity and ask them to discuss and solve the given medical query.", 
-                          role='recruiter', 
-                          model_info='gpt-4o-mini')
+                  role='recruiter', 
+                  model_info='gpt-4o-mini',
+                  tracker=tracker)
         recruited = recruiter.chat(
             f"Question: {question}\n"
             f"You can recruit {num_agents} experts in different medical expertise. Considering the medical question and the options for the answer, "
@@ -492,7 +570,7 @@ def process_intermediate_query(question, examplers, moderator, args, fewshot=Non
             "5. Medical Geneticist - Specializes in the study of genes and heredity. - Hierarchy: Independent\n\n"
             "Please answer in above format, and do not include your reason."
         )
-        # print("[DEBUG] Recruited Experts and Hierarchy:\n", recruited)
+        log(f"[DEBUG] Recruited Experts and Hierarchy:\n{recruited}")
 
         agents_data = []
         for _line in re.findall(r'[^\n]+', recruited or ''):
@@ -511,7 +589,7 @@ def process_intermediate_query(question, examplers, moderator, args, fewshot=Non
         agents_data = agents_data[:num_agents]
         return agents_data
 
-    agents_data = _retry_call('intermediate_recruitment', _recruit_and_parse_intermediate)
+    agents_data = _retry_call('intermediate_recruitment', _recruit_and_parse_intermediate, log=log)
 
     agent_emoji = ['\U0001F468\u200D\u2695\uFE0F', '\U0001F468\U0001F3FB\u200D\u2695\uFE0F', '\U0001F469\U0001F3FC\u200D\u2695\uFE0F', '\U0001F469\U0001F3FB\u200D\u2695\uFE0F', '\U0001f9d1\u200D\u2695\uFE0F', '\U0001f9d1\U0001f3ff\u200D\u2695\uFE0F', '\U0001f468\U0001f3ff\u200D\u2695\uFE0F', '\U0001f468\U0001f3fd\u200D\u2695\uFE0F', '\U0001f9d1\U0001f3fd\u200D\u2695\uFE0F', '\U0001F468\U0001F3FD\u200D\u2695\uFE0F']
     random.shuffle(agent_emoji)
@@ -590,7 +668,7 @@ def process_intermediate_query(question, examplers, moderator, args, fewshot=Non
         description = ((m.group('desc') or '') if m else '').strip().lower()
 
         inst_prompt = f"You are a {agent_role} who {description}. Your job is to collaborate with other medical experts in a team."
-        _agent = Agent(instruction=inst_prompt, role=agent_role, model_info=args.model)
+        _agent = Agent(instruction=inst_prompt, role=agent_role, model_info=args.model, tracker=tracker)
         agent_dict[agent_role] = _agent
         medical_agents.append(_agent)
 
@@ -599,15 +677,15 @@ def process_intermediate_query(question, examplers, moderator, args, fewshot=Non
         role_txt = (m.group('role') if m else (agent[0] or '')).strip()
         desc_txt = ((m.group('desc') or '') if m else '').strip()
         if desc_txt:
-            print(f"Agent {idx+1} ({agent_emoji[idx]} {role_txt}): {desc_txt}")
+            log(f"Agent {idx+1} ({agent_emoji[idx]} {role_txt}): {desc_txt}")
         else:
-            print(f"Agent {idx+1} ({agent_emoji[idx]}): {role_txt}")
+            log(f"Agent {idx+1} ({agent_emoji[idx]}): {role_txt}")
 
     # Few-shot prompting is only used in the low-complexity (basic) setting in the paper.
     # Keep intermediate as zero-shot by default.
     fewshot_examplers = ""
     if fewshot is not None and fewshot > 0:
-        medical_agent = Agent(instruction='You are a helpful medical agent.', role='medical expert', model_info=args.model)
+        medical_agent = Agent(instruction='You are a helpful medical agent.', role='medical expert', model_info=args.model, tracker=tracker)
         random.shuffle(examplers)
         for ie, exampler in enumerate(examplers[:fewshot]):
             exampler_question = f"[Example {ie+1}]\n" + exampler['question']
@@ -625,10 +703,17 @@ def process_intermediate_query(question, examplers, moderator, args, fewshot=Non
             exampler_question += f"\n{exampler_answer}\n{exampler_reason}\n\n"
             fewshot_examplers += exampler_question
 
-    print()
-    cprint("[INFO] Hierarchy Selection", 'yellow', attrs=['blink'])
-    print_tree(hierarchy_agents[0], horizontal=False)
-    print()
+    log("\n[INFO] Hierarchy Selection")
+    # Capture tree to string for logging
+    _tree_buffer = io.StringIO()
+    import sys as _sys
+    _old_stdout = _sys.stdout
+    _sys.stdout = _tree_buffer
+    try:
+        print_tree(hierarchy_agents[0], horizontal=False)
+    finally:
+        _sys.stdout = _old_stdout
+    log(f'{_tree_buffer.getvalue()}\n')
 
     # Moderator (feedback loop + consensus checking)
     moderator_prompt = (
@@ -692,11 +777,10 @@ def process_intermediate_query(question, examplers, moderator, args, fewshot=Non
             if i != n_agents:
                 myTable.add_row(['' for _ in range(n_agents + 1)])
 
-        print(myTable)
-        print()
+        log(f'{myTable}\n')
 
     # Initial opinions
-    cprint("[INFO] Step 2. Initial Opinions", 'yellow', attrs=['blink'])
+    log("[INFO] Step 2. Initial Opinions")
     opinions = {}
     for idx, agent in enumerate(medical_agents):
         prompt = (
@@ -707,11 +791,10 @@ def process_intermediate_query(question, examplers, moderator, args, fewshot=Non
         resp = agent.chat(prompt, img_path=None)
         opinions[agent.role] = resp
         # Print like the original: include agent number + emoji + role
-        print(f" Agent {idx+1} ({agent_emoji[idx]} {agent.role}) : {resp}")
+        log(f" Agent {idx+1} ({agent_emoji[idx]} {agent.role}) : {resp}")
 
     # Collaborative decision making rounds
-    print()
-    cprint("[INFO] Step 3. Collaborative Decision Making", 'yellow', attrs=['blink'])  
+    log("\n[INFO] Step 3. Collaborative Decision Making")
     final_answers = dict(opinions)
     round_feedback = {}  # role -> feedback for next round
 
@@ -720,15 +803,15 @@ def process_intermediate_query(question, examplers, moderator, args, fewshot=Non
         interaction_log.setdefault(round_name, {})
         feedback_log.setdefault(round_name, {})
 
-        print(f"== {round_name} ==")
+        log(f"== {round_name} ==")
 
         # Apply moderator feedback from the previous round (if any)
         if round_feedback:
-            cprint("[INFO] Moderator Feedback", 'yellow', attrs=['blink'])
+            log("[INFO] Moderator Feedback")
             for idx, agent in enumerate(medical_agents):
                 fb = (round_feedback.get(agent.role) or "").strip()
                 if fb:
-                    print(f" \U0001F468\u200D\u2696\uFE0F moderator -> Agent {idx+1} ({agent_emoji[idx]} {agent.role}) : {fb}")
+                    log(f" \U0001F468\u200D\u2696\uFE0F moderator -> Agent {idx+1} ({agent_emoji[idx]} {agent.role}) : {fb}")
                     agent.chat(
                         f"Moderator feedback for you:\n{fb}\n\n"
                         "Acknowledge the feedback and adjust your thinking. Then be ready to discuss.",
@@ -738,7 +821,7 @@ def process_intermediate_query(question, examplers, moderator, args, fewshot=Non
         assessment = "".join(f"({k}): {v}\n" for k, v in opinions.items())
 
         # Participatory debate (T turns)
-        cprint("[INFO] Participatory Debate", 'yellow', attrs=['blink'])
+        log("[INFO] Participatory Debate")
         
         # Build list of valid communication partners based on hierarchy
         def _get_valid_partners(agent_idx, hierarchy_map):
@@ -783,7 +866,7 @@ def process_intermediate_query(question, examplers, moderator, args, fewshot=Non
         for t in range(1, num_turns + 1):
             turn_name = f"Turn {t}"
             interaction_log[round_name].setdefault(turn_name, {})
-            print(f"|_{turn_name}")
+            log(f"|_{turn_name}")
 
             num_yes = 0
             for idx, agent in enumerate(medical_agents):
@@ -800,7 +883,7 @@ def process_intermediate_query(question, examplers, moderator, args, fewshot=Non
                     
                     if not valid_partners:
                         # No valid partners in hierarchy, skip communication
-                        print(f" Agent {idx+1} ({agent_emoji[idx]} {agent.role}): No valid partners in hierarchy")
+                        log(f" Agent {idx+1} ({agent_emoji[idx]} {agent.role}): No valid partners in hierarchy")
                         continue
                     
                     # Build filtered agent list showing only valid partners
@@ -833,7 +916,7 @@ def process_intermediate_query(question, examplers, moderator, args, fewshot=Non
                         )
 
                         # Print + log 
-                        print(f" Agent {idx+1} ({agent_emoji[idx]} {agent.role}) -> Agent {ce} ({agent_emoji[ce-1]} {medical_agents[ce-1].role}) : {msg}")
+                        log(f" Agent {idx+1} ({agent_emoji[idx]} {agent.role}) -> Agent {ce} ({agent_emoji[ce-1]} {medical_agents[ce-1].role}) : {msg}")
                         interaction_log[round_name][turn_name].setdefault(f"Agent {idx+1}", {})
                         interaction_log[round_name][turn_name][f"Agent {idx+1}"][f"Agent {ce}"] = msg
 
@@ -844,19 +927,18 @@ def process_intermediate_query(question, examplers, moderator, args, fewshot=Non
                     if participate and participate.strip():
                         opinions[agent.role] = participate
                         assessment = "".join(f"({k}): {v}\n" for k, v in opinions.items())
-                    print(f" Agent {idx+1} ({agent_emoji[idx]} {agent.role}): \U0001F910")
+                    log(f" Agent {idx+1} ({agent_emoji[idx]} {agent.role}): \U0001F910")
 
             if num_yes == 0:
-                print(" No agents chose to participate in this turn. End this turn.")
+                log(" No agents chose to participate in this turn. End this turn.")
                 break
 
             # Print summary table for this turn only
-            print()
-            cprint("[INFO] Summary Table", 'cyan', attrs=['blink'])
+            log("\n[INFO] Summary Table")
             _print_summary_table(interaction_log[round_name][turn_name], len(medical_agents))
 
         if num_yes_total == 0:
-            print(" No agents chose to participate in this round. End this round.")
+            log(" No agents chose to participate in this round. End this round.")
             break
         
         # Agents update final answers for this round
@@ -873,7 +955,7 @@ def process_intermediate_query(question, examplers, moderator, args, fewshot=Non
         final_answers = tmp_final_answer
 
         # Moderator consensus check (moderator decides if another round is needed)
-        cprint("\n[INFO] Moderator Consensus Check", 'yellow', attrs=['blink'])
+        log("\n[INFO] Moderator Consensus Check")
         answers_text = "".join(f"[{role}] {ans}\n" for role, ans in final_answers.items())
         moderator_consensus = moderator.chat(
             "You are moderating the team. Decide whether the team has reached consensus on the final option.\n"
@@ -894,36 +976,37 @@ def process_intermediate_query(question, examplers, moderator, args, fewshot=Non
             consensus_yes = False
             consensus_no = True
 
-        print(f" \U0001F468\u200D\u2696\uFE0F Moderator consensus check: {'YES' if consensus_yes else 'NO'}")
+        log(f" \U0001F468\u200D\u2696\uFE0F Moderator consensus check: {'YES' if consensus_yes else 'NO'}")
 
         if consensus_yes:
-            cprint("\n[INFO] Consensus reached! Ending discussion.", 'green', attrs=['blink'])
+            log("\n[INFO] Consensus reached! Ending discussion.")
             round_feedback = {}
             break
 
-        # # Check if agents agree to continue
-        # cprint("\n[INFO] Vote to continue discussion", 'yellow', attrs=['blink'])
-        # continue_votes = 0
-        # for agent in medical_agents:
-        #     vote = agent.chat(
-        #         "The moderator has determined that consensus has not been reached yet. "
-        #         "Do you believe further discussion is necessary to reach a conclusion? "
-        #         "Return 'YES' to continue or 'NO' to stop.",
-        #         img_path=None
-        #     )
-        #     # Simple check for YES or NO
-        #     if re.search(r'(?i)\byes\b', vote):
-        #         continue_votes += 1
-        #     print(f" Agent {agent.role}: {'YES' if re.search(r'(?i)\byes\b', vote) else 'NO'}")
+        # Early stopping mechanism
+        # Check if agents agree to continue
+        log("\n[INFO] Vote to continue discussion")
+        continue_votes = 0
+        for agent in medical_agents:
+            vote = agent.chat(
+                "The moderator has determined that consensus has not been reached yet. "
+                "Do you believe further discussion is necessary to reach a conclusion? "
+                "Return 'YES' to continue or 'NO' to stop.",
+                img_path=None
+            )
+            # Simple check for YES or NO
+            if re.search(r'(?i)\byes\b', vote):
+                continue_votes += 1
+            log(f" Agent {agent.role}: {'YES' if re.search(r'(?i)\byes\b', vote) else 'NO'}")
 
-        # # If majority say NO, then we stop regardless of consensus
-        # if continue_votes <= len(medical_agents) // 2:
-        #     cprint("\n[INFO] Agents voted to stop discussion.", 'red', attrs=['blink'])
-        #     round_feedback = {}
-        #     break
+        # If majority say NO, then we stop regardless of consensus
+        if continue_votes <= len(medical_agents) // 2:
+            log("\n[INFO] Agents voted to stop discussion.")
+            round_feedback = {}
+            break
 
         # Moderator provides feedback for next round if not converged
-        cprint("\n[INFO] Disagreement detected", 'yellow', attrs=['blink'])
+        log("\n[INFO] Disagreement detected")
         
         # Build compact discussion log so far (across rounds/turns)
         log_text = ""
@@ -964,23 +1047,24 @@ def process_intermediate_query(question, examplers, moderator, args, fewshot=Non
 
         round_feedback = parsed_fb
 
-        cprint("\n[INFO] Moderator Review & Feedback", 'yellow', attrs=['blink'])
+        log("\n[INFO] Moderator Review & Feedback")
         for idx, agent in enumerate(medical_agents):
             fb = (round_feedback.get(agent.role) or "").strip()
             if fb:
                 feedback_log[round_name][agent.role] = fb
-                print(f" \U0001F468\u200D\u2696\uFE0F Moderator -> Agent {idx+1} ({agent_emoji[idx]} {agent.role}) : {fb}")
+                log(f" \U0001F468\u200D\u2696\uFE0F Moderator -> Agent {idx+1} ({agent_emoji[idx]} {agent.role}) : {fb}")
 
         # Next round starts from the agents' last answers
         opinions = dict(final_answers)
 
     # Final decision maker (review all opinions)
-    cprint("\n[INFO] Step 4. Final Decision", 'yellow', attrs=['blink'])
+    log("\n[INFO] Step 4. Final Decision")
 
     decision_maker = Agent(
         "You are a final medical decision maker who reviews all opinions from different medical experts and their conversation history to make the final decision.",
         role='decision maker',
-        model_info=args.model
+        model_info=args.model,
+        tracker=tracker
     )
     
     answers_text = "".join(f"[{role}] {ans}\n" for role, ans in final_answers.items())
@@ -995,7 +1079,7 @@ def process_intermediate_query(question, examplers, moderator, args, fewshot=Non
                 for dst, msg in dsts.items():
                     conversation_history += f"  {src} → {dst}:\n    {msg}\n"
     
-    # print("\n[DEBUG] Full Conversation History for Decision Maker:\n", conversation_history)
+    # log("\n[DEBUG] Full Conversation History for Decision Maker:\n" + conversation_history)
     
     final_decision = decision_maker.temp_responses(
         "You are reviewing the final decision from a multidisciplinary team discussion. "
@@ -1010,20 +1094,33 @@ def process_intermediate_query(question, examplers, moderator, args, fewshot=Non
         img_path=None 
     )
     
-    print(f"\U0001F468\u200D\u2696\uFE0F  Moderator's final decision:", final_decision)
+    log(f"\U0001F468\u200D\u2696\uFE0F  Moderator's final decision: {final_decision}")
+    
+    if created_tracker:
+        try:
+            log(f"[INFO] API calls (this sample): {tracker.total_calls()}")
+        except Exception:
+            pass
 
     return final_decision
 
-def process_advanced_query(question, args):
+def process_advanced_query(question, args, log=None, tracker=None):
     """
     Advanced (ICT) setting:
-      - Recruit multiple MDTs including an Initial Assessment Team (IAT) and a Final Review/Decision Team (FRDT)
-      - Each MDT internally discusses and produces a report
-      - FRDT reviews other MDT reports to produce a final review report
-      - Final decision maker reviews ALL reports (IAT + other MDTs + FRDT) and outputs final answer
+        - Recruit multiple MDTs including an Initial Assessment Team (IAT) and a Final Review/Decision Team (FRDT)
+        - Each MDT internally discusses and produces a report
+        - FRDT reviews other MDT reports to produce a final review report
+        - Final decision maker reviews ALL reports (IAT + other MDTs + FRDT) and outputs final answer
     """
-    print()
-    cprint("[INFO] Step 1. MDTs Recruitment", 'yellow', attrs=['blink'])
+    if log is None:
+        log = _noop_log
+    
+    log("\n[INFO] Step 1. MDTs Recruitment")
+    
+    created_tracker = False
+    if tracker is None:
+        tracker = SampleAPICallTracker()
+        created_tracker = True
     group_instances = []
 
     num_teams = 3  # Number of MDTs
@@ -1034,7 +1131,7 @@ def process_advanced_query(question, args):
             "You are an experienced medical expert. Given the complex medical query, you need to organize "
             "Multidisciplinary Teams (MDTs) and the members in MDT to make accurate and robust answer."
         )
-        recruiter = Agent(instruction=recruit_prompt, role='recruiter', model_info='gpt-4o-mini')
+        recruiter = Agent(instruction=recruit_prompt, role='recruiter', model_info='gpt-4o-mini', tracker=tracker)
 
         recruited = recruiter.chat(
             f"Question: {question}\n\n"
@@ -1069,25 +1166,24 @@ def process_advanced_query(question, args):
 
         return group_strings, parsed_groups
 
-    _, parsed_groups = _retry_call('advanced_recruitment', _recruit_and_parse_advanced)
+    _, parsed_groups = _retry_call('advanced_recruitment', _recruit_and_parse_advanced, log=log)
 
     # Define emojis for teams/members
     member_emoji = ['\U0001F468\u200D\u2695\uFE0F', '\U0001F468\U0001F3FB\u200D\u2695\uFE0F', '\U0001F469\U0001F3FC\u200D\u2695\uFE0F', '\U0001F469\U0001F3FB\u200D\u2695\uFE0F', '\U0001f9d1\u200D\u2695\uFE0F', '\U0001f9d1\U0001f3ff\u200D\u2695\uFE0F', '\U0001f468\U0001f3ff\u200D\u2695\uFE0F', '\U0001f468\U0001f3fd\u200D\u2695\uFE0F', '\U0001f9d1\U0001f3fd\u200D\u2695\uFE0F', '\U0001F468\U0001F3FD\u200D\u2695\uFE0F']
     
     for i1, res_gs in enumerate(parsed_groups):
-        print(f"\nGroup {i1+1} - {res_gs['group_goal']}")
+        log(f"\nGroup {i1+1} - {res_gs['group_goal']}")
         for i2, member in enumerate(res_gs['members']):
             member_icon = member_emoji[i2 % len(member_emoji)]
             role = member['role']
             desc = member['expertise_description']
             if desc:
-                print(f"  {member_icon} Member {i2+1} ({role}): {desc}")
+                log(f"  {member_icon} Member {i2+1} ({role}): {desc}")
             else:
-                print(f"  {member_icon} Member {i2+1} ({role})")
+                log(f"  {member_icon} Member {i2+1} ({role})")
 
-        group_instance = Group(res_gs['group_goal'], res_gs['members'], question)
+        group_instance = Group(res_gs['group_goal'], res_gs['members'], question, tracker=tracker)
         group_instances.append(group_instance)
-    print()
 
     # Identify teams
     def _is_iat(goal):
@@ -1103,7 +1199,7 @@ def process_advanced_query(question, args):
     mdt_teams = [gi for gi in group_instances if (gi not in iat_team and gi not in frdt_team)]
     
     def _generate_report(raw_team_output):
-        reporter = Agent(instruction="You are a medical assistant who excels at summarizing and synthesizing based on multiple experts from various domain experts.", role="medical assistant", model_info=args.model)
+        reporter = Agent(instruction="You are a medical assistant who excels at summarizing and synthesizing based on multiple experts from various domain experts.", role="medical assistant", model_info=args.model, tracker=tracker)
         prompt = (
             "Given the MDT raw discussion output (agent answers / investigations) below, please complete the following steps:\n"
             "1. Take careful and comprehensive consideration of the provided reports.\n"
@@ -1121,7 +1217,7 @@ def process_advanced_query(question, args):
         return report[temp_key]
 
     # STEP 2. MDT Internal Discussions (reports)
-    cprint("[INFO] Step 2. MDT Internal Discussions", 'yellow', attrs=['blink'])
+    log("\n[INFO] Step 2. MDT Internal Discussions")
 
     # Accumulated reports history to pass to subsequent teams
     accumulated_reports = ""
@@ -1136,9 +1232,8 @@ def process_advanced_query(question, args):
     for idx, (goal, resp) in enumerate(initial_assessments):
         iat_raw_text += f"{goal}\n{resp}\n\n"
     
-    initial_assessment_report = _generate_report(iat_raw_text) 
-    print()  
-    print("Initial Assessment Report:\n", initial_assessment_report)
+    initial_assessment_report = _generate_report(iat_raw_text)
+    log(f"\nInitial Assessment Report:\n{initial_assessment_report}")
 
     accumulated_reports += f"=== [Initial Assessment Team Report] ===\n{initial_assessment_report}\n\n"
     
@@ -1156,7 +1251,7 @@ def process_advanced_query(question, args):
         team_report = _generate_report(f"{gi.goal}\n{response}")
         mdt_summaries.append(team_report)
         
-        print(f"\n[{gi.goal} Report]\n{team_report}\n")
+        log(f"\n[{gi.goal} Report]\n{team_report}\n")
         
         accumulated_reports += f"=== [Report from {gi.goal}] ===\n{team_report}\n\n"
 
@@ -1179,16 +1274,15 @@ def process_advanced_query(question, args):
         frdt_report += f"Group {idx+1} - {decision[0]}\n{decision[1]}\n\n"
     frdt_report = _generate_report(frdt_report)
     
-    print()
-    print("FRDT Report:\n", frdt_report)
+    log(f"\nFRDT Report:\n{frdt_report}")
 
     # STEP 3. Final Decision Maker uses ALL reports
-    cprint("\n[INFO] Step 3. Final Decision", 'yellow', attrs=['blink'])
+    log("\n[INFO] Step 3. Final Decision")
     decision_prompt = (
         "You are an experienced medical expert. Now, given the investigations from multidisciplinary teams (MDT), "
         "please review them very carefully and return your final decision to the medical query."
     )
-    decision_maker = Agent(instruction=decision_prompt, role='decision maker', model_info=args.model)
+    decision_maker = Agent(instruction=decision_prompt, role='decision maker', model_info=args.model, tracker=tracker)
 
     all_reports = (
         f"[Initial Assessment Team]\n{initial_assessment_report}\n"
@@ -1202,7 +1296,13 @@ def process_advanced_query(question, args):
         "Answer: ",
         temperatures=[args.temperature] if hasattr(args, 'temperature') else [0.0]
     )
-    print(f"\U0001F468\u200D\u2696\uFE0F  Decision Maker's final decision:", final_decision)
+    log(f"\U0001F468\u200D\u2696\uFE0F  Decision Maker's final decision: {final_decision}")
+    log(f"\U0001F468\u200D\u2696\uFE0F  Decision Maker's final decision: {final_decision}")
+    if created_tracker:
+        try:
+            log(f"[INFO] API calls (this sample): {tracker.total_calls()}")
+        except Exception:
+            pass
     
     return final_decision
 
