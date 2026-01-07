@@ -1,9 +1,10 @@
 import os
 import argparse
 import json
-from typing import List, Dict, Any, Optional, Tuple
+from typing import List, Dict, Any, Optional
 from tqdm import tqdm
 import random
+from prettytable import PrettyTable
 
 try:
     from eval.call_llm import ask
@@ -18,7 +19,7 @@ VALID_CHOICES_PLUS_X = VALID_CHOICES | {"X"}
 
 def extract_response(sample: dict) -> str:
     """Extract response content for a given sample"""
-    return sample["response"]["majority"]["0.0"] if sample["difficulty"] == "intermediate" else sample["response"]["0.0"]
+    return sample["response"]["1.2"] 
 
 
 def extract_answer(response: str) -> str:
@@ -155,92 +156,75 @@ def _normalize_label(x: Any) -> Optional[str]:
 
 def evaluate_predictions(
     predictions: List[Dict[str, Any]],
-    total_samples: Optional[int] = None,
     verbose: bool = True,
 ) -> Dict[str, Any]:
     """
     Evaluate extracted predictions:
-    - accuracy on parsed subset (excluding X / invalid)
-    - coverage (parsed subset / total predictions)
-    - overall accuracy if counting X as wrong
-    - basic confusion-like stats (optional)
+    - overall accuracy (correct / total predictions passed in)
+    - basic confusion-like stats for each class 
     """
-    n_total = len(predictions)
-    if total_samples is None:
-        total_samples = n_total
-
-    correct_parsed = 0
-    parsed = 0
-    invalid = 0
-    x_count = 0
-
-    # Optional per-label tracking
-    per_label = {c: {"tp": 0, "count": 0} for c in VALID_CHOICES}
+    total = len(predictions)
+    correct = 0
+    
+    # Store per-class stats: { 'A': {'total': 0, 'correct': 0}, ... }
+    class_stats = {label: {'total': 0, 'correct': 0} for label in VALID_CHOICES}
 
     for rec in predictions:
         gold = _normalize_label(rec.get("label"))
-        pred = _normalize_label(rec.get("extracted_answer"))
-
-        if gold is None:
-            continue  # skip if no gold label
         
-        per_label[gold]["count"] += 1
-
         raw_pred = str(rec.get("extracted_answer", "")).strip().upper()
-        if raw_pred == "X":
-            x_count += 1
-            continue
+        # Treat 'X', None, or invalid as wrong
+        pred = _normalize_label(raw_pred) if raw_pred != "X" else None
+        
+        # Check correctness
+        if gold is not None and pred == gold:
+            correct += 1
 
-        if pred is None:
-            invalid += 1
-            continue
+        # Update class stats if valid gold
+        if gold in VALID_CHOICES:
+            class_stats[gold]['total'] += 1
+            if pred == gold:
+                class_stats[gold]['correct'] += 1
 
-        parsed += 1
-        if pred == gold:
-            correct_parsed += 1
-            per_label[gold]["tp"] += 1
-
-    accuracy_parsed = correct_parsed / parsed if parsed else 0.0
-    coverage = parsed / n_total if n_total else 0.0
-
-    # If you want "overall accuracy counting X/invalid as wrong"
-    # (still excludes records missing gold label)
-    overall_correct = correct_parsed  # only parsed-correct are correct
-    overall_accuracy = overall_correct / n_total if n_total > 0 else 0.0
+    overall_accuracy = correct / total if total > 0 else 0.0
 
     summary = {
-        "total_predictions": n_total,
-        "total_samples_expected": total_samples,
-        "parsed_predictions": parsed,
-        "coverage_parsed_over_predictions": coverage,
-        "x_count": x_count,
-        "invalid_pred_count": invalid,
-        "correct_parsed": correct_parsed,
-        "accuracy_on_parsed": accuracy_parsed,
-        "overall_accuracy_counting_X_invalid_wrong": overall_accuracy,
-        "per_label": {
-            c: {
-                "support": per_label[c]["count"],
-                "accuracy": (per_label[c]["tp"] / per_label[c]["count"]) if per_label[c]["count"] else None,
-            }
-            for c in sorted(VALID_CHOICES)
-        },
+        "n_evaluated": total,
+        "n_correct": correct,
+        "accuracy": overall_accuracy,
+        "per_class": {}
     }
 
     if verbose:
-        print("\n===== Evaluation =====")
-        print(f"Total predictions loaded: {n_total}")
-        if total_samples is not None:
-            print(f"Expected samples (from dataset file): {total_samples}")
-        print(f"Parsed predictions (A-E only): {parsed}")
-        print(f"Coverage (parsed / predictions): {coverage:.3f}")
-        print(f"X (unparseable) count: {x_count}")
-        print(f"Invalid pred count (not A-E/X): {invalid}")
-        print(f"Accuracy on parsed subset: {accuracy_parsed:.4f} ({correct_parsed}/{parsed})")
-        print(f"Overall accuracy (X/invalid as wrong): {overall_accuracy:.4f} ({overall_correct}/{n_total})")
+        print("\n" + "="*40)
+        print("EVALUATION REPORT")
+        print("="*40)
+        print(f"Total Samples:    {total}")
+        print(f"Overall Accuracy: {overall_accuracy:.2%} ({correct}/{total})")
+        print("-" * 40)
+        
+        pt = PrettyTable()
+        pt.field_names = ["Class", "Total", "Correct", "Accuracy"]
+        pt.align = "r"
+        pt.align["Class"] = "c"
+        
+        for label in sorted(VALID_CHOICES):
+            c_total = class_stats[label]['total']
+            c_corr = class_stats[label]['correct']
+            c_acc = (c_corr / c_total) if c_total > 0 else 0.0
+            
+            pt.add_row([ label, c_total, c_corr, f"{c_acc:.1%}" ])
+            
+            summary["per_class"][label] = {
+                "total": c_total,
+                "correct": c_corr,
+                "accuracy": c_acc
+            }
+            
+        print(pt)
+        print("="*40 + "\n")
 
     return summary
-
 
 if __name__ == "__main__":
     # CLI
@@ -248,7 +232,7 @@ if __name__ == "__main__":
     parser.add_argument("--file_path", type=str)
     parser.add_argument("--flush_every", type=int, default=1, help="Write to JSON every N new predictions")
     parser.add_argument("--mode", type=str, choices=["extract", "eval", "both"], default="both", help="Run extraction, evaluation, or both")
-    parser.add_argument("--num_samples", type=int, default=None, help="(Optional) Select random N samples for evaluation")
+    parser.add_argument("--num_samples", type=int, default=None, help="Select random N samples in the prediction output JSON file for evaluation. If not set, evaluate all samples.")
     args = parser.parse_args()
 
     # Response file + result paths for extraction
@@ -286,7 +270,7 @@ if __name__ == "__main__":
             raise FileNotFoundError(f"Cannot evaluate: predictions file not found/empty: {result_path}")
         if args.num_samples is not None:
             preds = random.sample(preds, args.num_samples)
-        summary = evaluate_predictions(preds, total_samples=len(samples) if samples else None, verbose=True)
+        summary = evaluate_predictions(preds, verbose=True)
 
         _atomic_write_json(eval_path, summary)
         print(f"[INFO] Saved eval summary to: {eval_path}")
