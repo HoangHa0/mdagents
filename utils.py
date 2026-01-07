@@ -570,7 +570,7 @@ def process_intermediate_query(question, examplers, moderator, args, fewshot=Non
             "5. Medical Geneticist - Specializes in the study of genes and heredity. - Hierarchy: Independent\n\n"
             "Please answer in above format, and do not include your reason."
         )
-        log(f"[DEBUG] Recruited Experts and Hierarchy:\n{recruited}")
+        # log(f"[DEBUG] Recruited Experts and Hierarchy:\n{recruited}")
 
         agents_data = []
         for _line in re.findall(r'[^\n]+', recruited or ''):
@@ -1296,7 +1296,6 @@ def process_advanced_query(question, args, log=None, tracker=None):
         "Answer: ",
         temperatures=[args.temperature] if hasattr(args, 'temperature') else [0.0]
     )
-    log(f"\U0001F468\u200D\u2696\uFE0F  Decision Maker's final decision: {final_decision}")
     log(f"\U0001F468\u200D\u2696\uFE0F  Decision Maker's final decision: {final_decision}")
     if created_tracker:
         try:

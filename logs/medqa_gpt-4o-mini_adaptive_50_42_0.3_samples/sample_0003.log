@@ -159,7 +159,6 @@ The insights gained from the FRDT discussion underscore the critical need for on
 
 [INFO] Step 3. Final Decision
 👨‍⚖️  Decision Maker's final decision: {0.3: "The best explanation for the failure to improve with antibiotic therapy in this case is:\n\n**(C) Ability to cleave β-lactam rings.**\n\nThis is due to the identified organism, Staphylococcus aureus, producing β-lactamase enzymes that degrade the β-lactam ring structure of dicloxacillin, rendering the antibiotic ineffective. This mechanism directly correlates with the patient's lack of response to treatment, as indicated by the ongoing high-grade fever, pain, and purulent discharge despite the administration of an appropriate antibiotic."}
-👨‍⚖️  Decision Maker's final decision: {0.3: "The best explanation for the failure to improve with antibiotic therapy in this case is:\n\n**(C) Ability to cleave β-lactam rings.**\n\nThis is due to the identified organism, Staphylococcus aureus, producing β-lactamase enzymes that degrade the β-lactam ring structure of dicloxacillin, rendering the antibiotic ineffective. This mechanism directly correlates with the patient's lack of response to treatment, as indicated by the ongoing high-grade fever, pain, and purulent discharge despite the administration of an appropriate antibiotic."}
 
 [INFO] API calls for this sample: 28
 

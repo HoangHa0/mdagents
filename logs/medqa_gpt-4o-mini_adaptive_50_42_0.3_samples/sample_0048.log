@@ -1,10 +1,6 @@
 [INFO] Processing sample 48
 
 [INFO] Step 1. Expert Recruitment
-[DEBUG] Recruited Experts and Hierarchy:
-1. Cardiologist - Focuses on the diagnosis and treatment of heart and blood vessel-related conditions, particularly hypertension. - Hierarchy: Independent  
-2. Endocrinologist - Specializes in managing diabetes and understanding its interactions with cardiovascular health and medications. - Hierarchy: Independent  
-3. Pharmacologist - Expert in the effects and mechanisms of medications, particularly in the context of hypertension treatment and side effects. - Hierarchy: Independent  
 Agent 1 (👩🏻‍⚕️ Cardiologist): Focuses on the diagnosis and treatment of heart and blood vessel-related conditions, particularly hypertension.
 Agent 2 (👨🏽‍⚕️ Endocrinologist): Specializes in managing diabetes and understanding its interactions with cardiovascular health and medications.
 Agent 3 (👨🏿‍⚕️ Pharmacologist): Expert in the effects and mechanisms of medications, particularly in the context of hypertension treatment and side effects.

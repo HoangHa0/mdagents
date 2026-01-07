@@ -170,7 +170,6 @@ This synthesized report encapsulates the essential findings and recommendations 
 
 [INFO] Step 3. Final Decision
 👨‍⚖️  Decision Maker's final decision: {0.3: 'The clinical presentation and findings from the case strongly indicate a complete molar pregnancy. In complete molar pregnancies, the most common genetic abnormality is a triploid karyotype, specifically **69XXY**. This indicates that the tissue contains two maternal chromosomes and one paternal chromosome, which is characteristic of complete hydatidiform moles.\n\nGiven the options provided, the correct genotype of the substance that will be aspirated by dilation and evacuation is:\n\n**(A) 69XXY**.'}
-👨‍⚖️  Decision Maker's final decision: {0.3: 'The clinical presentation and findings from the case strongly indicate a complete molar pregnancy. In complete molar pregnancies, the most common genetic abnormality is a triploid karyotype, specifically **69XXY**. This indicates that the tissue contains two maternal chromosomes and one paternal chromosome, which is characteristic of complete hydatidiform moles.\n\nGiven the options provided, the correct genotype of the substance that will be aspirated by dilation and evacuation is:\n\n**(A) 69XXY**.'}
 
 [INFO] API calls for this sample: 28
 
