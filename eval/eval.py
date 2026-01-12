@@ -19,7 +19,7 @@ VALID_CHOICES_PLUS_X = VALID_CHOICES | {"X"}
 
 def extract_response(sample: dict) -> str:
     """Extract response content for a given sample"""
-    return sample["response"]["1.2"] 
+    return sample["response"][TEMP] if isinstance(sample["response"], dict) else sample["response"]
 
 
 def extract_answer(response: str) -> str:
@@ -255,6 +255,15 @@ if __name__ == "__main__":
     if os.path.exists(args.file_path):
         with open(args.file_path, "r", encoding="utf-8") as f:
             samples = json.load(f)
+            
+    # Get temp value for extraction
+    global TEMP
+    if samples and "response" in samples[0]:
+        first_response = samples[0]["response"]
+        if isinstance(first_response, dict):
+            TEMP = list(first_response.keys())[0]
+        else:
+            TEMP = ''
 
     # ----- PART 1: Extract and save predictions ----- #
     if args.mode in {"extract", "both"}:
