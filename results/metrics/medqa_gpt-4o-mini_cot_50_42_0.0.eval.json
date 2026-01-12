@@ -1,12 +1,12 @@
 {
     "n_evaluated": 50,
-    "n_correct": 42,
-    "accuracy": 0.84,
+    "n_correct": 38,
+    "accuracy": 0.76,
     "per_class": {
         "A": {
             "total": 12,
-            "correct": 11,
-            "accuracy": 0.9166666666666666
+            "correct": 9,
+            "accuracy": 0.75
         },
         "B": {
             "total": 7,
@@ -25,8 +25,8 @@
         },
         "E": {
             "total": 10,
-            "correct": 8,
-            "accuracy": 0.8
+            "correct": 6,
+            "accuracy": 0.6
         }
     }
 }

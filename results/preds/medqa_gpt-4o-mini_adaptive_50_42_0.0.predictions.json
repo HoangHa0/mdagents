@@ -27,7 +27,7 @@
     {
         "idx": 5,
         "label": "D",
-        "extracted_answer": "A"
+        "extracted_answer": "E"
     },
     {
         "idx": 6,
@@ -42,7 +42,7 @@
     {
         "idx": 8,
         "label": "D",
-        "extracted_answer": "D"
+        "extracted_answer": "E"
     },
     {
         "idx": 9,
@@ -97,7 +97,7 @@
     {
         "idx": 19,
         "label": "B",
-        "extracted_answer": "C"
+        "extracted_answer": "B"
     },
     {
         "idx": 20,
@@ -132,7 +132,7 @@
     {
         "idx": 26,
         "label": "E",
-        "extracted_answer": "B"
+        "extracted_answer": "E"
     },
     {
         "idx": 27,
@@ -162,7 +162,7 @@
     {
         "idx": 32,
         "label": "C",
-        "extracted_answer": "D"
+        "extracted_answer": "A"
     },
     {
         "idx": 33,
@@ -172,7 +172,7 @@
     {
         "idx": 34,
         "label": "C",
-        "extracted_answer": "D"
+        "extracted_answer": "A"
     },
     {
         "idx": 35,
@@ -182,7 +182,7 @@
     {
         "idx": 36,
         "label": "A",
-        "extracted_answer": "C"
+        "extracted_answer": "A"
     },
     {
         "idx": 37,
@@ -192,7 +192,7 @@
     {
         "idx": 38,
         "label": "C",
-        "extracted_answer": "D"
+        "extracted_answer": "C"
     },
     {
         "idx": 39,
@@ -212,7 +212,7 @@
     {
         "idx": 42,
         "label": "E",
-        "extracted_answer": "E"
+        "extracted_answer": "A"
     },
     {
         "idx": 43,
@@ -237,7 +237,7 @@
     {
         "idx": 47,
         "label": "E",
-        "extracted_answer": "A"
+        "extracted_answer": "E"
     },
     {
         "idx": 48,
