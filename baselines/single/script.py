@@ -239,11 +239,11 @@ if __name__ == "__main__":
                 question, img_path = create_question(sample, args.dataset)
 
                 if args.method == 'zero_shot' or args.method == 'few_shot':
-                    final_decision = zero_few_shot_query(question, examplers, args, fewshot_num=args.fewshot, log=log, tracker=tracker)
+                    final_decision = zero_few_shot_query(question, examplers, args, log=log, tracker=tracker)
                 elif args.method == 'cot':
-                    final_decision = cot_query(question, examplers, args, fewshot_num=args.fewshot, log=log, tracker=tracker)
+                    final_decision = cot_query(question, examplers, args, log=log, tracker=tracker)
                 elif args.method == 'cot_sc':
-                    final_decision = cot_sc_query(question, examplers, args, fewshot_num=args.fewshot, log=log, tracker=tracker)
+                    final_decision = cot_sc_query(question, examplers, args, log=log, tracker=tracker)
                 sample_api_calls = tracker.total_calls()
 
                 if args.dataset == 'medqa':

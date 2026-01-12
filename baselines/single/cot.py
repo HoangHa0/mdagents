@@ -1,16 +1,16 @@
 import random
 from utils import Agent, _noop_log, SampleAPICallTracker
 
-def cot_query(question, examplers, args, fewshot_num=3, log=None, tracker=None):
+def cot_query(question, examplers, args, log=None, tracker=None):
     if log is None:
         log = _noop_log
     
-    log(f"\n[INFO] Generating CoT response with {fewshot_num} few-shot examplers.")
+    log(f"\n[INFO] Generating CoT response with {args.fewshot} few-shot examplers.")
     medical_agent = Agent(instruction='You are a helpful medical agent.', role='medical expert', model_info=args.model, tracker=tracker)
     fewshot_examplers = []
     if args.dataset == 'medqa':
         random.shuffle(examplers)
-        for i, exampler in enumerate(examplers[:fewshot_num]):
+        for i, exampler in enumerate(examplers[:args.fewshot]):
             tmp_exampler = {}
             exampler_question = f"Question: {exampler['question']}"
             options = [f"({k}) {v}" for k, v in exampler['options'].items()]

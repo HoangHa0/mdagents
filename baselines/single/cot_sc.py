@@ -1,16 +1,16 @@
 import random
 from utils import Agent, _noop_log, SampleAPICallTracker
 
-def cot_examplers(examplers, args, fewshot_num=3, log=None, tracker=None):
+def cot_examplers(examplers, args, log=None, tracker=None):
     if log is None:
         log = _noop_log
     
-    log(f"\n[INFO] Generating CoT examplers with {fewshot_num} few-shot examplers.")
+    log(f"\n[INFO] Generating CoT examplers with {args.fewshot} few-shot examplers.")
     medical_agent = Agent(instruction='You are a helpful medical agent.', role='medical expert', model_info=args.model, tracker=tracker)
     fewshot_examplers = []
     if args.dataset == 'medqa':
         random.shuffle(examplers)
-        for i, exampler in enumerate(examplers[:fewshot_num]):
+        for i, exampler in enumerate(examplers[:args.fewshot]):
             tmp_exampler = {}
             exampler_question = f"Question: {exampler['question']}"
             options = [f"({k}) {v}" for k, v in exampler['options'].items()]
@@ -28,18 +28,18 @@ def cot_examplers(examplers, args, fewshot_num=3, log=None, tracker=None):
     return fewshot_examplers
 
 
-def cot_sc_query(question, examplers, args, fewshot_num=8, sampling_num=10, log=None, tracker=None):
+def cot_sc_query(question, examplers, args, sampling_num=10, log=None, tracker=None):
     if log is None:
         log = _noop_log
     
     sampling_responses = []
 
-    log(f"\n[INFO] Generating CoT-SC responses with {fewshot_num} few-shot examplers and {sampling_num} sampling paths.")
+    log(f"\n[INFO] Generating CoT-SC responses with {args.fewshot} few-shot examplers and {sampling_num} sampling paths.")
     for i in range(sampling_num):
         single_agent = Agent(
             instruction="You are a helpful assistant that answers multiple choice questions about medical knowledge.", 
             role='medical expert', 
-            examplers=cot_examplers(examplers, args, fewshot_num, log=log, tracker=tracker), 
+            examplers=cot_examplers(examplers, args, log=log, tracker=tracker), 
             model_info=args.model,
             tracker=tracker
         )
