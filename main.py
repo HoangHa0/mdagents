@@ -54,7 +54,7 @@ def make_log_func(multithread, log_lines=None):
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('--dataset', type=str, default='medqa')
-    parser.add_argument('--model', type=str, default='gpt-4o-mini')
+    parser.add_argument('--model', type=str, default='mixed')
     parser.add_argument('--difficulty', type=str, default='adaptive')
     parser.add_argument('--num_samples', type=int, default=None)
     parser.add_argument('--seed', type=int, default=None)
@@ -62,7 +62,12 @@ def main():
     parser.add_argument('--multithread', action='store_true', help='Enable multithreaded execution.')
     args = parser.parse_args()
 
-    file_name = f"{args.dataset}_{args.model}_{args.difficulty}_{args.num_samples}{'_' + str(args.seed) if args.seed is not None else ''}_{args.temperature}"
+    if args.model == 'mixed':
+        args.model = ['gpt-4o-mini', 'gemini-2.5-flash-lite', 'gemini-pro']
+    else:
+        args.model = [args.model]
+
+    file_name = f"{args.dataset}_{'_'.join(args.model)}_{args.difficulty}_{args.num_samples}{'_' + str(args.seed) if args.seed is not None else ''}_{args.temperature}"
 
     if not os.path.exists('logs'):
         os.makedirs('logs')
