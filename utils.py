@@ -1,4 +1,5 @@
 import os
+import time
 import json
 import random
 import threading
@@ -161,14 +162,14 @@ class Agent:
 
     def chat(self, message, img_path=None):
         if self.model_info in ['gemini-2.5-flash-lite', 'gemini-2.5-pro']:
-            for _ in range(3):
+            for attempt in range(3):
                 try:
                     self.messages.append(types.Content(role="user", parts=[types.Part(text=message)]))
                     
                     # Initialize persistent chat session
                     self._chat = self.client.chats.create(
                         model=self.model_info,
-                        history=self.messages,
+                        history=self.messages[:-1],  # Exclude latest user message for history
                         config=types.GenerateContentConfig(system_instruction=self.instruction)
                     )
                     response = self._chat.send_message(message=message)
@@ -182,6 +183,7 @@ class Agent:
                     return response.text
                 except Exception as e:
                     print(f"Retrying due to: {e}")
+                    time.sleep(2 ** attempt)  # Exponential backoff
                     continue
             return "Error: Gemini failed."
 
