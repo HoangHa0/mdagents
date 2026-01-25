@@ -884,7 +884,7 @@ def process_intermediate_query(question, examplers, moderator, args, fewshot=Non
 
         log(f"== {round_name} ==")
 
-        # Apply moderator feedback from the previous round (if any)
+        # Apply moderator feedback from the previous round (if any) 
         if round_feedback:
             log("[INFO] Moderator Feedback")
             for idx, agent in enumerate(medical_agents):
