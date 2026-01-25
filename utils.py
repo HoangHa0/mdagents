@@ -5,6 +5,7 @@ import threading
 from prettytable import PrettyTable 
 from pptree import Node
 from google import genai
+from google.genai import types
 from openai import OpenAI
 from pptree import *
 import re
@@ -13,6 +14,38 @@ import io
 # Default no-op logger
 def _noop_log(msg):
     pass 
+
+# --- Model distribution helper ---
+def distribute_models(model_list, num_agents):
+    """
+    Distribute models equally among agents.
+    
+    Args:
+        model_list: List of model names (e.g., ['gpt-4o-mini', 'gemini-2.5-flash-lite', 'gemini-pro'])
+        num_agents: Number of agents to distribute models to
+    
+    Returns:
+        List of model names for each agent, distributed as evenly as possible
+        
+    Examples:
+        - If models=['A', 'B', 'C'] and num_agents=3, returns ['A', 'B', 'C']
+        - If models=['A', 'B', 'C'] and num_agents=5, returns ['A', 'B', 'C', 'A', 'B']
+        - If models=['A'] and num_agents=3, returns ['A', 'A', 'A']
+        - If models=['A', 'B'] and num_agents=4, returns ['A', 'B', 'A', 'B']
+    """
+    if not model_list:
+        return ['gpt-4o-mini'] * num_agents  # Fallback to default
+    
+    if len(model_list) == 1:
+        # If only one model, use it for all agents
+        return [model_list[0]] * num_agents
+    
+    # Distribute models in round-robin fashion for balanced distribution
+    distributed_models = []
+    for i in range(num_agents):
+        distributed_models.append(model_list[i % len(model_list)])
+    
+    return distributed_models
 
 # --- Robust regex helpers (avoid brittle split/indexing on LLM outputs) ---
 _EXPERT_HIER_LINE_RE = re.compile(r'^\s*(?P<expert>.+?)(?:\s*-\s*Hierarchy:\s*(?P<hierarchy>.+))?\s*$', re.IGNORECASE)
@@ -103,9 +136,24 @@ class Agent:
             except Exception:
                 pass
 
-        if self.model_info == 'gemini-pro':
+        if self.model_info in ['gemini-2.5-flash-lite', 'gemini-pro']:
             self.client = genai.Client(api_key=os.environ['genai_api_key'])
-            self._chat = self.client.chats.create(model='gemini-pro')
+            self.messages = []
+            
+            # Map examplers to Gemini history format
+            if examplers:
+                for exampler in examplers:
+                    self.messages.append({"role": "user", "parts": [{"text": exampler['question']}]}) 
+                    reason_prefix = f"Let's think step by step. {exampler['reason']} " if 'reason' in exampler else ""
+                    self.messages.append({"role": "model", "parts": [{"text": reason_prefix + exampler['answer']}]})
+            
+            # Initialize persistent chat session
+            self._chat = self.client.chats.create(
+                model=self.model_info,
+                history=self.messages,
+                config=types.GenerateContentConfig(system_instruction=self.instruction)
+            )
+        
         elif self.model_info in ['gpt-3.5', 'gpt-4', 'gpt-4o', 'gpt-4o-mini']:
             self.client = OpenAI(api_key=os.environ['openai_api_key'])
             self.messages = [
@@ -118,9 +166,9 @@ class Agent:
 
         # log(f"[DEBUG] Print out the messages for Agent {self.messages}")
 
-    def chat(self, message, img_path=None, chat_mode=True):
-        if self.model_info == 'gemini-pro':
-            for _ in range(10):
+    def chat(self, message, img_path=None):
+        if self.model_info in ['gemini-2.5-flash-lite', 'gemini-pro']:
+            for _ in range(3):
                 try:
                     response = self._chat.send_message(message=message)
                     
@@ -128,11 +176,12 @@ class Agent:
                     with Agent._api_calls_lock:
                         self.api_calls += 1
                         Agent.total_api_calls += 1
-                    
+                                                        
                     return response.text
-                except:
+                except Exception as e:
+                    print(f"Retrying due to: {e}")
                     continue
-            return "Error: Failed to get response from Gemini."
+            return "Error: Gemini failed."
 
         elif self.model_info in ['gpt-3.5', 'gpt-4', 'gpt-4o', 'gpt-4o-mini']:
             self.messages.append({"role": "user", "content": message})
@@ -182,15 +231,35 @@ class Agent:
                 
             return responses
         
-        elif self.model_info == 'gemini-pro':
-            response = self._chat.send_message(message=message)
+        elif self.model_info in ['gemini-2.5-flash-lite', 'gemini-pro']:
+            temperatures = list(set(temperatures))
+            responses = {}
             
-            # Track API call (thread-safe)
-            with Agent._api_calls_lock:
-                self.api_calls += 1
-                Agent.total_api_calls += 1
-
-            return response.text
+            # This allows "peek" at different outputs without committing them.
+            current_history = self._chat.history + [{"role": "user", "parts": [{"text": message}]}]
+            
+            for temp in temperatures:
+                for _ in range(3):
+                    try:
+                        # Use generate_content instead of chat.send_message to avoid auto-saving history
+                        response = self.client.models.generate_content(
+                            model=self.model_info,
+                            contents=current_history,
+                            config=types.GenerateContentConfig(temperature=temp)
+                        )
+                        
+                        with Agent._api_calls_lock:
+                            self.api_calls += 1
+                            Agent.total_api_calls += 1
+                        
+                        responses[temp] = response.text
+                        break
+                    except Exception:
+                        continue
+            
+            # OPTIONAL: If you want to "pick" one to actually save to history, 
+            # you would call self._chat.send_message(message) once at the end.
+            return responses
         
     def agent_talk(self, message, recipient, img_path=None):
         """
@@ -203,11 +272,13 @@ class Agent:
         if recipient.model_info in ['gpt-3.5', 'gpt-4', 'gpt-4o', 'gpt-4o-mini']:
             recipient.messages.append({"role": "user", "content": incoming_msg})
         
-        elif recipient.model_info == 'gemini-pro':
-            try:
-                pass
-            except Exception:
-                pass
+        elif recipient.model_info in ['gemini-2.5-flash-lite', 'gemini-pro']:
+            recipient._chat.history.append(
+            types.Content(
+                role="user",
+                parts=[types.Part(text=incoming_msg)]
+            )
+        )
 
         return content
 
@@ -232,11 +303,17 @@ class Agent:
         self.api_calls = 0
 
 class Group:
-    def __init__(self, goal, members, question, examplers=None, tracker=None):
+    def __init__(self, goal, members, question, examplers=None, tracker=None, model_list=None):
         self.goal = goal
         self.members = []
-        for member_info in members:
-            _agent = Agent('You are a {} who {}.'.format(member_info['role'], member_info['expertise_description'].lower()), role=member_info['role'], model_info='gpt-4o-mini', tracker=tracker)
+        
+        # Distribute models equally among group members
+        if model_list is None:
+            model_list = ['gpt-4o-mini']
+        member_models = distribute_models(model_list, len(members))
+        
+        for idx, member_info in enumerate(members):
+            _agent = Agent('You are a {} who {}.'.format(member_info['role'], member_info['expertise_description'].lower()), role=member_info['role'], model_info=member_models[idx], tracker=tracker)
             self.members.append(_agent)
         self.question = question
         self.examplers = examplers
@@ -484,7 +561,7 @@ def process_basic_query(question, examplers, args, fewshot=3, log=None, tracker=
         created_tracker = True
     
     log("[INFO] Step 1. Single-Agent Few-shot Preparation")
-    medical_agent = Agent(instruction='You are a helpful medical agent.', role='medical expert', model_info=args.model, tracker=tracker)
+    medical_agent = Agent(instruction='You are a helpful medical agent.', role='medical expert', model_info=args.model[0], tracker=tracker)
     fewshot_examplers = []
     if args.dataset == 'medqa':
         random.shuffle(examplers)
@@ -504,7 +581,7 @@ def process_basic_query(question, examplers, args, fewshot=3, log=None, tracker=
             fewshot_examplers.append(tmp_exampler)
     
     log("[INFO] Step 2. Single-Agent Final Decision")
-    single_agent = Agent(instruction="You are a helpful assistant that answers multiple choice questions about medical knowledge.", role='medical expert', examplers=fewshot_examplers, model_info=args.model, tracker=tracker)
+    single_agent = Agent(instruction="You are a helpful assistant that answers multiple choice questions about medical knowledge.", role='medical expert', examplers=fewshot_examplers, model_info=args.model[0], tracker=tracker)
     final_decision = single_agent.temp_responses(
         f"The following are multiple choice questions (with answers) about medical knowledge. Let's think step by step.\n\nQuestion: {question}\nAnswer: ",
         temperatures=[args.temperature] if hasattr(args, 'temperature') else [0.0],
@@ -660,21 +737,24 @@ def process_intermediate_query(question, examplers, moderator, args, fewshot=Non
         description = ((m.group('desc') or '') if m else '').strip().lower()
         agent_list += f"Agent {i+1}: {agent_role} - {description}\n"
 
+    # Distribute models equally among agents
+    agent_models = distribute_models(args.model, len(agents_data))
+
     agent_dict = {}
     medical_agents = []
-    for agent in agents_data:
-        m = _EXPERT_ROLE_DESC_RE.match(agent[0] or '')
-        agent_role = (m.group('role') if m else (agent[0] or '')).strip().lower()
+    for idx, (agent, _) in enumerate(agents_data):
+        m = _EXPERT_ROLE_DESC_RE.match(agent or '')
+        agent_role = (m.group('role') if m else (agent or '')).strip().lower()
         description = ((m.group('desc') or '') if m else '').strip().lower()
 
         inst_prompt = f"You are a {agent_role} who {description}. Your job is to collaborate with other medical experts in a team."
-        _agent = Agent(instruction=inst_prompt, role=agent_role, model_info=args.model, tracker=tracker)
+        _agent = Agent(instruction=inst_prompt, role=agent_role, model_info=agent_models[idx], tracker=tracker)
         agent_dict[agent_role] = _agent
         medical_agents.append(_agent)
 
-    for idx, agent in enumerate(agents_data):
-        m = _EXPERT_ROLE_DESC_RE.match(agent[0] or '')
-        role_txt = (m.group('role') if m else (agent[0] or '')).strip()
+    for idx, (agent, _) in enumerate(agents_data):
+        m = _EXPERT_ROLE_DESC_RE.match(agent or '')
+        role_txt = (m.group('role') if m else (agent or '')).strip()
         desc_txt = ((m.group('desc') or '') if m else '').strip()
         if desc_txt:
             log(f"Agent {idx+1} ({agent_emoji[idx]} {role_txt}): {desc_txt}")
@@ -685,7 +765,7 @@ def process_intermediate_query(question, examplers, moderator, args, fewshot=Non
     # Keep intermediate as zero-shot by default.
     fewshot_examplers = ""
     if fewshot is not None and fewshot > 0:
-        medical_agent = Agent(instruction='You are a helpful medical agent.', role='medical expert', model_info=args.model, tracker=tracker)
+        medical_agent = Agent(instruction='You are a helpful medical agent.', role='medical expert', model_info=args.model[0], tracker=tracker)
         random.shuffle(examplers)
         for ie, exampler in enumerate(examplers[:fewshot]):
             exampler_question = f"[Example {ie+1}]\n" + exampler['question']
@@ -1063,7 +1143,7 @@ def process_intermediate_query(question, examplers, moderator, args, fewshot=Non
     decision_maker = Agent(
         "You are a final medical decision maker who reviews all opinions from different medical experts and their conversation history to make the final decision.",
         role='decision maker',
-        model_info=args.model,
+        model_info=args.model[0],
         tracker=tracker
     )
     
@@ -1182,7 +1262,7 @@ def process_advanced_query(question, args, log=None, tracker=None):
             else:
                 log(f"  {member_icon} Member {i2+1} ({role})")
 
-        group_instance = Group(res_gs['group_goal'], res_gs['members'], question, tracker=tracker)
+        group_instance = Group(res_gs['group_goal'], res_gs['members'], question, tracker=tracker, model_list=args.model)
         group_instances.append(group_instance)
 
     # Identify teams
@@ -1199,7 +1279,7 @@ def process_advanced_query(question, args, log=None, tracker=None):
     mdt_teams = [gi for gi in group_instances if (gi not in iat_team and gi not in frdt_team)]
     
     def _generate_report(raw_team_output):
-        reporter = Agent(instruction="You are a medical assistant who excels at summarizing and synthesizing based on multiple experts from various domain experts.", role="medical assistant", model_info=args.model, tracker=tracker)
+        reporter = Agent(instruction="You are a medical assistant who excels at summarizing and synthesizing based on multiple experts from various domain experts.", role="medical assistant", model_info=args.model[0], tracker=tracker)
         prompt = (
             "Given the MDT raw discussion output (agent answers / investigations) below, please complete the following steps:\n"
             "1. Take careful and comprehensive consideration of the provided reports.\n"
@@ -1282,7 +1362,7 @@ def process_advanced_query(question, args, log=None, tracker=None):
         "You are an experienced medical expert. Now, given the investigations from multidisciplinary teams (MDT), "
         "please review them very carefully and return your final decision to the medical query."
     )
-    decision_maker = Agent(instruction=decision_prompt, role='decision maker', model_info=args.model, tracker=tracker)
+    decision_maker = Agent(instruction=decision_prompt, role='decision maker', model_info=args.model[0], tracker=tracker)
 
     all_reports = (
         f"[Initial Assessment Team]\n{initial_assessment_report}\n"
