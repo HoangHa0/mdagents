@@ -21,7 +21,7 @@ def distribute_models(model_list, num_agents):
     Distribute models equally among agents.
     
     Args:
-        model_list: List of model names (e.g., ['gpt-4o-mini', 'gemini-2.5-flash-lite', 'gemini-pro'])
+        model_list: List of model names (e.g., ['gpt-4o-mini', 'gemini-2.5-flash-lite', 'gemini-2.5-pro'])
         num_agents: Number of agents to distribute models to
     
     Returns:
@@ -136,23 +136,16 @@ class Agent:
             except Exception:
                 pass
 
-        if self.model_info in ['gemini-2.5-flash-lite', 'gemini-pro']:
+        if self.model_info in ['gemini-2.5-flash-lite', 'gemini-2.5-pro']:
             self.client = genai.Client(api_key=os.environ['genai_api_key'])
             self.messages = []
             
             # Map examplers to Gemini history format
             if examplers:
                 for exampler in examplers:
-                    self.messages.append({"role": "user", "parts": [{"text": exampler['question']}]}) 
+                    self.messages.append(types.Content(role="user", parts=[types.Part(text=exampler['question'])])) 
                     reason_prefix = f"Let's think step by step. {exampler['reason']} " if 'reason' in exampler else ""
-                    self.messages.append({"role": "model", "parts": [{"text": reason_prefix + exampler['answer']}]})
-            
-            # Initialize persistent chat session
-            self._chat = self.client.chats.create(
-                model=self.model_info,
-                history=self.messages,
-                config=types.GenerateContentConfig(system_instruction=self.instruction)
-            )
+                    self.messages.append(types.Content(role="model", parts=[types.Part(text=reason_prefix + exampler['answer'])]))
         
         elif self.model_info in ['gpt-3.5', 'gpt-4', 'gpt-4o', 'gpt-4o-mini']:
             self.client = OpenAI(api_key=os.environ['openai_api_key'])
@@ -167,16 +160,25 @@ class Agent:
         # log(f"[DEBUG] Print out the messages for Agent {self.messages}")
 
     def chat(self, message, img_path=None):
-        if self.model_info in ['gemini-2.5-flash-lite', 'gemini-pro']:
+        if self.model_info in ['gemini-2.5-flash-lite', 'gemini-2.5-pro']:
             for _ in range(3):
                 try:
+                    self.messages.append(types.Content(role="user", parts=[types.Part(text=message)]))
+                    
+                    # Initialize persistent chat session
+                    self._chat = self.client.chats.create(
+                        model=self.model_info,
+                        history=self.messages,
+                        config=types.GenerateContentConfig(system_instruction=self.instruction)
+                    )
                     response = self._chat.send_message(message=message)
                     
                     # Track API call (thread-safe)
                     with Agent._api_calls_lock:
                         self.api_calls += 1
                         Agent.total_api_calls += 1
-                                                        
+                                                
+                    self.messages.append(types.Content(role="model", parts=[types.Part(text=response.text)]))
                     return response.text
                 except Exception as e:
                     print(f"Retrying due to: {e}")
@@ -229,36 +231,36 @@ class Agent:
                 
                 responses[temperature] = response.choices[0].message.content
                 
+            # self.messages.append({"role": "assistant", "content": responses})
+                
             return responses
         
-        elif self.model_info in ['gemini-2.5-flash-lite', 'gemini-pro']:
+        elif self.model_info in ['gemini-2.5-flash-lite', 'gemini-2.5-pro']:
+            self.messages.append(types.Content(role="user", parts=[types.Part(text=message)]))
             temperatures = list(set(temperatures))
             responses = {}
-            
-            # This allows "peek" at different outputs without committing them.
-            current_history = self._chat.history + [{"role": "user", "parts": [{"text": message}]}]
-            
-            for temp in temperatures:
+                        
+            for temperature in temperatures:
                 for _ in range(3):
                     try:
-                        # Use generate_content instead of chat.send_message to avoid auto-saving history
                         response = self.client.models.generate_content(
                             model=self.model_info,
-                            contents=current_history,
-                            config=types.GenerateContentConfig(temperature=temp)
+                            contents=self.messages,
+                            config=types.GenerateContentConfig(temperature=temperature)
                         )
                         
                         with Agent._api_calls_lock:
                             self.api_calls += 1
                             Agent.total_api_calls += 1
                         
-                        responses[temp] = response.text
+                        responses[temperature] = response.text
                         break
                     except Exception:
                         continue
             
             # OPTIONAL: If you want to "pick" one to actually save to history, 
             # you would call self._chat.send_message(message) once at the end.
+            # self.messages.append(types.Content(role="model", parts=[types.Part(text=responses)]))
             return responses
         
     def agent_talk(self, message, recipient, img_path=None):
@@ -272,14 +274,9 @@ class Agent:
         if recipient.model_info in ['gpt-3.5', 'gpt-4', 'gpt-4o', 'gpt-4o-mini']:
             recipient.messages.append({"role": "user", "content": incoming_msg})
         
-        elif recipient.model_info in ['gemini-2.5-flash-lite', 'gemini-pro']:
-            recipient._chat.history.append(
-            types.Content(
-                role="user",
-                parts=[types.Part(text=incoming_msg)]
-            )
-        )
-
+        elif recipient.model_info in ['gemini-2.5-flash-lite', 'gemini-2.5-pro']:
+            recipient.messages.append(types.Content(role="user", parts=[types.Part(text=incoming_msg)]))
+        
         return content
 
     @classmethod
