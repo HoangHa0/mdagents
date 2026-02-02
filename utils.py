@@ -1007,7 +1007,10 @@ def process_intermediate_query(question, examplers, moderator, args, fewshot=Non
                         opinions[agent.role] = participate
                         assessment = "".join(f"({k}): {v}\n" for k, v in opinions.items())
                     log(f" Agent {idx+1} ({agent_emoji[idx]} {agent.role}): \U0001F910")
-
+                
+                log(f"\n[DEBUG] Current agent chat history for {round_name}, {turn_name}:\n" + 
+                    "\n".join([f"{idx}. {agent.role} history:\n{agent.messages}" for idx, agent in enumerate(medical_agents)]))
+                
             if num_yes == 0:
                 log(" No agents chose to participate in this turn. End this turn.")
                 break
@@ -1046,6 +1049,8 @@ def process_intermediate_query(question, examplers, moderator, args, fewshot=Non
             f"Experts' current answers:\n{answers_text}\n",
             img_path=None
         )
+        
+        log(f" \U0001F468\u200D\u2696\uFE0F Moderator chat history for {round_name}:\n{moderator.messages}")
                 
         consensus_yes = bool(re.search(r'(?im)^\s*Consensus\s*:\s*YES\s*$', moderator_consensus or ''))
         consensus_no = bool(re.search(r'(?im)^\s*Consensus\s*:\s*NO\s*$', moderator_consensus or ''))
@@ -1083,6 +1088,9 @@ def process_intermediate_query(question, examplers, moderator, args, fewshot=Non
             log("\n[INFO] Agents voted to stop discussion.")
             round_feedback = {}
             break
+        
+        log(f"\n[DEBUG] Current agent chat history for {round_name}:\n" + 
+            "\n".join([f"{idx}. {agent.role} history:\n{agent.messages}" for idx, agent in enumerate(medical_agents)]))
 
         # Moderator provides feedback for next round if not converged
         log("\n[INFO] Disagreement detected")
@@ -1158,7 +1166,7 @@ def process_intermediate_query(question, examplers, moderator, args, fewshot=Non
                 for dst, msg in dsts.items():
                     conversation_history += f"  {src} → {dst}:\n    {msg}\n"
     
-    # log("\n[DEBUG] Full Conversation History for Decision Maker:\n" + conversation_history)
+    log("\n[DEBUG] Full Conversation History for Decision Maker:\n" + conversation_history)
     
     final_decision = decision_maker.temp_responses(
         "You are reviewing the final decision from a multidisciplinary team discussion. "
@@ -1172,7 +1180,7 @@ def process_intermediate_query(question, examplers, moderator, args, fewshot=Non
         temperatures=[args.temperature] if hasattr(args, 'temperature') else [0.0],
         img_path=None 
     )
-    
+        
     log(f"\U0001F468\u200D\u2696\uFE0F  Moderator's final decision: {final_decision}")
     
     if created_tracker:
