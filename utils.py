@@ -1143,6 +1143,9 @@ def process_intermediate_query(question, examplers, moderator, args, fewshot=Non
 
         # Next round starts from the agents' last answers
         opinions = dict(final_answers)
+        
+        log(f"\n[DEBUG] End of {round_name} chat opinions:\n" +
+            "\n".join([f"{idx}. {agent.role} opinion:\n{opinions[agent.role]}" for idx, agent in enumerate(medical_agents)]))
 
     # Final decision maker (review all opinions)
     log("\n[INFO] Step 4. Final Decision")
