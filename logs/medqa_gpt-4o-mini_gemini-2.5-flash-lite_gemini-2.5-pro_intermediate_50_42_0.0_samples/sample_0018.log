@@ -1,0 +1,106 @@
+[INFO] Processing sample 18
+
+[INFO] Step 1. Expert Recruitment
+Agent 1 (👨🏽‍⚕️ Psychiatrist): Specializes in diagnosing and treating mental illnesses, including the effects of antipsychotic medications.
+Agent 2 (🧑🏿‍⚕️ Neurologist): Focuses on disorders of the nervous system, including movement disorders associated with antipsychotic medications.
+Agent 3 (🧑‍⚕️ Pharmacologist): Expert in the effects of drugs on biological systems, particularly the side effects of antipsychotic medications like haloperidol.
+
+[INFO] Hierarchy Selection
+                   moderator (👨‍⚖️)                                         
+           ┌───────────────┴────────────┬────────────────────────┐          
+  Psychiatrist (👨🏽‍⚕️)        Pharmacologist (🧑‍⚕️)     Neurologist (🧑🏿‍⚕️) 
+
+
+[INFO] Step 2. Initial Opinions
+ Agent 1 (👨🏽‍⚕️ psychiatrist) : The symptoms described in the case are characteristic of **(B) Tardive dyskinesia**. Tardive dyskinesia is a movement disorder that can occur as a side effect of long-term use of antipsychotic medications, especially typical antipsychotics like haloperidol. 
+
+The patient's symptoms of lip smacking, mouth pursing, and excessive blinking are indicative of the involuntary movements associated with tardive dyskinesia. These movements typically develop after prolonged treatment with antipsychotics, often occurring after several weeks to months of treatment, and they can become more pronounced over time. Unlike acute dystonia, which usually develops within hours to days of starting or increasing an antipsychotic dose and is often painful, the movements of tardive dyskinesia are usually not distressing to the patient.
+
+Other options do not accurately describe his symptoms:
+- **Akathisia (A)** is characterized by an inner restlessness and the need to be in constant motion.
+- **Pseudoparkinsonism (D)** presents with tremors, rigidity, bradykinesia, and postural instability, which are not the symptoms described here.
+- **Acute dystonia (C)** involves sustained muscle contractions and abnormal postures occurring relatively quickly after medication changes or initiation.
+- **Palsy (E)** is a general term for weakness or paralysis and does not specifically relate to the symptoms presented.
+
+Therefore, Tardive dyskinesia is the accurate description of his symptoms.
+ Agent 2 (🧑🏿‍⚕️ neurologist) : The patient's presentation of involuntary, repetitive movements, specifically lip smacking, pursing of the mouth, and excessive blinking, which have gradually developed over two weeks, is highly suggestive of **tardive dyskinesia (TD)**.
+
+Let's break down why this is the most fitting diagnosis and why the other options are less likely:
+
+*   **Tardive Dyskinesia (TD):** TD is a neurological disorder that is a side effect of long-term use of antipsychotic medications, particularly older, "typical" antipsychotics like haloperidol. It is characterized by involuntary, repetitive, and often purposeless movements, most commonly affecting the face, tongue, jaw, and extremities. The development of these symptoms can be insidious, occurring weeks to months or even years after starting the medication. The patient's symptoms—lip smacking, mouth pursing, and excessive blinking—are classic orofacial dyskinetic movements seen in TD. The gradual onset over two weeks and the fact that the patient is not bothered by them also align with TD.
+
+Now, let's consider why the other options are less likely:
+
+*   **Akathisia (A):** Akathisia is a subjective feeling of inner restlessness and an inability to stay still, often accompanied by a motor urge to move. While it can manifest as fidgeting or pacing, the specific described movements (lip smacking, pursing, blinking) are not the hallmark of akathisia. Akathisia is primarily a subjective experience of restlessness.
+
+*   **Pseudoparkinsonism (D):** Pseudoparkinsonism, also known as drug-induced parkinsonism, is a side effect of antipsychotics that mimics the symptoms of Parkinson's disease. These typically include bradykinesia (slowness of movement), rigidity, tremor, and a shuffling gait. The patient's symptoms are not consistent with these findings.
+
+*   **Acute Dystonia (C):** Acute dystonia is a sudden, involuntary, and sustained muscle contraction that can occur early in antipsychotic treatment (hours to days). It often affects the neck (torticollis), eyes (oculogyric crisis), or tongue. The patient's symptoms developed gradually over two weeks and are characterized by repetitive, dyskinetic movements, not sustained, involuntary contractions.
+
+*   **Palsy (E):** "Palsy" is a general term for paralysis or weakness. While some movement disorders can be associated with neurological deficits, the symptoms described are not indicative of paralysis or weakness but rather of involuntary, hyperkinetic movements.
+
+Therefore, based on the gradual onset of involuntary orofacial movements in a patient on long-term haloperidol, **Tardive dyskinesia (B)** is the most accurate description of his symptoms.
+
+The final answer is $\boxed{B}$.
+ Agent 3 (🧑‍⚕️ pharmacologist) : Excellent. Let's analyze this case from a pharmacological perspective. As the team's pharmacologist, my focus is on identifying the adverse drug reaction based on the medication, timeline, and clinical presentation.
+
+---
+
+### Analysis of the Case
+
+The key elements to consider are:
+1.  **Patient:** 61-year-old male with schizophrenia.
+2.  **Medication:** Haloperidol, a first-generation (typical) antipsychotic. This drug is a potent dopamine D2 receptor antagonist.
+3.  **Duration of Treatment:** "Several months." This is a crucial detail, indicating chronic exposure.
+4.  **Symptoms:** Involuntary, repetitive orofacial movements: lip smacking, mouth pursing, and excessive blinking.
+5.  **Onset:** Slow and insidious over 2 weeks.
+6.  **Patient Awareness:** He is not bothered by the movements, suggesting a lack of subjective distress.
+
+Based on these points, my assessment leads directly to one conclusion.
+
+### Correct Answer and Rationale
+
+The correct answer is **(B) Tardive Dyskinesia**.
+
+Here is my detailed pharmacological breakdown for the team:
+
+**Tardive Dyskinesia (TD)** is a hyperkinetic movement disorder characterized by involuntary, repetitive movements.
+
+*   **Pharmacological Cause:** TD is a well-established, delayed-onset side effect of long-term treatment with dopamine receptor antagonists, particularly first-generation antipsychotics like haloperidol. The pathophysiology is thought to involve the upregulation and supersensitivity of postsynaptic D2 receptors in the nigrostriatal pathway following chronic blockade.
+*   **Symptom Match:** The patient's symptoms—lip smacking, pursing, and excessive blinking—are the classic *orobuccolingual dyskinesias* that are pathognomonic for TD. Other common manifestations can include tongue protrusion ("fly-catching"), grimacing, or choreoathetoid movements of the limbs and trunk.
+*   **Timeline Match:** The term "tardive" means delayed or late-appearing. The condition develops after months or, more commonly, years of exposure to the offending agent. The patient's treatment course of "several months" fits this timeline perfectly.
+*   **Patient Awareness:** It is very common for patients with TD to have poor insight into these movements or to not be distressed by them, exactly as described in the vignette.
+
+### Evaluation of Incorrect Options
+
+It's equally important to rule out the other extrapyramidal symptoms (EPS):
+
+*   **(A) Akathisia:** This is a state of severe inner restlessness and a compulsion to move. Patients feel they cannot sit still and may pace, shift their weight, or tap their feet. It is a subjective feeling of distress, which this patient does not report. The movements are semi-voluntary attempts to relieve the inner tension, not the specific, involuntary orofacial movements seen here.
+*   **(C) Acute Dystonia:** This involves sudden, sustained, and often painful muscle spasms. It typically manifests as torticollis (neck twisting), oculogyric crisis (eyes rolling upward), or opisthotonos (back arching). It is an *acute* reaction, occurring within hours to days of starting a medication or increasing the dose, not after several months.
+*   **(D) Pseudoparkinsonism:** This is a drug-induced syndrome mimicking Parkinson's disease. Its cardinal features are *hypokinetic* (reduced movement), including bradykinesia (slowness), a resting "pill-rolling" tremor, and rigidity ("cogwheel" or "lead-pipe"). The patient's symptoms are *hyperkinetic* (excessive movement), the opposite of parkinsonism.
+*   **(E) Palsy:** This is a general term for weakness or paralysis of a muscle group, often due to nerve damage. It describes a *loss* of motor function, not the presence of abnormal, involuntary movements.
+
+### Recommendation for the Team
+
+1.  **Confirm and Document:** We should formally assess the patient using the Abnormal Involuntary Movement Scale (AIMS) to quantify the severity of the movements and establish a baseline.
+2.  **Management Strategy:** The development of TD is a serious adverse effect that can become irreversible. The primary management step is to consider discontinuing or reducing the dose of the causative agent (haloperidol). We should discuss switching him to a second-generation (atypical) antipsychotic with a lower risk of TD, such as quetiapine or clozapine.
+3.  **Symptomatic Treatment:** If the movements persist and are functionally impairing after adjusting his antipsychotic regimen, we can consider treatment with a VMAT2 inhibitor (e.g., valbenazine, deutetrabenazine), which are specifically FDA-approved for Tardive Dyskinesia.
+
+In summary, the patient's presentation is a textbook case of Tardive Dyskinesia resulting from chronic haloperidol therapy.
+
+[INFO] Step 3. Collaborative Decision Making
+== Round 1 ==
+[INFO] Participatory Debate
+|_Turn 1
+ Agent 1 (👨🏽‍⚕️ psychiatrist): 🤐
+ Agent 2 (🧑🏿‍⚕️ neurologist): 🤐
+ Agent 3 (🧑‍⚕️ pharmacologist): 🤐
+ No agents chose to participate in this turn. End this turn.
+ No agents chose to participate in this round. End this round.
+
+[INFO] Step 4. Final Decision
+👨‍⚖️  Moderator's final decision: {0.0: "Based on the thorough analysis and consensus reached by the multidisciplinary team, the final decision is that the symptoms exhibited by the patient are accurately described as **(B) Tardive dyskinesia**. \n\nThe reasoning provided by the psychiatrist, neurologist, and pharmacologist aligns on several key points:\n\n1. **Symptom Description**: The patient's involuntary movements, specifically lip smacking, mouth pursing, and excessive blinking, are classic signs of tardive dyskinesia, which is characterized by repetitive, involuntary movements often associated with long-term use of antipsychotic medications.\n\n2. **Onset and Duration**: The gradual onset of symptoms over two weeks, following several months of treatment with haloperidol, fits the profile of tardive dyskinesia, which typically develops after prolonged exposure to dopamine antagonists.\n\n3. **Differentiation from Other Conditions**: The team effectively ruled out other potential diagnoses such as akathisia, acute dystonia, pseudoparkinsonism, and palsy, providing clear explanations for why these conditions do not match the patient's presentation.\n\n4. **Management Considerations**: The team also discussed the implications of the diagnosis, including the need for potential changes in medication and the importance of monitoring the patient's symptoms.\n\nGiven the strong consensus and the quality of reasoning presented, the final answer is:\n\n**Final Answer: (B) Tardive dyskinesia**."}
+
+[INFO] API calls for this sample: 9
+
+[INFO] Sample 18 completed successfully

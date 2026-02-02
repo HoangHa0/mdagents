@@ -1,0 +1,212 @@
+[INFO] Processing sample 8
+
+[INFO] Step 1. Expert Recruitment
+Agent 1 (👩🏼‍⚕️ Neurologist): Specializes in the diagnosis and treatment of neurological disorders, including spinal cord injuries and stroke.
+Agent 2 (👩🏻‍⚕️ Orthopedic Surgeon): Focuses on the treatment of musculoskeletal injuries, including those related to cervical spine injuries.
+Agent 3 (👨‍⚕️ Neurosurgeon): Specializes in surgical interventions for neurological diseases, including lesions of the spine and brain.
+
+[INFO] Hierarchy Selection
+moderator (👨‍⚖️)                                                      
+   └─────────────────────────────────────┐                            
+                                Neurologist (👩🏼‍⚕️)                   
+                      ┌──────────────────┴──────────────┐             
+          Orthopedic Surgeon (👩🏻‍⚕️)           Neurosurgeon (👨‍⚕️)    
+
+
+[INFO] Step 2. Initial Opinions
+ Agent 1 (👩🏼‍⚕️ neurologist) : In this case, you have a patient presenting with a left-sided weakness following a chiropractic neck manipulation, and the MRI reveals a left C5 hemicord lesion, which suggests a Brown-Séquard syndrome. In Brown-Séquard syndrome, there is hemisection of the spinal cord, leading to characteristic deficits.
+
+In terms of neurological findings associated with a left hemicord lesion:
+
+- The patient experiences spastic paralysis and weakness on the same side as the lesion (left side) due to corticospinal tract involvement.
+- There would be contralateral loss of pain and temperature sensation (right side) due to the disruption of the spinothalamic tract.
+- Proprioception and vibration sense, which ascend through the dorsal columns, would be preserved on the same side (left side).
+
+Now, evaluating the options provided:
+- (C) Contralateral corticospinal tract involvement: Incorrect, as this would lead to weakness on the opposite side, which is not the case here.
+- (D) Right-sided analgesia: This is correct since the patient would experience loss of pain and temperature sensation on the right side.
+- (E) Contralateral loss of vibration and proprioception: Incorrect, as proprioceptive and vibratory sensation would be preserved on the right side.
+- (B) Right-sided Horner's syndrome: This is not typical for a hemicord lesion specifically at C5 without additional injury to sympathetic pathways.
+- (A) Spastic paralysis at the level of the lesion: Incorrect as spastic paralysis would manifest on the left side.
+
+Thus, the most likely finding that would be seen in this patient, given the left C5 hemicord lesion, is:
+
+**(D) Right-sided analgesia**.
+ Agent 2 (👩🏻‍⚕️ orthopedic surgeon) : The patient presents with left-sided weakness following a chiropractic neck manipulation, and a T2-weighted MRI shows a left C5 hemicord lesion. This clinical presentation is highly suggestive of Brown-Séquard syndrome, which is a condition characterized by hemisection of the spinal cord. Brown-Séquard syndrome results from damage to one side of the spinal cord, typically due to trauma, and it leads to a specific pattern of sensory and motor deficits.
+
+Let's analyze the findings in Brown-Séquard syndrome:
+
+*   **Ipsilateral motor deficit:** The corticospinal tract, which controls voluntary movement, crosses over in the brainstem. Therefore, damage to one side of the spinal cord (e.g., left) will cause weakness or paralysis on the same side of the body (left-sided weakness in this case). This corresponds to spastic paralysis at the level of the lesion and below if the lesion is in the cervical or upper thoracic cord. Since the MRI shows a C5 hemicord lesion, this would affect the left corticospinal tract.
+
+*   **Ipsilateral loss of proprioception and vibration:** The dorsal column-medial lemniscus pathway, which carries sensory information about position sense (proprioception) and vibration, ascends on the same side of the spinal cord as the sensory input. Therefore, damage to one side of the spinal cord (e.g., left) will result in a loss of vibration and proprioception on the same side of the body (left-sided loss).
+
+*   **Contralateral loss of pain and temperature:** The spinothalamic tract, which carries pain and temperature sensation, crosses over to the opposite side of the spinal cord at the level of the spinal segment where the sensory fibers enter. Therefore, damage to one side of the spinal cord (e.g., left) will result in a loss of pain and temperature sensation on the opposite side of the body (right-sided analgesia and thermanesthesia).
+
+Considering the patient's left-sided weakness (indicating a lesion affecting the left corticospinal tract) and the left C5 hemicord lesion, we can predict other associated findings based on Brown-Séquard syndrome:
+
+*   **Spastic paralysis at the level of lesion (A):** Damage to the hemicord at C5 will involve the corticospinal tract. At and below the level of the lesion, there will be weakness and spasticity on the ipsilateral (left) side. This is consistent with the patient's presentation.
+
+*   **Right-sided Horner's syndrome (B):** Horner's syndrome (ptosis, miosis, anhidrosis) is caused by damage to the sympathetic pathway, which originates in the hypothalamus and descends in the lateral brainstem and spinal cord. The sympathetic fibers controlling the face and eye exit the spinal cord at T1-T3. A lesion at C5 can potentially involve descending sympathetic fibers, leading to ipsilateral Horner's syndrome. However, the sympathetic pathway is more commonly affected by lesions in the upper thoracic cord. While possible, it's not as consistently present as the other sensory and motor findings.
+
+*   **Contralateral corticospinal tract involvement (C):** This is incorrect. The corticospinal tract crosses in the brainstem, so a left-sided spinal cord lesion affects the *ipsilateral* corticospinal tract.
+
+*   **Right-sided analgesia (D):** Since the spinothalamic tract crosses to the contralateral side, a left hemicord lesion would cause loss of pain and temperature sensation on the *right* side. This is a characteristic finding of Brown-Séquard syndrome.
+
+*   **Contralateral loss of vibration and proprioception (E):** This is incorrect. The pathways for vibration and proprioception ascend on the *ipsilateral* side of the spinal cord. A left hemicord lesion would cause loss of vibration and proprioception on the *left* side.
+
+The question asks what *other* finding will most likely be seen. The patient already has left-sided weakness, which is explained by the left hemicord lesion affecting the corticospinal tract. We need to consider the other deficits associated with Brown-Séquard syndrome.
+
+Given a left C5 hemicord lesion:
+*   Motor: Left-sided weakness (already present)
+*   Proprioception/Vibration: Left-sided loss
+*   Pain/Temperature: Right-sided loss
+
+The options provided are:
+(C) Contralateral corticospinal tract involvement - Incorrect (ipsilateral)
+(D) Right-sided analgesia - Correct (contralateral spinothalamic tract involvement)
+(E) Contralateral loss of vibration and proprioception - Incorrect (ipsilateral dorsal columns)
+(B) Right-sided Horner's syndrome - Possible, but less directly predictable from a C5 lesion alone compared to sensory deficits.
+(A) Spastic paralysis at the level of lesion - This is consistent with the left-sided weakness due to corticospinal tract involvement, but the question asks for *another* finding. If "left-sided weakness" is considered the primary presentation, then spastic paralysis at the level of the lesion is a direct consequence of the damage to the motor pathways. However, the question implies looking for a deficit that is not immediately obvious from the term "left-sided weakness" alone, but is a characteristic accompaniment.
+
+Let's re-evaluate option (A). Spastic paralysis is a *type* of motor deficit. The patient has "left-sided weakness." Spastic paralysis would be the expected *form* of weakness due to the corticospinal tract lesion.
+
+Considering the classical presentation of Brown-Séquard syndrome, the combination of ipsilateral motor loss and contralateral sensory loss (pain and temperature) is key. The patient presents with left-sided weakness (ipsilateral motor loss). Therefore, the most likely *other* finding would be contralateral sensory loss, specifically loss of pain and temperature.
+
+Right-sided analgesia (D) directly represents the contralateral sensory deficit.
+
+Let's think about what is *most likely* seen. The left hemicord lesion affects the left corticospinal tract (causing left weakness) and the left spinothalamic tract, which had already crossed from the right side. Thus, there will be loss of pain and temperature sensation on the right side. The left dorsal column is also affected, leading to loss of vibration and proprioception on the left.
+
+The question asks what other finding will *most likely* be seen.
+Given the patient has left-sided weakness, this implies damage to the left corticospinal tract.
+The other major pathways affected in a hemicord lesion are the spinothalamic tract and the dorsal columns.
+- Left spinothalamic tract deficit: Loss of pain and temperature on the right side.
+- Left dorsal column deficit: Loss of vibration and proprioception on the left side.
+
+Option (D) right-sided analgesia directly corresponds to the contralateral spinothalamic tract deficit. This is a hallmark of Brown-Séquard syndrome.
+
+Option (A) spastic paralysis at the level of lesion. The weakness is already stated. Spasticity is a consequence of upper motor neuron lesion. It's part of the motor deficit.
+
+The question asks for *another* finding. If we interpret "left-sided weakness" as the presenting symptom, then we are looking for other deficits beyond just motor weakness.
+
+Let's consider the typical presentation taught for Brown-Séquard.
+1.  Ipsilateral paralysis/paresis (corticospinal tract)
+2.  Ipsilateral loss of touch, pressure, vibration, proprioception (dorsal columns)
+3.  Contralateral loss of pain and temperature (spinothalamic tract)
+4.  Ipsilateral loss of all sensations at the level of the lesion.
+
+The patient has left-sided weakness. This is ipsilateral paralysis/paresis.
+Therefore, the other expected findings are:
+- Left-sided loss of vibration and proprioception.
+- Right-sided loss of pain and temperature (analgesia and thermanesthesia).
+
+Looking at the options again:
+(A) Spastic paralysis at the level of lesion - This is the ipsilateral motor deficit. While it's likely present, the question asks for *another* finding, and "left-sided weakness" already establishes the motor deficit.
+(B) Right-sided Horner's syndrome - Possible, but not as universally present as sensory deficits in Brown-Séquard.
+(C) Contralateral corticospinal tract involvement - Incorrect pathway.
+(D) Right-sided analgesia - Correct contralateral sensory deficit.
+(E) Contralateral loss of vibration and proprioception - Incorrect pathway.
+
+Therefore, the most likely *other* finding, besides the ipsilateral motor deficit, is the contralateral sensory deficit.
+
+Final check: Patient has left-sided weakness (ipsilateral to the lesion). This means the left corticospinal tract is involved. In Brown-Séquard syndrome, this is accompanied by ipsilateral loss of proprioception and vibration, and contralateral loss of pain and temperature. Therefore, right-sided analgesia is a highly likely finding.
+
+The final answer is $\boxed{D}$.
+ Agent 3 (👨‍⚕️ neurosurgeon) : Excellent case. Thank you for the consult. The presentation of acute unilateral weakness following cervical manipulation is highly concerning, and your team's prompt workup is commendable.
+
+Based on the confirmed left C5 hemicord lesion, we are dealing with a classic presentation of **Brown-Séquard Syndrome**. This is a fascinating and specific type of incomplete spinal cord injury. To determine the other likely findings, we must review the neuroanatomy of the spinal cord tracts at the C5 level.
+
+A lesion affecting the left half of the spinal cord at C5 will damage three key pathways:
+
+1.  **The left Corticospinal Tract (Descending Motor):** This tract has already decussated (crossed over) in the medulla. Therefore, it controls motor function on the *same side* of the body. Damage here explains the patient's presenting complaint: ipsilateral (left-sided) spastic paralysis, hyperreflexia, and a positive Babinski sign *below* the level of the lesion. At the C5 level itself, there would be flaccid paralysis due to damage to the anterior horn cells (a lower motor neuron sign).
+
+2.  **The left Dorsal Column (Ascending Sensory):** This tract carries signals for vibration, proprioception, and fine touch. These fibers ascend *ipsilaterally* (on the same side) and do not cross until they reach the medulla. Damage here will cause an ipsilateral (left-sided) loss of vibration and proprioception *below* the level of the lesion.
+
+3.  **The left Spinothalamic Tract (Ascending Sensory):** This tract carries signals for pain and temperature. Crucially, its fibers enter the spinal cord, synapse, and then *decussate within one to two spinal segments* to ascend on the *opposite* side of the cord. Therefore, a lesion on the left side of the cord at C5 will interrupt the fibers that crossed over from the right side of the body.
+
+Given this anatomy, let's evaluate the options:
+
+*   **(A) Spastic paralysis at the level of lesion:** Incorrect. At the C5 level itself, damage to the anterior horn cells would cause *flaccid* paralysis (a lower motor neuron sign). Spasticity occurs *below* the level of the lesion due to the upper motor neuron damage.
+*   **(B) Right-sided Horner's syndrome:** Incorrect. Horner's syndrome results from disruption of the sympathetic chain. The descending sympathetic fibers are located ipsilaterally. A left C5 lesion could potentially cause a *left-sided* Horner's syndrome, but not a contralateral one.
+*   **(C) Contralateral corticospinal tract involvement:** Incorrect. The corticospinal tract is responsible for ipsilateral motor control in the spinal cord. The patient's lesion is on the left, causing left-sided weakness. Contralateral involvement would imply a lesion on the right side of the cord.
+*   **(E) Contralateral loss of vibration and proprioception:** Incorrect. As explained, the dorsal columns ascend ipsilaterally. A left-sided lesion causes a *left-sided* loss of these sensations.
+
+This leaves us with the correct finding:
+
+*   **(D) Right-sided analgesia:** Correct. Pain and temperature sensory fibers from the right side of the body cross over to ascend in the left spinothalamic tract. The lesion at left C5 damages this tract, resulting in a contralateral (right-sided) loss of pain and temperature sensation, typically beginning one or two segments below the lesion (i.e., around C6/C7 and extending downwards).
+
+### Summary for the Team
+
+In addition to his presenting left-sided weakness, this patient will most likely exhibit:
+*   **Ipsilateral (left) loss of vibration and proprioception below C5.**
+*   **Contralateral (right) loss of pain and temperature sensation below C6/C7.**
+
+**Surgical Plan and Further Considerations:**
+
+The immediate management is appropriate. From a neurosurgical standpoint, my primary concern is the etiology of this lesion. Given the history of manipulation, we must urgently rule out an acute traumatic disc herniation causing cord compression or a vertebral artery dissection leading to a spinal cord infarct.
+
+I will review the MRI personally. We should ensure we have thin axial cuts through the C5 level. Depending on the T2 signal characteristics, we may also need a diffusion-weighted imaging (DWI) sequence to confirm ischemia and a CT angiogram of the neck to evaluate the vertebral arteries.
+
+If there is a compressive lesion like a large disc fragment, surgical decompression may be warranted to improve the chances of neurological recovery. If it is an infarct, management remains medical. Please keep him in a rigid cervical collar and maintain his MAPs on the higher side of normal to optimize spinal cord perfusion.
+
+Let's discuss after I've reviewed the films. Keep me updated on any changes in his neurological exam.
+
+[INFO] Step 3. Collaborative Decision Making
+== Round 1 ==
+[INFO] Participatory Debate
+|_Turn 1
+ Agent 1 (👩🏼‍⚕️ neurologist): 🤐
+ Agent 2 (👩🏻‍⚕️ orthopedic surgeon) -> Agent 1 (👩🏼‍⚕️ neurologist) : **Expertise:** Orthopedic Surgeon - specializing in musculoskeletal injuries, including cervical spine injuries.
+
+**To Neurologist and Neurosurgeon:**
+
+Regarding the identified left C5 hemicord lesion and the patient's presenting left-sided weakness following chiropractic manipulation, my assessment strongly aligns with Brown-Séquard syndrome. This syndrome, arising from a hemisection of the spinal cord, classically presents with ipsilateral motor deficits and contralateral sensory deficits.
+
+Given the left C5 hemicord lesion, we expect:
+*   **Ipsilateral (left-sided) motor deficits:** This is consistent with the patient's complaint of left-sided weakness due to involvement of the left corticospinal tract.
+*   **Ipsilateral (left-sided) sensory deficits:** Specifically, loss of vibration and proprioception due to involvement of the left dorsal columns.
+*   **Contralateral (right-sided) sensory deficits:** Crucially, loss of pain and temperature sensation (analgesia and thermanesthesia) due to involvement of the left spinothalamic tract, which carries these sensations from the right side of the body after decussation.
+
+Therefore, the most likely *additional* finding, beyond the already evident left-sided weakness, is **(D) Right-sided analgesia**. This aligns with the predictable pattern of sensory loss in Brown-Séquard syndrome. I believe this is the most compelling answer given the established neuroanatomical pathways affected by a hemicord lesion.
+ Agent 2 (👩🏻‍⚕️ orthopedic surgeon) -> Agent 3 (👨‍⚕️ neurosurgeon) : **Expertise:** Neurologist - specializing in neurological disorders and spinal cord injuries.
+
+**To Orthopedic Surgeon and Neurosurgeon:**
+
+I concur with your assessment that the patient's presentation, including the left-sided weakness following chiropractic manipulation and the MRI-confirmed left C5 hemicord lesion, points strongly towards Brown-Séquard syndrome. My expertise in neurological disorders confirms the predictable sensory and motor deficits associated with such a lesion.
+
+The key to identifying the most likely additional finding lies in understanding the decussation points of the sensory pathways at the C5 level:
+
+*   **Motor:** The corticospinal tract has already decussated in the medulla, so a left-sided spinal cord lesion affects the *left* side of the body, explaining the patient's observed left-sided weakness.
+*   **Vibration and Proprioception:** These sensory pathways ascend *ipsilaterally* in the dorsal columns. Therefore, a left C5 hemicord lesion will cause a loss of vibration and proprioception on the *left* side of the body.
+*   **Pain and Temperature:** These sensory pathways, carried by the spinothalamic tract, decussate within 1-2 spinal segments after entering the cord. Thus, a lesion on the left side of the cord will affect fibers originating from the *right* side of the body.
+
+Given this anatomical understanding, the most likely additional finding to the patient's existing left-sided weakness (ipsilateral motor deficit) is a **contralateral sensory deficit**. Among the options, **(D) Right-sided analgesia** precisely describes this contralateral loss of pain sensation, which is a hallmark of Brown-Séquard syndrome resulting from the disruption of the left spinothalamic tract. While other findings like ipsilateral loss of proprioception and potential Horner's syndrome are possible, the contralateral analgesia is a highly predictable and characteristic concomitant finding of this specific hemicord lesion pattern.
+ Agent 3 (👨‍⚕️ neurosurgeon): 🤐
+
+[INFO] Summary Table
++---------+-----------+-----------+-----------+
+|         |  Agent 1  |  Agent 2  |  Agent 3  |
++---------+-----------+-----------+-----------+
+| Agent 1 |           | ✋ (1<-2) |           |
+|         |           |           |           |
+| Agent 2 | ✋ (2->1) |           | ✋ (2->3) |
+|         |           |           |           |
+| Agent 3 |           | ✋ (3<-2) |           |
++---------+-----------+-----------+-----------+
+
+|_Turn 2
+ Agent 1 (👩🏼‍⚕️ neurologist): 🤐
+ Agent 2 (👩🏻‍⚕️ orthopedic surgeon): 🤐
+ Agent 3 (👨‍⚕️ neurosurgeon): 🤐
+ No agents chose to participate in this turn. End this turn.
+
+[INFO] Moderator Consensus Check
+ 👨‍⚖️ Moderator consensus check: YES
+
+[INFO] Consensus reached! Ending discussion.
+
+[INFO] Step 4. Final Decision
+👨‍⚖️  Moderator's final decision: {0.0: 'The final answer to the question regarding the most likely additional finding in the patient with a left C5 hemicord lesion, consistent with Brown-Séquard syndrome, is **(D) Right-sided analgesia**. \n\nThis conclusion is supported by the consensus among the multidisciplinary team, including the neurologist, orthopedic surgeon, and neurosurgeon, who all agree on the neuroanatomical implications of the left hemicord lesion. The left-sided weakness observed in the patient corresponds to ipsilateral motor deficits due to involvement of the left corticospinal tract, while the contralateral (right-sided) analgesia results from damage to the left spinothalamic tract, which carries pain and temperature sensations from the right side of the body after decussation.\n\nThus, the final answer is $\\boxed{D}$.'}
+
+[INFO] API calls for this sample: 19
+
+[INFO] Sample 8 completed successfully

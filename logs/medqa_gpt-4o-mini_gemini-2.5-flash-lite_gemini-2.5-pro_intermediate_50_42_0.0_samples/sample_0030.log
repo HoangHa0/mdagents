@@ -1,0 +1,151 @@
+[INFO] Processing sample 30
+
+[INFO] Step 1. Expert Recruitment
+Agent 1 (🧑‍⚕️ Psychiatrist): Specializes in diagnosing and treating mental health disorders, including somatoform disorders.
+Agent 2 (👨🏻‍⚕️ Gastroenterologist): Focuses on the diagnosis and management of gastrointestinal disorders, including conditions like ulcerative colitis.
+Agent 3 (🧑🏿‍⚕️ Pain Specialist): Specializes in evaluating and treating pain, including somatoform pain disorder.
+
+[INFO] Hierarchy Selection
+                 moderator (👨‍⚖️)                                                   
+          ┌──────────────┴─────────────┬─────────────────────────────┐              
+ Psychiatrist (🧑‍⚕️)        Pain Specialist (🧑🏿‍⚕️)      Gastroenterologist (👨🏻‍⚕️) 
+
+
+[INFO] Step 2. Initial Opinions
+ Agent 1 (🧑‍⚕️ psychiatrist) : Based on the information provided, the most likely diagnosis is (C) Somatization disorder.
+
+Here's the rationale:
+
+1. The patient presents with multiple physical complaints (right arm pain, diarrhea, nausea, and abdominal tenderness) without a clear medical cause.
+2. The fact that she has been to the emergency room 7 times in the past year with similar symptoms suggests a pattern of somatic symptom presentation.
+3. There is no evidence of an organic cause for her symptoms after evaluation (for example, negative fecal occult test).
+4. These symptoms seem to manifest in various body systems (gastrointestinal and musculoskeletal), which is characteristic of somatization disorder.
+5. Illness anxiety disorder (B) is less likely, as the primary concern seems to be the physical complaints rather than fear of having a serious illness.
+6. Somatoform pain disorder (D) and conversion disorder (E) can also present with pain but often involve more specific patterns of symptoms. The arm pain does not show significant clinical findings to indicate conversion disorder.
+
+Therefore, considering the totality of her symptoms and history, somatization disorder is the most fitting diagnosis.
+ Agent 2 (👨🏻‍⚕️ gastroenterologist) : Let's analyze this case from the perspective of a gastroenterologist collaborating with other specialists.
+
+The patient presents with a constellation of symptoms:
+*   **Gastrointestinal:** Diarrhea, nausea, diffuse abdominal tenderness, and a history of similar ER visits for these symptoms.
+*   **Musculoskeletal/Neurological:** Right arm pain and limited range of motion without recalled trauma.
+*   **Gynecological:** Pain during intercourse.
+*   **Psychological/Behavioral:** Multiple prior ER visits for similar symptoms, suggesting a chronic or recurrent issue that hasn't been clearly diagnosed or resolved.
+
+As a gastroenterologist, my primary focus is the diarrhea, nausea, and abdominal tenderness. These symptoms are suggestive of an inflammatory bowel disease (IBD) like ulcerative colitis (UC) or Crohn's disease. However, the negative fecal occult blood test, while not definitive, makes active bleeding less likely at this moment. The diffuse abdominal tenderness is also somewhat atypical for classic UC, which often presents with left-sided colonic involvement.
+
+Now, let's consider the other symptoms and the patient's history in collaboration with other specialties:
+
+*   **Right arm pain and limited range of motion without trauma:** This is concerning for a non-organic cause. A rheumatologist or neurologist might be involved to rule out inflammatory arthritis, nerve impingement, or other organic causes. However, the lack of trauma and the vague nature of the tenderness, along with the other somatic complaints, raise suspicion for a psychogenic etiology.
+
+*   **Pain during intercourse:** This could be related to pelvic inflammation (gynecological concern), but also to a generalized increase in somatic sensitivity or anxiety.
+
+*   **Recurrent ER visits:** This is a significant red flag. When patients repeatedly present with medically unexplained symptoms that don't clearly fit a diagnostic category, we need to consider underlying psychological factors that may be manifesting as physical complaints.
+
+Let's evaluate the provided options:
+
+*   **(A) Ulcerative colitis:** While the diarrhea and abdominal pain could be symptoms of UC, the right arm pain is not a typical extraintestinal manifestation of UC. Furthermore, UC usually has more specific findings on colonoscopy and histology. The diffuse tenderness and negative fecal occult blood test make it less likely as the *sole* or *most likely* diagnosis explaining *all* symptoms.
+
+*   **(B) Illness anxiety disorder (formerly hypochondriasis):** This involves excessive worry about having or developing a serious illness, often accompanied by somatic symptoms. However, the patient presents with *actual* physical complaints (diarrhea, pain), not just anxiety about them. While anxiety may be present, it's not the primary defining feature of her presentation.
+
+*   **(C) Somatization disorder:** This is characterized by multiple, recurrent, and clinically significant physical complaints that have been present for many years. The physical symptoms cannot be fully explained by a medical condition, and they cause significant impairment in social, occupational, or other important areas of functioning. The patient's history of multiple ER visits for similar symptoms, combined with the diverse array of physical complaints (GI, musculoskeletal, sexual), strongly points towards somatization disorder.
+
+*   **(D) Somatoform pain disorder:** This is a subtype of somatoform disorders where pain is the predominant complaint, and it cannot be fully explained by a medical condition. While pain is present, it's not the *only* dominant symptom; diarrhea and nausea are also prominent.
+
+*   **(E) Conversion disorder:** This involves one or more symptoms or deficits that affect voluntary motor or sensory function, suggesting a neurological or medical condition, but that are incompatible with the medical and neurological findings. While the arm pain *could* be a conversion symptom, the presence of diarrhea, nausea, and sexual pain, along with the pattern of recurrent complaints, makes somatization disorder a broader and more fitting diagnosis for the overall clinical picture.
+
+**Conclusion from a multidisciplinary perspective:**
+
+From a gastroenterology standpoint, we would want to thoroughly investigate the GI symptoms to rule out organic causes like IBD, irritable bowel syndrome, or infections. However, the totality of the patient's presentation, particularly the recurrent nature of her visits, the diversity of symptoms spanning multiple organ systems, and the lack of clear organic findings to explain everything, strongly suggests a diagnosis within the realm of somatic symptom and related disorders.
+
+Considering the options provided, **somatization disorder** best encapsulates the pattern of multiple, recurrent, unexplained physical symptoms causing distress and impairment. The other options either focus on a single symptom type or a different psychological mechanism.
+
+The final answer is $\boxed{C}$.
+ Agent 3 (🧑🏿‍⚕️ pain specialist) : As the pain specialist on this case, let's collaborate and review this patient's presentation. Based on the comprehensive clinical picture, the most likely diagnosis is **(C) Somatization disorder**.
+
+Here is my reasoning for the team:
+
+### Rationale for Somatization Disorder
+
+The key to this diagnosis lies in the patient's constellation of symptoms and her history.
+
+1.  **Multiple, Medically Unexplained Symptoms:** The patient presents with a wide array of complaints affecting multiple organ systems:
+    *   **Pain Symptoms:** Right arm pain, diffuse abdominal pain, and pain during intercourse (dyspareunia).
+    *   **Gastrointestinal Symptoms:** Diarrhea and nausea.
+    *   **Pseudoneurological Symptom:** Limited range of motion in her arm without any objective physical findings (no erythema, edema) or history of trauma.
+
+2.  **Chronic and Recurring Pattern:** The patient has a significant history of seeking medical care (7 ER visits in the past year) for "similar symptoms." This demonstrates a long-standing pattern of somatic complaints that cause significant distress and lead to functional impairment (i.e., repeated ER visits).
+
+3.  **Lack of Objective Medical Findings:** Physical examination and initial tests fail to reveal an organic cause for her symptoms. The arm has no signs of injury or inflammation, the abdominal tenderness is vague and non-specific, and the fecal occult test is negative, making an acute gastrointestinal bleed less likely.
+
+**Note on Terminology:** The term "Somatization disorder" is from the older DSM-IV classification. In the current DSM-5, this condition is largely encompassed by **Somatic Symptom Disorder**. The core feature is one or more somatic symptoms that are distressing, accompanied by excessive thoughts, feelings, or behaviors related to these symptoms. This patient's presentation fits perfectly within this framework.
+
+---
+
+### Analysis of Other Options (Why They Are Less Likely)
+
+Let's briefly discuss why the other options are not the best fit for this patient:
+
+*   **(A) Ulcerative colitis:** While this could explain diarrhea and abdominal pain, it would not account for the right arm pain, limited range of motion, or dyspareunia. Furthermore, a negative fecal occult test makes active, severe colitis less probable. The multi-system nature of her complaints points away from a single-organ disease like UC.
+
+*   **(B) Illness anxiety disorder:** This condition (formerly hypochondriasis) is characterized by a preoccupation with having or acquiring a serious illness, with minimal to no actual somatic symptoms. Our patient has numerous, significant physical symptoms; her primary issue is the symptoms themselves, not just the fear of a potential illness.
+
+*   **(D) Somatoform pain disorder:** This is a plausible but less complete diagnosis. This disorder (now specified in DSM-5 as *Somatic Symptom Disorder with predominant pain*) would focus solely on her pain symptoms. However, it fails to account for her prominent non-pain symptoms, such as nausea and diarrhea. Somatization disorder is a broader and more fitting diagnosis because it encompasses the full spectrum of her complaints.
+
+*   **(E) Conversion disorder (Functional Neurological Symptom Disorder):** This diagnosis is specific to neurological symptoms (e.g., paralysis, weakness, non-epileptic seizures, blindness) that are incompatible with recognized neurological or medical conditions. While her "limited range of motion" could be seen as a pseudoneurological motor symptom, conversion disorder typically involves one or a few specific neurological deficits. It does not explain the widespread pain and gastrointestinal issues.
+
+### Conclusion and Recommendations
+
+From a pain specialist's perspective, this patient's presentation is classic for a somatic symptom disorder. The pain is real to her, but its origin is likely rooted in complex psychological distress manifesting physically.
+
+My recommendation for the team would be:
+1.  **Validate the patient's experience:** Acknowledge that her pain and other symptoms are real and distressing.
+2.  **Avoid Iatrogenesis:** Limit further invasive or costly diagnostic testing that is unlikely to yield a diagnosis and may reinforce illness behavior.
+3.  **Focus on Function:** Shift the goal from "curing" the pain to improving her functional capacity and quality of life.
+4.  **Multidisciplinary Approach:** The most crucial step is to establish care with a primary care provider who can act as a gatekeeper and coordinate her treatment. A referral to a mental health professional for cognitive-behavioral therapy (CBT) or other appropriate psychotherapy is essential.
+
+[INFO] Step 3. Collaborative Decision Making
+== Round 1 ==
+[INFO] Participatory Debate
+|_Turn 1
+ Agent 1 (🧑‍⚕️ psychiatrist): 🤐
+ Agent 2 (👨🏻‍⚕️ gastroenterologist) -> Agent 1 (🧑‍⚕️ psychiatrist) : My expertise is in gastroenterology.
+
+To the Psychiatrist and Pain Specialist:
+
+My opinion is that the diagnosis of **(C) Somatization disorder** is the most appropriate given the patient's presentation. While her gastrointestinal symptoms (diarrhea, nausea, diffuse abdominal tenderness) could be concerning for an organic condition, the widespread nature of her complaints, including the non-traumatic arm pain and dyspareunia, along with the history of recurrent emergency room visits without clear organic findings, strongly suggests a somatic symptom disorder. This aligns with the current consensus of the team and the key features of somatization disorder.
+ Agent 2 (👨🏻‍⚕️ gastroenterologist) -> Agent 3 (🧑🏿‍⚕️ pain specialist) : My expertise is in gastroenterology.
+
+To the Psychiatrist and Pain Specialist:
+
+I concur with the diagnosis of **(C) Somatization disorder**. While my primary focus would be on the gastrointestinal symptoms, the presence of diffuse, unexplained abdominal tenderness, diarrhea, and nausea, coupled with the patient's significant history of recurrent ER visits and other somatic complaints (arm pain, dyspareunia) that lack clear organic etiology, strongly supports this diagnosis. The multisystemic nature of her complaints and their chronicity are more indicative of a somatic symptom disorder than a specific gastrointestinal illness like ulcerative colitis.
+ Agent 3 (🧑🏿‍⚕️ pain specialist): 🤐
+
+[INFO] Summary Table
++---------+-----------+-----------+-----------+
+|         |  Agent 1  |  Agent 2  |  Agent 3  |
++---------+-----------+-----------+-----------+
+| Agent 1 |           | ✋ (1<-2) |           |
+|         |           |           |           |
+| Agent 2 | ✋ (2->1) |           | ✋ (2->3) |
+|         |           |           |           |
+| Agent 3 |           | ✋ (3<-2) |           |
++---------+-----------+-----------+-----------+
+
+|_Turn 2
+ Agent 1 (🧑‍⚕️ psychiatrist): 🤐
+ Agent 2 (👨🏻‍⚕️ gastroenterologist): 🤐
+ Agent 3 (🧑🏿‍⚕️ pain specialist): 🤐
+ No agents chose to participate in this turn. End this turn.
+
+[INFO] Moderator Consensus Check
+ 👨‍⚖️ Moderator consensus check: YES
+
+[INFO] Consensus reached! Ending discussion.
+
+[INFO] Step 4. Final Decision
+👨‍⚖️  Moderator's final decision: {0.0: "Based on the thorough multidisciplinary discussion and the consensus reached by the experts, the final diagnosis for the 21-year-old woman presenting with right arm pain, gastrointestinal symptoms, and a history of recurrent emergency room visits is:\n\n**(C) Somatization disorder.**\n\nThe reasoning for this diagnosis is well-supported by the following points:\n\n1. **Multiple Medically Unexplained Symptoms:** The patient exhibits a range of symptoms (right arm pain, gastrointestinal issues, dyspareunia) that do not have clear organic causes, aligning with the characteristics of somatization disorder.\n\n2. **Chronicity and Recurrent ER Visits:** The patient's history of multiple emergency room visits for similar symptoms indicates a pattern consistent with somatic symptom disorders rather than isolated medical issues.\n\n3. **Absence of Organic Findings:** The physical examination and negative tests do not reveal significant underlying medical conditions to explain her symptoms, further supporting the diagnosis of somatization disorder.\n\nThe collective insights from the gastroenterologist, psychiatrist, and pain specialist emphasize the complexity and nature of the patient's symptoms, which strongly align with somatization disorder. The team has agreed on a comprehensive treatment approach that addresses both the psychological and physical aspects of her condition.\n\nIn conclusion, the most fitting diagnosis for this patient is **somatization disorder**."}
+
+[INFO] API calls for this sample: 19
+
+[INFO] Sample 30 completed successfully
