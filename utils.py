@@ -865,7 +865,7 @@ def process_intermediate_query(question, examplers, moderator, args, fewshot=Non
     moderator_prompt = (
         "You are now a moderator in a multidisciplinary medical team discussion. "
         "Your job is to moderate the discussion, check whether the team has reached consensus, "
-        "and when there is disagreement, provide targeted feedback to each expert to help the team converge "
+        # "and when there is disagreement, provide targeted feedback to each expert to help the team converge "
         "toward a correct and consistent final answer."
     )
     moderator.chat(moderator_prompt)
@@ -951,18 +951,18 @@ def process_intermediate_query(question, examplers, moderator, args, fewshot=Non
 
         log(f"== {round_name} ==")
 
-        # Apply moderator feedback from the previous round (if any) 
-        if round_feedback:
-            log("[INFO] Moderator Feedback")
-            for idx, agent in enumerate(medical_agents):
-                fb = (round_feedback.get(agent.role) or "").strip()
-                if fb:
-                    log(f" \U0001F468\u200D\u2696\uFE0F moderator -> Agent {idx+1} ({agent_emoji[idx]} {agent.role}) : {fb}")
-                    agent.chat(
-                        f"Moderator feedback for you:\n{fb}\n\n"
-                        "Acknowledge the feedback and adjust your thinking. Then be ready to discuss.",
-                        img_path=None
-                    )
+        # # Apply moderator feedback from the previous round (if any) 
+        # if round_feedback:
+        #     log("[INFO] Moderator Feedback")
+        #     for idx, agent in enumerate(medical_agents):
+        #         fb = (round_feedback.get(agent.role) or "").strip()
+        #         if fb:
+        #             log(f" \U0001F468\u200D\u2696\uFE0F moderator -> Agent {idx+1} ({agent_emoji[idx]} {agent.role}) : {fb}")
+        #             agent.chat(
+        #                 f"Moderator feedback for you:\n{fb}\n\n"
+        #                 "Acknowledge the feedback and adjust your thinking. Then be ready to discuss.",
+        #                 img_path=None
+        #             )
 
         assessment = "".join(f"({k}): {v}\n" for k, v in opinions.items())
 
@@ -1075,8 +1075,8 @@ def process_intermediate_query(question, examplers, moderator, args, fewshot=Non
                         assessment = "".join(f"({k}): {v}\n" for k, v in opinions.items())
                     log(f" Agent {idx+1} ({agent_emoji[idx]} {agent.role}): \U0001F910")
                 
-                log(f"\n[DEBUG] Current agent chat history for {round_name}, {turn_name}:\n" + 
-                    "\n".join([f"{idx}. {agent.role} history:\n{agent.messages}" for idx, agent in enumerate(medical_agents)]))
+            log(f"\n[DEBUG] Current agent chat history for {round_name}, {turn_name}:\n" + 
+                "\n".join([f"{idx}. {agent.role} history:\n{agent.messages}" for idx, agent in enumerate(medical_agents)]))
                 
             if num_yes == 0:
                 log(" No agents chose to participate in this turn. End this turn.")
@@ -1162,51 +1162,51 @@ def process_intermediate_query(question, examplers, moderator, args, fewshot=Non
         # Moderator provides feedback for next round if not converged
         log("\n[INFO] Disagreement detected")
         
-        # Build compact discussion log so far (across rounds/turns)
-        log_text = ""
-        for _rnd, _rnd_payload in interaction_log.items():
-            for _turn, payload in _rnd_payload.items():
-                for src, dsts in payload.items():
-                    for dst, msg in dsts.items():
-                        log_text += f"[{_rnd} / {_turn}] {src} -> {dst}: {msg}\n"
+        # # Build compact discussion log so far (across rounds/turns)
+        # log_text = ""
+        # for _rnd, _rnd_payload in interaction_log.items():
+        #     for _turn, payload in _rnd_payload.items():
+        #         for src, dsts in payload.items():
+        #             for dst, msg in dsts.items():
+        #                 log_text += f"[{_rnd} / {_turn}] {src} -> {dst}: {msg}\n"
 
-        moderator_feedback = moderator.chat(
-            "You are moderating the team. Provide targeted feedback to help the experts converge in the next round.\n"
-            "Return ONLY in the following repeated format (no other text):\n"
-            "Agent: <role>\n"
-            "Feedback: <targeted feedback>\n\n"
-            "(repeat Agent/Feedback for each expert)\n\n"
-            f"Question:\n{question}\n\n"
-            f"Experts' current answers:\n{answers_text}\n"
-            f"Discussion log so far (if any):\n{log_text if log_text else '(no direct messages)'}\n",
-            img_path=None
-        )
+        # moderator_feedback = moderator.chat(
+        #     "You are moderating the team. Provide targeted feedback to help the experts converge in the next round.\n"
+        #     "Return ONLY in the following repeated format (no other text):\n"
+        #     "Agent: <role>\n"
+        #     "Feedback: <targeted feedback>\n\n"
+        #     "(repeat Agent/Feedback for each expert)\n\n"
+        #     f"Question:\n{question}\n\n"
+        #     f"Experts' current answers:\n{answers_text}\n"
+        #     f"Discussion log so far (if any):\n{log_text if log_text else '(no direct messages)'}\n",
+        #     img_path=None
+        # )
 
-        # Parse and store feedback for the next round
-        parsed_fb = {}
-        for fb_block in re.split(r'(?im)^\s*Agent\s*:\s*', moderator_feedback or ''):
-            fb_block = fb_block.strip()
-            if not fb_block:
-                continue
-            fb_lines = fb_block.splitlines()
-            role = (fb_lines[0] or '').strip().lower()
-            body = "\n".join(fb_lines[1:]).strip()
-            body = re.sub(r'(?im)^\s*Feedback\s*:\s*', '', body).strip()
-            if role and body:
-                parsed_fb[role] = body
+        # # Parse and store feedback for the next round
+        # parsed_fb = {}
+        # for fb_block in re.split(r'(?im)^\s*Agent\s*:\s*', moderator_feedback or ''):
+        #     fb_block = fb_block.strip()
+        #     if not fb_block:
+        #         continue
+        #     fb_lines = fb_block.splitlines()
+        #     role = (fb_lines[0] or '').strip().lower()
+        #     body = "\n".join(fb_lines[1:]).strip()
+        #     body = re.sub(r'(?im)^\s*Feedback\s*:\s*', '', body).strip()
+        #     if role and body:
+        #         parsed_fb[role] = body
 
-        # Fallback: broadcast the whole moderator response if parsing fails
-        if not parsed_fb:
-            parsed_fb = {agent.role: (moderator_feedback or '').strip() for agent in medical_agents}
+        # # Fallback: broadcast the whole moderator response if parsing fails
+        # if not parsed_fb:
+        #     parsed_fb = {agent.role: (moderator_feedback or '').strip() for agent in medical_agents}
 
-        round_feedback = parsed_fb
+        # round_feedback = parsed_fb
 
-        log("\n[INFO] Moderator Review & Feedback")
-        for idx, agent in enumerate(medical_agents):
-            fb = (round_feedback.get(agent.role) or "").strip()
-            if fb:
-                feedback_log[round_name][agent.role] = fb
-                log(f" \U0001F468\u200D\u2696\uFE0F Moderator -> Agent {idx+1} ({agent_emoji[idx]} {agent.role}) : {fb}")
+        # log("\n[INFO] Moderator Review & Feedback")
+        # for idx, agent in enumerate(medical_agents):
+        #     fb = (round_feedback.get(agent.role) or "").strip()
+        #     if fb:
+        #         feedback_log[round_name][agent.role] = fb
+        #         log(f" \U0001F468\u200D\u2696\uFE0F Moderator -> Agent {idx+1} ({agent_emoji[idx]} {agent.role}) : {fb}")
 
         # Next round starts from the agents' last answers
         opinions = dict(final_answers)
