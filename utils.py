@@ -125,7 +125,7 @@ class Agent:
     total_api_calls = 0
     _api_calls_lock = threading.Lock()  # Thread-safe lock for API call counting
     
-    def __init__(self, instruction, role, examplers=None, model_info='gpt-4o-mini', img_path=None, tracker=None):
+    def __init__(self, instruction, role, examplers=None, model_info='mistral-large-2512', img_path=None, tracker=None):
         self.instruction = instruction
         self.role = role
         self.model_info = model_info
@@ -686,7 +686,7 @@ def process_intermediate_query(question, examplers, moderator, args, fewshot=Non
         moderator = Agent(
             instruction='You are a medical expert who conducts initial assessment and moderates the discussion.',
             role='moderator',
-            model_info='gpt-4o-mini',
+            # model_info='gpt-4o-mini',
             tracker=tracker
         )
     
@@ -696,9 +696,9 @@ def process_intermediate_query(question, examplers, moderator, args, fewshot=Non
 
     def _recruit_and_parse_intermediate():
         recruiter = Agent(instruction="You are an experienced medical expert who recruits a group of experts with diverse identity and ask them to discuss and solve the given medical query.", 
-                  role='recruiter', 
-                  model_info='gpt-4o-mini',
-                  tracker=tracker)
+                role='recruiter', 
+                # model_info='gpt-4o-mini',
+                tracker=tracker)
         recruited = recruiter.chat(
             f"Question: {question}\n"
             f"You can recruit {num_agents} experts in different medical expertise. Considering the medical question and the options for the answer, "
@@ -831,7 +831,7 @@ def process_intermediate_query(question, examplers, moderator, args, fewshot=Non
     # Keep intermediate as zero-shot by default.
     fewshot_examplers = ""
     if fewshot is not None and fewshot > 0:
-        medical_agent = Agent(instruction='You are a helpful medical agent.', role='medical expert', model_info=args.model[0], tracker=tracker)
+        medical_agent = Agent(instruction='You are a helpful medical agent.', role='medical expert', tracker=tracker)
         random.shuffle(examplers)
         for ie, exampler in enumerate(examplers[:fewshot]):
             exampler_question = f"[Example {ie+1}]\n" + exampler['question']
@@ -1220,7 +1220,6 @@ def process_intermediate_query(question, examplers, moderator, args, fewshot=Non
     decision_maker = Agent(
         "You are a final medical decision maker who reviews all opinions from different medical experts and their conversation history to make the final decision.",
         role='decision maker',
-        model_info=args.model[0],
         tracker=tracker
     )
     
