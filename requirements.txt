@@ -8,3 +8,4 @@ pptree==3.1
 climage==0.2.0
 google-genai
 python-dotenv
+mistralai
