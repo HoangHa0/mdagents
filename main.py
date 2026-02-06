@@ -63,7 +63,8 @@ def main():
     args = parser.parse_args()
 
     if args.model == 'mixed':
-        args.model = ['gpt-4o-mini', 'gemini-2.5-flash-lite', 'gemini-2.5-pro']
+        # args.model = ['gpt-4o-mini', 'gemini-2.5-flash-lite', 'gemini-2.5-pro']
+        args.model = ['ministral-14b-2512', 'ministral-8b-2512', 'ministral-3b-2512']
     else:
         args.model = [args.model]
 

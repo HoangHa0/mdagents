@@ -8,6 +8,7 @@ from pptree import Node
 from google import genai
 from google.genai import types
 from openai import OpenAI
+from mistralai import Mistral, SystemMessage, UserMessage, AssistantMessage
 from pptree import *
 import re
 import io
@@ -138,7 +139,7 @@ class Agent:
                 pass
 
         if self.model_info in ['gemini-2.5-flash-lite', 'gemini-2.5-pro']:
-            self.client = genai.Client(api_key=os.environ['genai_api_key'])
+            self.client = genai.Client(api_key=os.environ['GENAI_API_KEY'])
             self.messages = []
             
             # Map examplers to Gemini history format
@@ -149,14 +150,24 @@ class Agent:
                     self.messages.append(types.Content(role="model", parts=[types.Part(text=reason_prefix + exampler['answer'])]))
         
         elif self.model_info in ['gpt-3.5', 'gpt-4', 'gpt-4o', 'gpt-4o-mini']:
-            self.client = OpenAI(api_key=os.environ['openai_api_key'])
+            self.client = OpenAI(api_key=os.environ['OPENAI_API_KEY'])
             self.messages = [
                 {"role": "system", "content": instruction},
             ]
-            if examplers is not None:
+            if examplers:
                 for exampler in examplers:
                     self.messages.append({"role": "user", "content": exampler['question']})
                     self.messages.append({"role": "assistant", "content":  ("Let's think step by step. " + exampler['reason'] + " "  if 'reason' in exampler else '') + exampler['answer']})
+                    
+        elif self.model_info in ['mistral-large-2512', 'mistral-small-2506', 'ministral-14b-2512', 'ministral-8b-2512', 'ministral-3b-2512']:
+            self.client = Mistral(api_key=os.environ['MISTRAL_API_KEY'])
+            self.messages = [
+                SystemMessage(content=instruction)
+            ]
+            if examplers:
+                for exampler in examplers:
+                    self.messages.append(UserMessage(content=exampler['question']))
+                    self.messages.append(AssistantMessage(content=("Let's think step by step. " + exampler['reason'] + " "  if 'reason' in exampler else '') + exampler['answer']))
 
         # log(f"[DEBUG] Print out the messages for Agent {self.messages}")
 
@@ -207,7 +218,31 @@ class Agent:
 
             self.messages.append({"role": "assistant", "content": response.choices[0].message.content})
             return response.choices[0].message.content
-
+        
+        elif self.model_info in ['mistral-large-2512', 'mistral-small-2506', 'ministral-14b-2512', 'ministral-8b-2512', 'ministral-3b-2512']:            
+            for attempt in range(3):
+                try:
+                    self.messages.append(UserMessage(content=message))
+                    
+                    response = self.client.chat.complete(
+                        model=self.model_info,
+                        messages=self.messages
+                    )
+                    
+                    # Track API call (thread-safe)
+                    with Agent._api_calls_lock:
+                        self.api_calls += 1
+                        Agent.total_api_calls += 1
+                    
+                    self.messages.append(AssistantMessage(content=response.choices[0].message.content))
+                    return response.choices[0].message.content
+                except Exception as e:
+                    print(f"Retrying due to: {e}")
+                    time.sleep(2 ** attempt)  # Exponential backoff
+                    continue
+                
+            return "Error: Mistral failed."
+        
     def temp_responses(self, message, temperatures=[0.0], img_path=None):
         if self.model_info in ['gpt-3.5', 'gpt-4', 'gpt-4o', 'gpt-4o-mini']:      
             self.messages.append({"role": "user", "content": message})
@@ -259,10 +294,39 @@ class Agent:
                         break
                     except Exception:
                         continue
+        
             
             # OPTIONAL: If you want to "pick" one to actually save to history, 
             # you would call self._chat.send_message(message) once at the end.
             # self.messages.append(types.Content(role="model", parts=[types.Part(text=responses)]))
+            return responses
+        
+        elif self.model_info in ['mistral-large-2512', 'mistral-small-2506', 'ministral-14b-2512', 'ministral-8b-2512', 'ministral-3b-2512']:
+            self.messages.append(UserMessage(content=message))
+            temperatures = list(set(temperatures))
+            responses = {}
+                        
+            for temperature in temperatures:
+                for _ in range(3):
+                    try:
+                        response = self.client.chat.complete(
+                            model=self.model_info,
+                            messages=self.messages,
+                            temperature=temperature,
+                        )
+                        
+                        with Agent._api_calls_lock:
+                            self.api_calls += 1
+                            Agent.total_api_calls += 1
+                        
+                        responses[temperature] = response.choices[0].message.content
+                        break
+                    except Exception:
+                        continue
+                    
+            # OPTIONAL: If you want to "pick" one to actually save to history, 
+            # you would call self._chat.send_message(message) once at the end.
+            # self.messages.append(AssistantMessage(content=responses))
             return responses
         
     def agent_talk(self, message, recipient, img_path=None):
@@ -278,6 +342,9 @@ class Agent:
         
         elif recipient.model_info in ['gemini-2.5-flash-lite', 'gemini-2.5-pro']:
             recipient.messages.append(types.Content(role="user", parts=[types.Part(text=incoming_msg)]))
+            
+        elif recipient.model_info in ['mistral-large-2512', 'mistral-small-2506', 'ministral-14b-2512', 'ministral-8b-2512', 'ministral-3b-2512']:
+            recipient.messages.append(UserMessage(content=incoming_msg))
         
         return content
 
