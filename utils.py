@@ -278,7 +278,7 @@ class Agent:
             responses = {}
                         
             for temperature in temperatures:
-                for _ in range(3):
+                for attempt in range(3):
                     try:
                         response = self.client.models.generate_content(
                             model=self.model_info,
@@ -292,9 +292,12 @@ class Agent:
                         
                         responses[temperature] = response.text
                         break
-                    except Exception:
+                    except Exception as e:
+                        print(f"Retrying due to: {e}")
+                        time.sleep(2 ** attempt)  # Exponential backoff
                         continue
-        
+                    
+                return "Error: Gemini failed."
             
             # OPTIONAL: If you want to "pick" one to actually save to history, 
             # you would call self._chat.send_message(message) once at the end.
@@ -307,7 +310,7 @@ class Agent:
             responses = {}
                         
             for temperature in temperatures:
-                for _ in range(3):
+                for attempt in range(3):
                     try:
                         response = self.client.chat.complete(
                             model=self.model_info,
@@ -321,9 +324,13 @@ class Agent:
                         
                         responses[temperature] = response.choices[0].message.content
                         break
-                    except Exception:
+                    except Exception as e:
+                        print(f"Retrying due to: {e}")
+                        time.sleep(2 ** attempt)  # Exponential backoff
                         continue
                     
+                return "Error: Mistral failed."
+                           
             # OPTIONAL: If you want to "pick" one to actually save to history, 
             # you would call self._chat.send_message(message) once at the end.
             # self.messages.append(AssistantMessage(content=responses))
@@ -1249,7 +1256,21 @@ def process_intermediate_query(question, examplers, moderator, args, fewshot=Non
         temperatures=[args.temperature] if hasattr(args, 'temperature') else [0.0],
         img_path=None 
     )
-        
+    
+    if not final_decision or "error" in final_decision.lower():
+        final_decision = decision_maker.temp_responses(
+            "You are reviewing the final decision from a multidisciplinary team discussion. "
+            "Consider the experts' reasoning, the conversation history showing how they interacted and converged (or disagreed), "
+            "and their final answers to make an informed final decision.\n\n"
+            f"Question:\n{question}\n\n"
+            f"Conversation History:\n{conversation_history[-6000:] if conversation_history.strip() else '(No direct interactions occurred)'}\n\n"
+            f"Experts' Final Answers:\n{answers_text}\n"
+            "Based on the conversation history and final answers, please make the final answer to the question by considering consensus and reasoning quality:\n"
+            "Answer: ",
+            temperatures=[args.temperature] if hasattr(args, 'temperature') else [0.0],
+            img_path=None 
+    )
+            
     log(f"\U0001F468\u200D\u2696\uFE0F  Moderator's final decision: {final_decision}")
     
     if created_tracker:
