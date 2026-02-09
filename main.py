@@ -64,7 +64,7 @@ def main():
 
     if args.model == 'mixed':
         # args.model = ['gpt-4o-mini', 'gemini-2.5-flash-lite', 'gemini-2.5-pro']
-        args.model = ['mistral-large-2512','mistral-14b-2512', 'mistral-8b-2512']
+        args.model = ['mistral-large-2512','ministral-14b-2512', 'ministral-8b-2512']
     else:
         args.model = [args.model]
 
