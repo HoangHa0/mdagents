@@ -13,6 +13,96 @@ from pptree import *
 import re
 import io
 
+# -----------------------
+# Mistral: round-robin API key rotation (retry with next key)
+# -----------------------
+# Supports: MISTRAL_API_KEY, MISTRAL_API_KEY_1..MISTRAL_API_KEY_10
+# (Keeps existing behavior when only one key is configured.)
+
+_MISTRAL_API_KEYS = [
+    os.environ.get("MISTRAL_API_KEY"),
+    os.environ.get("MISTRAL_API_KEY_1"),
+    os.environ.get("MISTRAL_API_KEY_2"),
+    os.environ.get("MISTRAL_API_KEY_3"),
+    os.environ.get("MISTRAL_API_KEY_4"),
+    os.environ.get("MISTRAL_API_KEY_5"),
+    os.environ.get("MISTRAL_API_KEY_6"),
+    os.environ.get("MISTRAL_API_KEY_7"),
+    os.environ.get("MISTRAL_API_KEY_8"),
+    os.environ.get("MISTRAL_API_KEY_9"),
+    os.environ.get("MISTRAL_API_KEY_10"),
+]
+_MISTRAL_API_KEYS = [k for k in _MISTRAL_API_KEYS if k]
+
+_mistral_rr_counter = [0]
+_mistral_rr_lock = threading.Lock()
+
+
+def _mistral_rr_start_index() -> int:
+    """Thread-safe round-robin start index."""
+    with _mistral_rr_lock:
+        if not _MISTRAL_API_KEYS:
+            return 0
+        idx = _mistral_rr_counter[0] % len(_MISTRAL_API_KEYS)
+        _mistral_rr_counter[0] += 1
+        return idx
+
+
+class _MistralRRChatProxy:
+    """Proxy so callers can keep using client.chat.complete(...)."""
+
+    def __init__(self, parent):
+        self._parent = parent
+
+    def complete(self, **kwargs):
+        return self._parent._complete(**kwargs)
+
+
+class _MistralRoundRobinClient:
+    """Round-robin across multiple Mistral API keys; on failure, try next key."""
+
+    def __init__(self, api_keys):
+        if not api_keys:
+            raise ValueError(
+                "No Mistral API keys found. Set MISTRAL_API_KEY (and optionally MISTRAL_API_KEY_1..MISTRAL_API_KEY_10)."
+            )
+        self._clients = [Mistral(api_key=k) for k in api_keys]
+        self.chat = _MistralRRChatProxy(self)
+
+    def _complete(self, **kwargs):
+        last_exc = None
+        n = len(self._clients)
+        start = _mistral_rr_start_index()
+        for i in range(n):
+            idx = (start + i) % n
+            try:
+                return self._clients[idx].chat.complete(**kwargs)
+            except Exception as e:
+                last_exc = e
+                continue
+        if last_exc is not None:
+            raise last_exc
+        raise RuntimeError("Mistral round-robin client has no available clients.")
+
+
+_MISTRAL_RR_CLIENT_SINGLETON = None
+
+
+def _get_mistral_client():
+    """Return a Mistral client (demux to round-robin if multiple keys exist)."""
+    global _MISTRAL_RR_CLIENT_SINGLETON
+    if _MISTRAL_RR_CLIENT_SINGLETON is None:
+        if not _MISTRAL_API_KEYS:
+            raise ValueError(
+                "No Mistral API keys found. Set MISTRAL_API_KEY (and optionally MISTRAL_API_KEY_1..MISTRAL_API_KEY_10)."
+            )
+        # Preserve original behavior when only one key is provided.
+        if len(_MISTRAL_API_KEYS) == 1:
+            _MISTRAL_RR_CLIENT_SINGLETON = Mistral(api_key=_MISTRAL_API_KEYS[0])
+        else:
+            _MISTRAL_RR_CLIENT_SINGLETON = _MistralRoundRobinClient(_MISTRAL_API_KEYS)
+    return _MISTRAL_RR_CLIENT_SINGLETON
+
 # Default no-op logger
 def _noop_log(msg):
     pass 
@@ -160,7 +250,8 @@ class Agent:
                     self.messages.append({"role": "assistant", "content":  ("Let's think step by step. " + exampler['reason'] + " "  if 'reason' in exampler else '') + exampler['answer']})
                     
         elif self.model_info in ['mistral-large-2512', 'mistral-small-2506', 'ministral-14b-2512', 'ministral-8b-2512', 'ministral-3b-2512']:
-            self.client = Mistral(api_key=os.environ['MISTRAL_API_KEY'])
+            # Uses round-robin across multiple keys if configured.
+            self.client = _get_mistral_client()
             self.messages = [
                 SystemMessage(content=instruction)
             ]
@@ -220,10 +311,9 @@ class Agent:
             return response.choices[0].message.content
         
         elif self.model_info in ['mistral-large-2512', 'mistral-small-2506', 'ministral-14b-2512', 'ministral-8b-2512', 'ministral-3b-2512']:            
+            self.messages.append(UserMessage(content=message))
             for attempt in range(3):
-                try:
-                    self.messages.append(UserMessage(content=message))
-                    
+                try:                    
                     response = self.client.chat.complete(
                         model=self.model_info,
                         messages=self.messages
