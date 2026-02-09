@@ -1340,7 +1340,7 @@ def process_intermediate_query(question, examplers, moderator, args, fewshot=Non
         img_path=None 
     )
     
-    if not final_decision or "error" in final_decision.lower():
+    if not final_decision:
         log("[WARN] Final decision contains error or is empty, retrying with reduced context...")
         final_decision = decision_maker.temp_responses(
             "You are reviewing the final decision from a multidisciplinary team discussion. "
