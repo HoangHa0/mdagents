@@ -287,7 +287,6 @@ class Agent:
                     print(f"Retrying due to: {e}")
                     time.sleep(2 ** attempt)  # Exponential backoff
                     continue
-            return "Error: Gemini failed."
 
         elif self.model_info in ['gpt-3.5', 'gpt-4', 'gpt-4o', 'gpt-4o-mini']:
             self.messages.append({"role": "user", "content": message})
@@ -330,9 +329,7 @@ class Agent:
                     print(f"Retrying due to: {e}")
                     time.sleep(2 ** attempt)  # Exponential backoff
                     continue
-                
-            return "Error: Mistral failed."
-        
+                        
     def temp_responses(self, message, temperatures=[0.0], img_path=None):
         if self.model_info in ['gpt-3.5', 'gpt-4', 'gpt-4o', 'gpt-4o-mini']:      
             self.messages.append({"role": "user", "content": message})
@@ -386,9 +383,7 @@ class Agent:
                         print(f"Retrying due to: {e}")
                         time.sleep(2 ** attempt)  # Exponential backoff
                         continue
-                    
-                return "Error: Gemini failed."
-            
+                                
             # OPTIONAL: If you want to "pick" one to actually save to history, 
             # you would call self._chat.send_message(message) once at the end.
             # self.messages.append(types.Content(role="model", parts=[types.Part(text=responses)]))
@@ -418,9 +413,7 @@ class Agent:
                         print(f"Retrying due to: {e}")
                         time.sleep(2 ** attempt)  # Exponential backoff
                         continue
-                    
-                return "Error: Mistral failed."
-                           
+                                          
             # OPTIONAL: If you want to "pick" one to actually save to history, 
             # you would call self._chat.send_message(message) once at the end.
             # self.messages.append(AssistantMessage(content=responses))
@@ -1348,6 +1341,7 @@ def process_intermediate_query(question, examplers, moderator, args, fewshot=Non
     )
     
     if not final_decision or "error" in final_decision.lower():
+        log("[WARN] Final decision contains error or is empty, retrying with reduced context...")
         final_decision = decision_maker.temp_responses(
             "You are reviewing the final decision from a multidisciplinary team discussion. "
             "Consider the experts' reasoning, the conversation history showing how they interacted and converged (or disagreed), "
