@@ -36,6 +36,8 @@ _MISTRAL_API_KEYS = [k for k in _MISTRAL_API_KEYS if k]
 
 _mistral_rr_counter = [0]
 _mistral_rr_lock = threading.Lock()
+_MISTRAL_MAX_RETRIES = 0
+_MISTRAL_RETRY_SLEEP_S = 1.0
 
 
 def _mistral_rr_start_index() -> int:
@@ -71,15 +73,24 @@ class _MistralRoundRobinClient:
 
     def _complete(self, **kwargs):
         last_exc = None
+        attempts = 0
         n = len(self._clients)
-        start = _mistral_rr_start_index()
-        for i in range(n):
-            idx = (start + i) % n
-            try:
-                return self._clients[idx].chat.complete(**kwargs)
-            except Exception as e:
-                last_exc = e
-                continue
+
+        while True:
+            start = _mistral_rr_start_index()
+            for i in range(n):
+                idx = (start + i) % n
+                try:
+                    return self._clients[idx].chat.complete(**kwargs)
+                except Exception as e:
+                    last_exc = e
+                    continue
+
+            attempts += 1
+            if _MISTRAL_MAX_RETRIES > 0 and attempts >= _MISTRAL_MAX_RETRIES:
+                break
+            time.sleep(_MISTRAL_RETRY_SLEEP_S)
+
         if last_exc is not None:
             raise last_exc
         raise RuntimeError("Mistral round-robin client has no available clients.")
@@ -264,7 +275,7 @@ class Agent:
 
     def chat(self, message, img_path=None):
         if self.model_info in ['gemini-2.5-flash-lite', 'gemini-2.5-pro']:
-            for attempt in range(3):
+            for attempt in range(10):
                 try:
                     self.messages.append(types.Content(role="user", parts=[types.Part(text=message)]))
                     

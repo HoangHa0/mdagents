@@ -1,0 +1,32 @@
+{
+    "n_evaluated": 50,
+    "n_correct": 41,
+    "accuracy": 0.82,
+    "per_class": {
+        "A": {
+            "total": 12,
+            "correct": 9,
+            "accuracy": 0.75
+        },
+        "B": {
+            "total": 7,
+            "correct": 6,
+            "accuracy": 0.8571428571428571
+        },
+        "C": {
+            "total": 14,
+            "correct": 11,
+            "accuracy": 0.7857142857142857
+        },
+        "D": {
+            "total": 7,
+            "correct": 6,
+            "accuracy": 0.8571428571428571
+        },
+        "E": {
+            "total": 10,
+            "correct": 9,
+            "accuracy": 0.9
+        }
+    }
+}
