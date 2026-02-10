@@ -153,7 +153,6 @@ def main():
 
                 if args.dataset == 'medqa':
                     result = {
-                        'index': no,
                         'question': question,
                         'label': sample['answer_idx'],
                         'answer': sample['answer'],
@@ -164,7 +163,6 @@ def main():
                     }
                 else:
                     result = {
-                        'index': no,
                         'question': question,
                         'response': final_decision,
                         'difficulty': difficulty,
